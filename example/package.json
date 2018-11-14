@@ -1,0 +1,31 @@
+{
+  "name": "@mia-platform/lc39-test",
+  "version": "1.0.0",
+  "description": "A simple example for a custom service",
+  "homepage": "https://www.mia-platform.eu/",
+  "bugs": {
+    "url": "https://github.com/mia-platform/lc39/issues",
+    "email": "core@mia-platform.eu"
+  },
+  "license": "MIT",
+  "author": "Mia Platform Core Team <core@mia-platform.eu>",
+  "contributors": [
+    "Jacopo Andrea Giola <jacopo@giola.org>"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mia-platform/lc39.git"
+  },
+  "scripts": {
+    "start": "lc39 ./index.js",
+    "start:local": "npm start -- --env-path ./local.env"
+  },
+  "dependencies": {
+    "@mia-platform/lc39": "file:..",
+    "fastify-env": "^0.6.1"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}

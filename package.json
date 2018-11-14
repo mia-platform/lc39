@@ -1,0 +1,50 @@
+{
+  "name": "@mia-platform/lc39",
+  "version": "0.1.0",
+  "description": "The Mia-Platform Node.js service launcher",
+  "homepage": "https://www.mia-platform.eu/",
+  "bugs": {
+    "url": "https://github.com/mia-platform/lc39/issues",
+    "email": "core@mia-platform.eu"
+  },
+  "license": "MIT",
+  "author": "Mia Platform Core Team <core@mia-platform.eu>",
+  "contributors": [
+    "Jacopo Andrea Giola <jacopo@giola.org>"
+  ],
+  "main": "index.js",
+  "bin": {
+    "lc39": "./bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mia-platform/lc39.git"
+  },
+  "scripts": {
+    "coverage": "npm run unit -- --coverage-report=text-summary",
+    "postcoverage": "tap --coverage-report=html --no-browser",
+    "lint": "standard-mia | snazzy",
+    "test": "npm run lint && npm run unit",
+    "unit": "tap -b -o tap.log tests/*.test.js"
+  },
+  "dependencies": {
+    "commander": "^2.19.0",
+    "dotenv": "^6.2.0",
+    "dotenv-expand": "^4.2.0",
+    "fastify": "^1.13.3",
+    "make-promises-safe": "^4.0.0",
+    "pino": "^5.10.6"
+  },
+  "devDependencies": {
+    "@mia-platform/standard-mia": "^1.1.0",
+    "eslint": "^5.12.0",
+    "snazzy": "^8.0.0",
+    "tap": "^12.1.1"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/@mia-platform/eslint-config-mia/eslintrc.json"
+  }
+}

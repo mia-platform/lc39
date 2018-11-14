@@ -1,0 +1,8 @@
+.nyc_output
+coverage
+example
+tests
+.editorconfig
+.nvmrc
+*.log
+*.tgz
