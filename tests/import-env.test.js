@@ -13,7 +13,7 @@ test('Call import env without a path', assert => {
 
 test('Call import env with a path', assert => {
   const preEnvLength = Object.keys(process.env).length
-  importEnv('./tests/.env')
+  importEnv('./tests/test.env')
   assert.strictSame(Object.keys(process.env).length, preEnvLength + 2)
   assert.strictSame(process.env.TEST_KEY, 'value')
   assert.strictSame(process.env.TEST_EXPANDED_KEY, 'value_expanded')
