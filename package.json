@@ -2,6 +2,10 @@
   "name": "@mia-platform/lc39",
   "version": "0.1.0",
   "description": "The Mia-Platform Node.js service launcher",
+  "keyword": [
+    "cli",
+    "launcher"
+  ],
   "homepage": "https://www.mia-platform.eu/",
   "bugs": {
     "url": "https://github.com/mia-platform/lc39/issues",
