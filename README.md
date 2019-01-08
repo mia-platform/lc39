@@ -1,4 +1,6 @@
 # Launch Complex 39
+[![Build Status][travis-svg]][travis-org]
+[![Coverage Status][coverall-svg]][coverall-io]
 [![javascript style guide][standard-mia-svg]][standard-mia]
 
 **The Mia-Platform Node.js service launcher**
@@ -36,6 +38,10 @@ To work properly with **lc39** your service main file should follow some rules:
 * [CLI flags](./docs/cli-flags.md)
 * [Development affordance](./docs/development-affordance.md)
 
+[travis-svg]: https://travis-ci.org/mia-platform/lc39.svg?branch=master
+[travis-org]: https://travis-ci.org/mia-platform/lc39
+[coverall-svg]: https://coveralls.io/repos/github/mia-platform/lc39/badge.svg
+[coverall-io]: https://coveralls.io/github/mia-platform/lc39
 [standard-mia-svg]: https://img.shields.io/badge/code_style-standard--mia-orange.svg
 [standard-mia]: https://github.com/mia-platform/standard-mia
 

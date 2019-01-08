@@ -1,0 +1,10 @@
+language: node_js
+
+node_js:
+  - "lts/*"
+  - "lts/carbon"
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
