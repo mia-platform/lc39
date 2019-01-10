@@ -7,6 +7,9 @@ on your system and check again if it is already fixed/implemented. Thank you for
 ## The description of the bug or the rationle of your proposal
 <!-- replace me -->
 
+## A snippet of code for replicating the issue or showing the proposal usage if applicable
+<!-- replace me -->
+
 ## The expected result for your bug
 <!-- replace me -->
 
