@@ -23,3 +23,26 @@ module.exports = async function service(fastify, options) {
     })
   })
 }
+
+module.exports.readinessHandler = function readinessHandler(request, reply) {
+  let code = 200
+  const response = {
+    name: this.serviceName,
+    status: 'OK',
+  }
+
+  if (this.config.OPTIONAL_ENV <= 100) {
+    code = 503
+    response.status = `Service is not ready, because the we have only ${this.config.OPTIONAL_ENV} points`
+  }
+  reply.code(code)
+  reply.send(response)
+}
+
+module.exports.healthinessHandler = function healthinessHandler(request, reply) {
+  reply.code(200)
+  reply.send({
+    name: 'everything-is-awesome',
+    status: 'OK',
+  })
+}
