@@ -29,6 +29,7 @@ module.exports.readinessHandler = function readinessHandler(request, reply) {
   const response = {
     name: this.serviceName,
     status: 'OK',
+    version: this.serviceVersion,
   }
 
   if (this.config.OPTIONAL_ENV <= 100) {
@@ -44,5 +45,6 @@ module.exports.healthinessHandler = function healthinessHandler(request, reply) 
   reply.send({
     name: 'everything-is-awesome',
     status: 'OK',
+    // avoid to set the version because it will not be read
   })
 }

@@ -39,15 +39,15 @@ For doing so you can add two new `module.exports` to your main entrypoint that w
 module.exports.readinessHandler = function readinessHandler(request, reply) {
   // Add your custom logic for /-/ready here
 }
-module.exports.healthinessHandler = function readinessHandler(request, reply) {
+module.exports.healthinessHandler = function healthinessHandler(request, reply) {
   // Add your custom logic for /-/healthz here
 }
 ```
 
 Both of these entpoint will be validated agains a JSON schema that you can find [here][status-routes-schema].  
-Additionally you will be able to access the variable `this.serviceName` to use it as the value of the `name`
-property in the response and it will default to the name of your service as set by `npm` or the one in
-`package.json`.
+Additionally you will be able to access the variables `this.serviceName` and `this.serviceVersion`
+to use them as the value for the `name` and `version` properties in the response and
+they will default to the name and version of your service as set by `npm` or the ones in `package.json`.
 
 **BE AWARE**  
 Both of this endpoints are set to permanently run on log level `silent` for decreasing the amount of noise in the logs during the
