@@ -13,6 +13,10 @@
           "type": "string",
           "description": "It\"s status, it must be OK",
           "enum": ["OK"]
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the service that is running expressed as semver"
         }
       }
     },
@@ -27,6 +31,10 @@
         "status": {
           "type": "string",
           "description": "It's status, it can be KO, or a human readable reason for failure"
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the service that is running expressed as semver"
         }
       }
     }

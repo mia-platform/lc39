@@ -14,6 +14,7 @@ module.exports.readinessHandler = function readinessHandler(request, reply) {
   reply.send({
     name: this.serviceName,
     status: 'Not ready to respond',
+    version: this.serviceVersion,
   })
 }
 
@@ -22,5 +23,6 @@ module.exports.healthinessHandler = function healthinessHandler(request, reply) 
   reply.send({
     name: 'Override with custom name',
     status: 'OK',
+    version: this.serviceVersion,
   })
 }
