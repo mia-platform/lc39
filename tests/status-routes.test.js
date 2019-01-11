@@ -45,6 +45,8 @@ test('Test Fastify creation with custom status routes', async assert => {
     port: 3000,
   }
 
+  const npmPackageName = process.env.npm_package_name // eslint-disable-line no-process-env
+  delete process.env.npm_package_name // eslint-disable-line no-process-env
   const fastifyInstance = await launch('./tests/modules/custom-routes', options)
 
   const healthResponse = await fastifyInstance.inject({
@@ -72,5 +74,6 @@ test('Test Fastify creation with custom status routes', async assert => {
   })
 
   await fastifyInstance.close()
+  process.env.npm_package_name = npmPackageName // eslint-disable-line no-process-env
   assert.end()
 })
