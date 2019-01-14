@@ -33,25 +33,28 @@ As the first route, the default implementation of this endpoint will always resp
 `OK` status and the `200` `HTTP` code as soon as the service is up.
 
 The default implementations are a nice placeholder until you can add some logic tied to your service.  
-For doing so you can add two new `module.exports` to your main entrypoint that will be used instead of the defaults.
+For doing so you can add two new `module.exports` to your main entrypoint that will be used to customize
+the behavior.
 
 ```javascript
-module.exports.readinessHandler = function readinessHandler(request, reply) {
+module.exports.readinessHandler = async function readinessHandler(fastify) {
   // Add your custom logic for /-/ready here
 }
-module.exports.healthinessHandler = function healthinessHandler(request, reply) {
+module.exports.healthinessHandler = async function healthinessHandler(fastify) {
   // Add your custom logic for /-/healthz here
 }
 ```
 
 Both of these entpoint will be validated agains a JSON schema that you can find [here][status-routes-schema].  
-Additionally you will be able to access the variables `this.serviceName` and `this.serviceVersion`
-to use them as the value for the `name` and `version` properties in the response and
-they will default to the name and version of your service as set by `npm` or the ones in `package.json`.
+These functions must return an object that will customize the response of the server. The only property needed
+is `statusOK` that contains a boolean; `true` for returning a `200` response and `false` for returning `503`.  
+Additionally you can add any property you want and it will be appended to the response. If you add the `name`
+and/or `version` key your value will override the default ones that will parse your `package.json` to find
+the correct value.
 
 **BE AWARE**  
-Both of this endpoints are set to permanently run on log level `silent` for decreasing the amount of noise in the logs during the
-deployment.
+Both of this endpoints are set to permanently run on log level `silent` for decreasing the amount of noise in the
+logs during the deployment.
 
 [k8s]: https://kubernetes.io/
 [k8s-deployment-probes]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/

@@ -24,27 +24,22 @@ module.exports = async function service(fastify, options) {
   })
 }
 
-module.exports.readinessHandler = function readinessHandler(request, reply) {
-  let code = 200
+module.exports.readinessHandler = function readinessHandler(fastify) {
   const response = {
-    name: this.serviceName,
-    status: 'OK',
-    version: this.serviceVersion,
+    statusOK: true,
   }
 
-  if (this.config.OPTIONAL_ENV <= 100) {
-    code = 503
-    response.status = `Service is not ready, because the we have only ${this.config.OPTIONAL_ENV} points`
+  if (fastify.config.OPTIONAL_ENV <= 100) {
+    response.statusOK = false
+    response.message = `Service is not ready, because the we have only ${fastify.config.OPTIONAL_ENV} points`
   }
-  reply.code(code)
-  reply.send(response)
+
+  return response
 }
 
-module.exports.healthinessHandler = function healthinessHandler(request, reply) {
-  reply.code(200)
-  reply.send({
-    name: 'everything-is-awesome',
-    status: 'OK',
-    // avoid to set the version because it will not be read
-  })
+// eslint-disable-next-line no-unused-vars
+module.exports.healthinessHandler = function healthinessHandler(fastify) {
+  return {
+    statusOK: true,
+  }
 }
