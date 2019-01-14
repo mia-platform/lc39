@@ -3,7 +3,8 @@
   "response": {
     "200": {
       "type": "object",
-      "required": ["status"],
+      "required": ["name", "status", "version"],
+      "additionalProperties": true,
       "properties": {
         "name": {
           "type": "string",
@@ -22,7 +23,8 @@
     },
     "503": {
       "type": "object",
-      "required": ["status"],
+      "required": ["name", "status", "version"],
+      "additionalProperties": true,
       "properties": {
         "name": {
           "type": "string",
@@ -30,7 +32,8 @@
         },
         "status": {
           "type": "string",
-          "description": "It's status, it can be KO, or a human readable reason for failure"
+          "description": "It\"s status, it must be KO",
+          "enum": ["KO"]
         },
         "version": {
           "type": "string",

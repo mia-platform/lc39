@@ -77,8 +77,9 @@ test('Test Fastify creation with custom status routes', async assert => {
   assert.strictSame(healthResponse.headers['content-type'], 'application/json; charset=utf-8')
   assert.strictSame(JSON.parse(readyResponse.payload), {
     name: '@mia-platform/lc39',
-    status: 'Not ready to respond',
+    status: 'KO',
     version: packageVersion,
+    customProperty: 'custom-values',
   })
 
   await fastifyInstance.close()
