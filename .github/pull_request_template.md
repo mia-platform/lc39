@@ -1,7 +1,7 @@
 <!-- Hi, and thank you for your time dedicated to this pull request! Please provide a description
 of the work you have done and be sure to link to the relative open issue if is present.
 
-Be aaware that all the work you have done should include also the relative tests to assure the
+Be aware that all the work you have done should include also the relative tests to assure the
 correct behaviour and avoid possible regressions in the future.
 -->
 

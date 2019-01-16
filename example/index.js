@@ -23,3 +23,23 @@ module.exports = async function service(fastify, options) {
     })
   })
 }
+
+module.exports.readinessHandler = function readinessHandler(fastify) {
+  const response = {
+    statusOK: true,
+  }
+
+  if (fastify.config.OPTIONAL_ENV <= 100) {
+    response.statusOK = false
+    response.message = `Service is not ready, because the we have only ${fastify.config.OPTIONAL_ENV} points`
+  }
+
+  return response
+}
+
+// eslint-disable-next-line no-unused-vars
+module.exports.healthinessHandler = function healthinessHandler(fastify) {
+  return {
+    statusOK: true,
+  }
+}

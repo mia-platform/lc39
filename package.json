@@ -29,13 +29,15 @@
     "postcoverage": "tap --coverage-report=html --no-browser",
     "lint": "standard-mia | snazzy",
     "test": "npm run lint && npm run unit",
-    "unit": "tap -b -o tap.log tests/*.test.js"
+    "unit": "tap -b -o tap.log tests/*.test.js",
+    "version": "./scripts/update-version.sh ${npm_package_version} && git add CHANGELOG.md"
   },
   "dependencies": {
     "commander": "^2.19.0",
     "dotenv": "^6.2.0",
     "dotenv-expand": "^4.2.0",
     "fastify": "^1.13.3",
+    "fastify-plugin": "^1.4.0",
     "make-promises-safe": "^4.0.0",
     "pino": "^5.10.6"
   },
