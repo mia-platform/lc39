@@ -2,6 +2,7 @@
 .nyc_output
 coverage
 example
+scripts
 tests
 .editorconfig
 .nvmrc
