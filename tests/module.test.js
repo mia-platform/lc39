@@ -18,15 +18,23 @@ test('Launch Fastify for testing', async assert => {
 
 test('Launch Fastify for testing, overriding default values', async assert => {
   const fastifyInstance = await launch('./tests/modules/correct-module', {
+    logLevel: 'silent',
     port: 9000,
-    logLevel: 'trace',
+    envVariables: {
+      ENV_KEY: 'ENV_VALUE',
+    },
   })
-  assert.ok(fastifyInstance)
 
-  const serverAddress = fastifyInstance.server.address()
-  assert.strictSame(serverAddress.port, 9000)
-  assert.strictSame(serverAddress.address, '127.0.0.1')
-  assert.strictSame(fastifyInstance.log.level, 'trace')
+  const response = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/',
+  })
+
+  assert.strictSame(JSON.parse(response.payload), {
+    config: {
+      ENV_KEY: 'ENV_VALUE',
+    },
+  })
 
   await fastifyInstance.close()
   assert.end()

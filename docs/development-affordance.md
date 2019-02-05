@@ -63,7 +63,9 @@ const test = require('tap').test
 
 test('A simple test', async assert => {
   const options {
-    ENV_VARIABLE: 'value',
+    envVariables: {
+      ENV_VARIABLE: 'value',
+    }
   }
   const fastify = await lc39('./path/to/entrypoint/from/root', options)
   ...
