@@ -48,11 +48,6 @@ test('Test Fastify creation with custom status routes', async assert => {
     port: 3000,
   }
 
-  // A terrible hack for simulating the project running without npm
-  const npmPackageName = process.env.npm_package_name // eslint-disable-line no-process-env
-  const npmPackageVersion = process.env.npm_package_version // eslint-disable-line no-process-env
-  delete process.env.npm_package_name // eslint-disable-line no-process-env
-  delete process.env.npm_package_version // eslint-disable-line no-process-env
   const fastifyInstance = await launch('./tests/modules/custom-routes', options)
 
   const healthResponse = await fastifyInstance.inject({
@@ -83,8 +78,5 @@ test('Test Fastify creation with custom status routes', async assert => {
   })
 
   await fastifyInstance.close()
-  // Undo the hack
-  process.env.npm_package_name = npmPackageName // eslint-disable-line no-process-env
-  process.env.npm_package_version = npmPackageVersion // eslint-disable-line no-process-env
   assert.end()
 })
