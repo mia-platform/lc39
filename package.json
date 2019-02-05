@@ -36,16 +36,16 @@
     "commander": "^2.19.0",
     "dotenv": "^6.2.0",
     "dotenv-expand": "^4.2.0",
-    "fastify": "^1.13.3",
+    "fastify": "^1.14.0",
     "fastify-plugin": "^1.4.0",
     "make-promises-safe": "^4.0.0",
-    "pino": "^5.10.6"
+    "pino": "^5.11.1"
   },
   "devDependencies": {
     "@mia-platform/standard-mia": "^1.1.0",
-    "eslint": "^5.12.0",
+    "eslint": "^5.13.0",
     "snazzy": "^8.0.0",
-    "tap": "^12.1.1"
+    "tap": "^12.5.1"
   },
   "engines": {
     "node": ">=8"
