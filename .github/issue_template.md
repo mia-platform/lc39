@@ -4,7 +4,7 @@ on your system and check again if it is already fixed/implemented. Thank you for
 ## The feauture or bug you are proposing
 <!-- replace me -->
 
-## The description of the bug or the rationle of your proposal
+## The description of the bug or the rationale of your proposal
 <!-- replace me -->
 
 ## A snippet of code for replicating the issue or showing the proposal usage if applicable

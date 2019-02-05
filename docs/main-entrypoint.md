@@ -45,12 +45,11 @@ module.exports.healthinessHandler = async function healthinessHandler(fastify) {
 }
 ```
 
-Both of these entpoint will be validated agains a JSON schema that you can find [here][status-routes-schema].  
 These functions must return an object that will customize the response of the server. The only property needed
 is `statusOK` that contains a boolean; `true` for returning a `200` response and `false` for returning `503`.  
 Additionally you can add any property you want and it will be appended to the response. If you add the `name`
-and/or `version` key your value will override the default ones that will parse your `package.json` to find
-the correct value.
+and/or `version` key your value will override the default ones that will be parsed from `package.json`.  
+Both of these entpoint conform to the JSON schema that you can find [here][status-routes-schema].
 
 **BE AWARE**  
 Both of this endpoints are set to permanently run on log level `silent` for decreasing the amount of noise in the

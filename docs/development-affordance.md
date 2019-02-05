@@ -58,7 +58,7 @@ the latters.
 Running the service normally will not change anything, because the options object will not be populated, but
 you can use it during your tests for changing them very easily:
 ```javascript
-const lc39 = require('lc39')
+const lc39 = require('@mia-platform/lc39')
 const test = require('tap').test
 
 test('A simple test', async assert => {
