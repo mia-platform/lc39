@@ -1,6 +1,6 @@
 # Changes to `lc39`
 
-### TBR
+### v0.3.0 (2019-02-06)
 - Fixed `ENV` injection in `testLaunch` function
 - Fixed override of default values in `testLaunch` function
 - Relincesed under Apache 2.0 from MIT
