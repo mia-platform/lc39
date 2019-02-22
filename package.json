@@ -43,9 +43,9 @@
   },
   "devDependencies": {
     "@mia-platform/standard-mia": "^1.1.0",
-    "eslint": "^5.13.0",
+    "eslint": "^5.14.1",
     "snazzy": "^8.0.0",
-    "tap": "^12.5.1"
+    "tap": "^12.5.3"
   },
   "engines": {
     "node": ">=8"
