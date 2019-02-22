@@ -36,7 +36,7 @@
     "commander": "^2.19.0",
     "dotenv": "^6.2.0",
     "dotenv-expand": "^4.2.0",
-    "fastify": "^1.14.0",
+    "fastify": "^1.14.1",
     "fastify-plugin": "^1.5.0",
     "make-promises-safe": "^4.0.0",
     "pino": "^5.11.1"

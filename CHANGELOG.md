@@ -3,6 +3,7 @@
 ### TBR
 
 - Update fastify-plugin 1.4.0 -> 1.5.0
+- Update fastify 1.14.0 -> 1.14.1
 
 ### v0.3.0 (2019-02-06)
 - Fixed `ENV` injection in `testLaunch` function
