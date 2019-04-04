@@ -33,19 +33,19 @@
     "version": "./scripts/update-version.sh ${npm_package_version} && git add CHANGELOG.md"
   },
   "dependencies": {
-    "commander": "^2.19.0",
-    "dotenv": "^6.2.0",
-    "dotenv-expand": "^4.2.0",
-    "fastify": "^1.14.1",
+    "commander": "^2.20.0",
+    "dotenv": "^7.0.0",
+    "dotenv-expand": "^5.1.0",
+    "fastify": "^1.14.4",
     "fastify-plugin": "^1.5.0",
-    "make-promises-safe": "^4.0.0",
-    "pino": "^5.11.1"
+    "make-promises-safe": "^5.0.0",
+    "pino": "^5.12.0"
   },
   "devDependencies": {
     "@mia-platform/standard-mia": "^1.1.0",
-    "eslint": "^5.14.1",
+    "eslint": "^5.16.0",
     "snazzy": "^8.0.0",
-    "tap": "^12.5.3"
+    "tap": "^12.6.1"
   },
   "engines": {
     "node": ">=8"
