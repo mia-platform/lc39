@@ -72,6 +72,9 @@ module.exports.swaggerDefinition = {
 }
 ```
 
+If you don’t export this object `lc39` will automatically create this for you using the data
+found in the `package.json` of your project.
+
 [k8s]: https://kubernetes.io/
 [k8s-deployment-probes]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 [status-routes-schema]: ../lib/status-routes.schema.json
