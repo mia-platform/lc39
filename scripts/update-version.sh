@@ -33,4 +33,4 @@ else
 fi
 
 sed -i.bck "s|### TBR|### v${TAG_VALUE} (${NOW_DATE})|g" "${SOURCE_DIR}/CHANGELOG.md"
-rm -fr ${SOURCE_DIR}/CHANGELOG.md.bck
+rm -fr "${SOURCE_DIR}/CHANGELOG.md.bck"
