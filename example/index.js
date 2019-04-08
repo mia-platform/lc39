@@ -40,6 +40,16 @@ module.exports = async function service(fastify, options) {
   })
 }
 
+module.exports.swaggerDefinition = {
+  info: {
+    title: 'Example application',
+    description: 'This application is an example for the lc39 functionality',
+    version: 'v1.0.0',
+  },
+  consumes: ['application/json'],
+  produces: ['application/json'],
+}
+
 module.exports.readinessHandler = function readinessHandler(fastify) {
   const response = {
     statusOK: true,

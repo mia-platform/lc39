@@ -1,6 +1,6 @@
 # Main Entrypoint
-**lc39** dose some assumption on how the main entrypoint of your service can be layed out.  
-This in order to correctly import and validate the functions and data passed to it and for correctly create
+**lc39** does some assumption on how the main entrypoint of your service can be layed out.  
+This is in order to correctly import and validate the functions and data passed to it and for correctly create
 and launch the Fastify instance.
 
 ## Main Exported Function
@@ -55,6 +55,28 @@ Both of these entpoint conform to the JSON schema that you can find [here][statu
 Both of this endpoints are set to permanently run on log level `silent` for decreasing the amount of noise in the
 logs during the deployment.
 
+## Exposed Swagger Documentation
+By default lc39 will import the [`fastify-swagger`][fastify-swagger] module for exposing the service documentation.
+If you want to customize the generated [OpenAPI][openapi] file, you can add the following object export
+that can be accepted for the dynamic implementation of `fastify-swagger`.
+
+```javascript
+module.exports.swaggerDefinition = {
+  info: {
+    title: 'Service title',
+    description: 'This description of the service functionality',
+    version: 'v1.0.0',
+  },
+  consumes: ['application/json'],
+  produces: ['application/json'],
+}
+```
+
+If you don’t export this object `lc39` will automatically create this for you using the data
+found in the `package.json` of your project.
+
 [k8s]: https://kubernetes.io/
 [k8s-deployment-probes]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 [status-routes-schema]: ../lib/status-routes.schema.json
+[fastify-swagger]: https://github.com/fastify/fastify-swagger
+[openapi]: https://swagger.io/specification/

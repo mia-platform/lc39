@@ -11,6 +11,7 @@
 - Update fastify-plugin 1.4.0 -> 1.5.0
 - Update pino 5.11.1 -> 5.12.0
 - Update tap 12.5.3 -> 12.6.1
+- Add `/documentation/` route via `fastify-swagger`
 
 ### v0.3.0 (2019-02-06)
 - Fixed `ENV` injection in `testLaunch` function
