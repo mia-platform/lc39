@@ -37,7 +37,7 @@ test('Test Fastify creation with no prefix', async assert => {
 
   const textResponse = await fastifyInstance.inject({
     method: 'GET',
-    url: '/documentation/',
+    url: '/documentation/static/index.html',
   })
 
   assert.strictSame(textResponse.statusCode, 200)

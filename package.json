@@ -27,7 +27,7 @@
   "scripts": {
     "coverage": "npm run unit -- --coverage-report=text-summary",
     "postcoverage": "tap --coverage-report=html --no-browser",
-    "lint": "standard-mia | snazzy",
+    "lint": "eslint . --ignore-path .gitignore",
     "test": "npm run lint && npm run unit",
     "unit": "tap -b -o tap.log tests/*.test.js",
     "version": "./scripts/update-version.sh ${npm_package_version} && git add CHANGELOG.md"
@@ -36,22 +36,20 @@
     "commander": "^2.20.0",
     "dotenv": "^7.0.0",
     "dotenv-expand": "^5.1.0",
-    "fastify": "^1.14.4",
+    "fastify": "^2.2.0",
     "fastify-plugin": "^1.5.0",
-    "fastify-swagger": "^1.2.0",
-    "make-promises-safe": "^5.0.0",
-    "pino": "^5.12.0"
+    "fastify-swagger": "^2.3.2",
+    "make-promises-safe": "^5.0.0"
   },
   "devDependencies": {
-    "@mia-platform/standard-mia": "^1.1.0",
+    "@mia-platform/eslint-config-mia": "1.7.9",
     "eslint": "^5.16.0",
-    "snazzy": "^8.0.0",
     "tap": "^12.6.1"
   },
   "engines": {
     "node": ">=8"
   },
   "eslintConfig": {
-    "extends": "./node_modules/@mia-platform/eslint-config-mia/eslintrc.json"
+    "extends": "@mia-platform/eslint-config-mia"
   }
 }
