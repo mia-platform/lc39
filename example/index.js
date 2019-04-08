@@ -38,6 +38,10 @@ module.exports = async function service(fastify, options) {
       optionalEnv: fastify.config.OPTIONAL_ENV,
     })
   })
+
+  fastify.get('/not-working', (request, reply) => {
+    reply.notImplemented()
+  })
 }
 
 module.exports.swaggerDefinition = {

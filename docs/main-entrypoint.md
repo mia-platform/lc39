@@ -17,6 +17,10 @@ module.exports = async function service(fastify) {
 ```
 As you can see the function must be declared `async` and must be exported as the root of the module.
 
+## Fastify Sensible
+The `lc39` will add the [`fastify-sensible`][fastify-sensible] plugin so you will be able to use all its
+affordance in your module implementation, so httpErrors and asserts are only one call away.
+
 ## Custom Status Routes
 With `lc39` your service will automatically inherit **two** fixed routes for getting infomation on the
 service:
@@ -75,6 +79,7 @@ module.exports.swaggerDefinition = {
 If you don’t export this object `lc39` will automatically create this for you using the data
 found in the `package.json` of your project.
 
+[fastify-sensible]: https://github.com/fastify/fastify-sensible
 [k8s]: https://kubernetes.io/
 [k8s-deployment-probes]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 [status-routes-schema]: ../lib/status-routes.schema.json

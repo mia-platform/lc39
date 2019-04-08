@@ -1,6 +1,7 @@
 # Changes to `lc39`
 
 ### TBR
+- Add `fastify-sensible` plugin integration
 
 ### v0.4.0 (2019-04-08)
 
