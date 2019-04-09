@@ -25,10 +25,11 @@
     "url": "https://github.com/mia-platform/lc39.git"
   },
   "scripts": {
+    "checkonly": "! grep -R '\\.only' tests/",
     "coverage": "npm run unit -- --coverage-report=text-summary",
     "postcoverage": "tap --coverage-report=html --no-browser",
     "lint": "eslint . --ignore-path .gitignore",
-    "test": "npm run lint && npm run unit",
+    "test": "npm run lint && npm run unit && npm run checkonly",
     "unit": "tap -b -o tap.log tests/*.test.js",
     "version": "./scripts/update-version.sh ${npm_package_version} && git add CHANGELOG.md"
   },
