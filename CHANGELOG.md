@@ -1,6 +1,8 @@
 # Changes to `lc39`
 
 ### TBR
+- Add `errorHandler` options for customize `fastify-sensible`
+  auto handling of uncatched errors
 
 ### v1.0.0 (2019-04-09)
 - Add `fastify-sensible` plugin integration

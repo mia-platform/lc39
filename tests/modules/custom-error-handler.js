@@ -24,14 +24,11 @@ module.exports = async function plugin(fastify, config) {
     reply.send({ config })
   })
   fastify.get('/error', function error(request, reply) {
-    reply.internalServerError('Custom message')
+    reply.internalServerError('Custom error message')
   })
 }
 
 module.exports.options = {
-  redact: {
-    paths: ['supersecret', 'notread[*].here'],
-    censor: '[YOUTRIED]',
-  },
   trustProxy: '127.0.0.1',
+  errorHandler: false,
 }

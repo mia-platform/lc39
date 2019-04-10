@@ -33,3 +33,50 @@ test('Test correct import for the fastify sensible plugin', async assert => {
   await fastifyInstance.close()
   assert.end()
 })
+
+test('Test default error handling', async assert => {
+  const options = {
+    logLevel: 'silent',
+    port: 3000,
+  }
+
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  const response = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/error',
+  })
+
+  assert.strictSame(500, response.statusCode)
+  assert.strictSame(JSON.parse(response.payload), {
+    statusCode: 500,
+    message: 'Something went wrong',
+    error: 'Internal Server Error',
+  })
+
+  await fastifyInstance.close()
+  assert.end()
+})
+
+test('Test custom error handling', async assert => {
+  const options = {
+    logLevel: 'silent',
+    port: 3000,
+  }
+
+  const fastifyInstance = await launch('./tests/modules/custom-error-handler', options)
+
+  const response = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/error',
+  })
+
+  assert.strictSame(500, response.statusCode)
+  assert.strictSame(JSON.parse(response.payload), {
+    statusCode: 500,
+    message: 'Custom error message',
+    error: 'Internal Server Error',
+  })
+
+  await fastifyInstance.close()
+  assert.end()
+})
