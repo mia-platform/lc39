@@ -4,6 +4,7 @@
 
 - The exported module will create a `fastify` instace that
   is not listening on any port.
+- Add typescript definitions
 
 ### v1.1.0 (2019-04-10)
 
