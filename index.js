@@ -16,6 +16,6 @@
 
 'use strict'
 
-const launch = require('./lib/launch-fastify').testLaunch
+const { testLaunch } = require('./lib/launch-fastify')
 
-module.exports = launch
+module.exports = testLaunch

@@ -1,4 +1,5 @@
 # CLI Flags
+
 The **lc39** cli command support some degree of personalization via command flags.  
 Here are listed all the available flags, their default values and the accepted ones.
 

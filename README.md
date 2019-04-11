@@ -1,6 +1,7 @@
 <div align="center">
 
 # Launch Complex 39
+
 [![Build Status][travis-svg]][travis-org]
 [![javascript style guide][standard-mia-svg]][standard-mia]  
 [![Coverage Status][coverall-svg]][coverall-io]
@@ -14,8 +15,11 @@
 for serving a Node.js service on [Mia-Platform][mia-platform].
 
 ## Getting Started
+
 ### Install
+
 To install the package you can run:
+
 ```sh
 npm install @mia-platform/lc39 --save
 ```
@@ -23,6 +27,7 @@ npm install @mia-platform/lc39 --save
 We recommend to install the module locally on every one of your project to be able to
 update them indipendently one from the other. To use the locally installed instance you
 have to add the following script to your `package.json`:
+
 ```json
 "scripts": {
   "start": "lc39 index.js"
@@ -30,13 +35,15 @@ have to add the following script to your `package.json`:
 ```
 
 To see all the options you can add to the cli run:
+
 ```
 npx lc39 --help
 ```
 
 Now you are ready to code your mia-platform service!
 
-## Service Configurations
+## Documentation
+
 To work properly with **lc39** your service main file should follow some rules:
 * [Main entrypoint](./docs/main-entrypoint.md)
 * [Service options](./docs/service-options.md)

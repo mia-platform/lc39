@@ -17,13 +17,12 @@
 'use strict'
 
 const { test } = require('tap')
-const launch = require('../lib/launch-fastify')
+const launch = require('../lib/launch-fastify').testLaunch
 const packageVersion = require('../package.json').version
 
 test('Test Fastify creation with standard status routes', async assert => {
   const options = {
     logLevel: 'silent',
-    port: 3000,
   }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
@@ -61,7 +60,6 @@ test('Test Fastify creation with standard status routes', async assert => {
 test('Test Fastify creation with custom status routes', async assert => {
   const options = {
     logLevel: 'silent',
-    port: 3000,
   }
 
   const fastifyInstance = await launch('./tests/modules/custom-routes', options)

@@ -1,9 +1,11 @@
 # Main Entrypoint
+
 **lc39** does some assumption on how the main entrypoint of your service can be layed out.  
 This is in order to correctly import and validate the functions and data passed to it and for correctly create
 and launch the Fastify instance.
 
 ## Main Exported Function
+
 Your service must export a function for its module. The function can have a single parameter or two:
 - fastify: the instace of the fastify server created by **lc39**
 - options: the optional parameter, this will contain the object passed to fastify for setting up your module
@@ -18,10 +20,12 @@ module.exports = async function service(fastify) {
 As you can see the function must be declared `async` and must be exported as the root of the module.
 
 ## Fastify Sensible
+
 The `lc39` will add the [`fastify-sensible`][fastify-sensible] plugin so you will be able to use all its
 affordance in your module implementation, so httpErrors and asserts are only one call away.
 
 ## Custom Status Routes
+
 With `lc39` your service will automatically inherit **two** fixed routes for getting infomation on the
 service:
 
@@ -60,6 +64,7 @@ Both of this endpoints are set to permanently run on log level `silent` for decr
 logs during the deployment.
 
 ## Exposed Swagger Documentation
+
 By default lc39 will import the [`fastify-swagger`][fastify-swagger] module for exposing the service documentation.
 If you want to customize the generated [OpenAPI][openapi] file, you can add the following object export
 that can be accepted for the dynamic implementation of `fastify-swagger`.

@@ -1,6 +1,8 @@
 # Service Options
+
 If you want to customize the Fastify instance over the default settings that **lc39** will set
 you can export a json object in your module:
+
 ```javascript
 module.exports.options = {
   redact: {
