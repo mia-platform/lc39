@@ -1,6 +1,6 @@
 # Changes to `lc39`
 
-### TBR
+### v2.0.0 (2019-04-11)
 
 - The exported module will create a `fastify` instace that
   is not listening on any port.
