@@ -1,6 +1,6 @@
 # Changes to `lc39`
 
-### TBR
+### v2.1.0 (2019-04-17)
 
 - Update tap 12.6.1 -> 12.6.2
 - Add default `bodyLimit` parameter to `fastify`
