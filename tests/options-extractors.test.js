@@ -23,6 +23,7 @@ test('Test Fastify server options generator', assert => {
   const moduleOptions = {
     option1: 'value1',
     option2: 'value2',
+    bodyLimit: 1073742000,
   }
 
   const fastifyOptions = exportFastifyOptions(moduleOptions)
@@ -31,6 +32,7 @@ test('Test Fastify server options generator', assert => {
     caseSensitive: true,
     requestIdHeader: 'x-request-id',
     pluginTimeout: 30000,
+    bodyLimit: moduleOptions.bodyLimit,
     option1: moduleOptions.option1,
     option2: moduleOptions.option2,
   }, fastifyOptions)
@@ -51,6 +53,7 @@ test('Test Fastify server options overwriting', assert => {
     caseSensitive: true,
     requestIdHeader: 'x-request-id',
     pluginTimeout: 42,
+    bodyLimit: Number.MAX_SAFE_INTEGER,
     option1: moduleOptions.option1,
   }, fastifyOptions)
 

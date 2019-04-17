@@ -1,5 +1,10 @@
 # Changes to `lc39`
 
+### TBR
+
+- Update tap 12.6.1 -> 12.6.2
+- Add default `bodyLimit` parameter to `fastify`
+
 ### v2.0.0 (2019-04-11)
 
 - The exported module will create a `fastify` instace that
