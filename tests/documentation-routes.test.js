@@ -22,7 +22,6 @@ const launch = require('../lib/launch-fastify')
 test('Test Fastify creation with no prefix', async assert => {
   const options = {
     logLevel: 'silent',
-    port: 3000,
   }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
@@ -51,7 +50,6 @@ test('Test Fastify creation with custom prefix', async assert => {
   const options = {
     prefix: '/prefix/',
     logLevel: 'silent',
-    port: 3000,
   }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
