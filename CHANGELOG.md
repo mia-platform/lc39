@@ -1,6 +1,6 @@
 # Changes to `lc39`
 
-### TBR
+### v2.1.1 (2019-05-03)
 
 - Update tap 12.6.2 -> 13.1.2
 - Update fastify 2.2.0 -> 2.3.0
