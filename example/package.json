@@ -7,7 +7,7 @@
     "url": "https://github.com/mia-platform/lc39/issues",
     "email": "core@mia-platform.eu"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Mia Platform Core Team <core@mia-platform.eu>",
   "contributors": [
     "Jacopo Andrea Giola <jacopo@giola.org>"
@@ -22,7 +22,7 @@
     "start:local": "npm start -- --env-path ./local.env"
   },
   "dependencies": {
-    "@mia-platform/lc39": "file:..",
+    "@mia-platform/lc39": "mia-platform/lc39",
     "fastify-env": "^0.6.1"
   },
   "engines": {
