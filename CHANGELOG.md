@@ -1,5 +1,11 @@
 # Changes to `lc39`
 
+### TBR
+
+- Update tap 12.6.2 -> 13.1.2
+- Update fastify 2.2.0 -> 2.3.0
+- Update dotenv 7.0.0 -> 8.0.0
+
 ### v2.1.0 (2019-04-17)
 
 - Update tap 12.6.1 -> 12.6.2
