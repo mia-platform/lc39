@@ -18,7 +18,6 @@
 
 'use strict'
 
-// eslint-disable-next-line require-await
-module.exports = async function module(fastify, options, otherParam) {
+module.exports = async function plugin(fastify, options, otherParam) {
   return { fastify, options, otherParam }
 }

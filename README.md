@@ -53,7 +53,7 @@ To work properly with **lc39** your service main file should follow some rules:
 [travis-svg]: https://travis-ci.org/mia-platform/lc39.svg?branch=master
 [travis-org]: https://travis-ci.org/mia-platform/lc39
 [standard-mia-svg]: https://img.shields.io/badge/code_style-standard--mia-orange.svg
-[standard-mia]: https://github.com/mia-platform/standard-mia
+[standard-mia]: https://github.com/mia-platform/eslint-config-mia
 [coverall-svg]: https://coveralls.io/repos/github/mia-platform/lc39/badge.svg
 [coverall-io]: https://coveralls.io/github/mia-platform/lc39
 [npmjs-svg]: https://img.shields.io/npm/v/@mia-platform/lc39.svg?logo=npm

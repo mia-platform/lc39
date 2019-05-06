@@ -129,7 +129,6 @@ test('Test fail Fastify creation for invalid options', assert => {
     '/invalid/-/multipath/',
   ]
 
-  // eslint-disable-next-line guard-for-in
   for (const badPrefix in badPrefixes) {
     const badOptions = {
       prefix: badPrefix,

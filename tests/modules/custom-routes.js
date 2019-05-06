@@ -18,7 +18,6 @@
 
 'use strict'
 
-// eslint-disable-next-line require-await
 module.exports = async function plugin(fastify, config) {
   fastify.decorate('customProperty', 'custom-values')
   fastify.get('/', function returnConfig(request, reply) {

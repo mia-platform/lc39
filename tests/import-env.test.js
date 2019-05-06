@@ -15,7 +15,6 @@
  */
 
 'use strict'
-/* eslint-disable no-process-env */
 
 const { test } = require('tap')
 const importEnv = require('../lib/import-env')
@@ -35,5 +34,3 @@ test('Call import env with a path', assert => {
   assert.strictSame(process.env.TEST_EXPANDED_KEY, 'value_expanded')
   assert.end()
 })
-
-/* eslint-enable no-proces-env */

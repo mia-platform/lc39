@@ -28,7 +28,6 @@ const envSchema = {
   additionalProperties: false,
 }
 
-// eslint-disable-next-line require-await
 module.exports = async function service(fastify, options) {
   fastify.register(fastifyEnv, { schema: envSchema, data: options })
   fastify.get('/', (request, reply) => {
