@@ -1,6 +1,6 @@
 # Changes to `lc39`
 
-### TBR
+### v2.1.2 (2019-05-22)
 
 - Update fastify 2.3.0 -> 2.4.1
 - Update fastify-swagger 2.3.2 -> 2.4.0
