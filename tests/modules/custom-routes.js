@@ -39,3 +39,11 @@ module.exports.healthinessHandler = function healthinessHandler() {
     name: 'Override with custom name',
   }
 }
+
+module.exports.checkUpHandler = function checkUpHandler() {
+  return {
+    statusOK: true,
+    status: 'OK',
+    customProperty: 'in the end',
+  }
+}

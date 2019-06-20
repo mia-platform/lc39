@@ -46,7 +46,7 @@
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^2.0.0",
     "eslint": "^5.16.0",
-    "tap": "^14.1.6"
+    "tap": "^14.2.4"
   },
   "engines": {
     "node": ">=8"

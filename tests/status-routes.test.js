@@ -53,6 +53,19 @@ test('Test Fastify creation with standard status routes', async assert => {
     version: packageVersion,
   })
 
+  const checkUpResponse = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/-/check-up',
+  })
+
+  assert.strictSame(checkUpResponse.statusCode, 200)
+  assert.strictSame(checkUpResponse.headers['content-type'], 'application/json; charset=utf-8')
+  assert.strictSame(JSON.parse(checkUpResponse.payload), {
+    name: '@mia-platform/lc39',
+    status: 'OK',
+    version: packageVersion,
+  })
+
   await fastifyInstance.close()
   assert.end()
 })
@@ -89,6 +102,20 @@ test('Test Fastify creation with custom status routes', async assert => {
     status: 'KO',
     version: packageVersion,
     customProperty: 'custom-values',
+  })
+
+  const checkUpResponse = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/-/check-up',
+  })
+
+  assert.strictSame(checkUpResponse.statusCode, 200)
+  assert.strictSame(checkUpResponse.headers['content-type'], 'application/json; charset=utf-8')
+  assert.strictSame(JSON.parse(checkUpResponse.payload), {
+    name: '@mia-platform/lc39',
+    status: 'OK',
+    version: packageVersion,
+    customProperty: 'in the end',
   })
 
   await fastifyInstance.close()

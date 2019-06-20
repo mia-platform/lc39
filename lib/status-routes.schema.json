@@ -38,6 +38,10 @@
         "version": {
           "type": "string",
           "description": "The version of the service that is running expressed as semver"
+        },
+        "message": {
+          "type": "string",
+          "description": "An optional message with an explanation of the KO response"
         }
       }
     }
