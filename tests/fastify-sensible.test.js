@@ -46,7 +46,7 @@ test('Test default error handling', async assert => {
   assert.strictSame(500, response.statusCode)
   assert.strictSame(JSON.parse(response.payload), {
     statusCode: 500,
-    message: 'Something went wrong',
+    message: 'Custom message',
     error: 'Internal Server Error',
   })
 
