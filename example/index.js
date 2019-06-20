@@ -72,3 +72,12 @@ module.exports.healthinessHandler = function healthinessHandler(fastify) {
     statusOK: true,
   }
 }
+
+// eslint-disable-next-line no-unused-vars
+module.exports.checkUpHandler = function checkUpHandler(fastify) {
+  return {
+    statusOK: true,
+    name: 'my new name',
+    message: 'It works',
+  }
+}

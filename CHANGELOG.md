@@ -1,5 +1,11 @@
 # Changes to `lc39`
 
+### Unreleased
+
+ - Add `/-/check-up` status endpoint
+ - Update tap 14.1.6 -> 14.2.4
+ - Update fastify-sensible 2.0.1 -> 2.1.1
+
 ### v2.1.2 (2019-05-22)
 
 - Update fastify 2.3.0 -> 2.4.1
