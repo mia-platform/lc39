@@ -26,11 +26,12 @@ affordance in your module implementation, so httpErrors and asserts are only one
 
 ## Custom Status Routes
 
-With `lc39` your service will automatically inherit **two** fixed routes for getting infomation on the
+With `lc39` your service will automatically inherit **three** fixed routes for getting infomation on the
 service:
 
 - `GET /-/healthz`
 - `GET /-/ready`
+- `GET /-/check-up`
 
 The first route can be used as a probe for load balancers, status dashboards
 and as a [`helthinessProbe`][k8s-deployment-probes] for [Kubernetes][k8s].  
@@ -38,6 +39,9 @@ By default, the route will always response with an `OK` status and the `200` `HT
 
 The second route can be used as a [`readinessProbe`][k8s-deployment-probes] for Kubernetes.  
 As the first route, the default implementation of this endpoint will always respond
+`OK` status and the `200` `HTTP` code as soon as the service is up.
+
+The third route can be used as _check-up_ route, to verify if all the functionalities of the service are available or not. The purpose of this route should be to check the availability of all the dependencies of the service and reply with a _check-up_ of the service.<br>As the others, the default implementation of this endpoint will always respond
 `OK` status and the `200` `HTTP` code as soon as the service is up.
 
 The default implementations are a nice placeholder until you can add some logic tied to your service.  
@@ -50,6 +54,9 @@ module.exports.readinessHandler = async function readinessHandler(fastify) {
 }
 module.exports.healthinessHandler = async function healthinessHandler(fastify) {
   // Add your custom logic for /-/healthz here
+}
+module.exports.checkUpHandler = async function checkUpHandler(fastify) {
+  // Add your custom logic for /-/check-up here
 }
 ```
 
