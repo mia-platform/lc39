@@ -3,9 +3,8 @@
 ### Unreleased
 
  - Add `/-/check-up` status endpoint
- - Update tap 14.1.6 -> 14.2.4
  - Update fastify-sensible 2.0.1 -> 2.1.1
- - Update fastify 2.4.1 -> 2.5.0
+ - Update fastify 2.4.1 -> 2.6.0
  - Update fastify-plugin 1.5.0 -> 1.6.0
 
 ### v2.1.2 (2019-05-22)
