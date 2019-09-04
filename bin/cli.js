@@ -37,7 +37,7 @@ program
   .option('-e, --env-path [envFile]', 'the env file path')
   .parse(process.argv)
 
-if (!program.args.length) {
+if (program.rawArgs.length < 3) {
   return program.help()
 }
 

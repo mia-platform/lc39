@@ -1,6 +1,6 @@
 # Development Affordance
 
-To iad you in the development and testing of your service locally on your machine we provide
+To aid you in the development and testing of your service locally on your machine we provide
 some affordances that you can use.
 
 ## `ENV` Variables for Local Runs
@@ -85,6 +85,30 @@ From the `fastify` variable returned you can then customized it for your tests a
 By default the started instance is not listening on any port and will start the logger at the `silent` level.  
 If you need to see the log you can set the `logLevel` key inside the `options` object and you are free to bind the
 fastify instance on any address and port using its available methods.
+
+## Capture the Log Stream
+
+In some cases during the tests you want to capture the logs emitted from the logger and do actions on them. For this
+cases you can set the `stream` key that accept a writable stream. Once written the data is at your disposal, the simplest
+stream you can use is the `PassThrough` stream of node:
+
+```javascript
+const { PassThrough } = require('stream')
+const lc39 = require('@mia-platform/lc39')
+const test = require('tap').test
+
+test('A simple test', async assert => {
+  const stream = new PassThrough()
+  const options {
+    logLevel: 'info',
+    stream,
+  }
+  
+  const fastify = await lc39('./path/to/entrypoint/from/root', options)
+  const log = stream.read().toString()
+  ...
+})
+```
 
 [dotenv-file-syntax]: https://www.npmjs.com/package/dotenv#rules
 [fastify-env]: https://github.com/fastify/fastify-env

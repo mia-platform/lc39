@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Add custom serializers for logging requests, responses and errors key inside the logs
+- Add customization for the stream property of the logger during tests
+
 ### Changed
 
-- Update commander 2.20.0 -> 3.0.2
+- Update commander 2.20.0 -> 5.0.0
 - Update dotenv 8.0.0 -> 8.2.1
 - Update fastify 2.11.0 -> 2.12.1
 - Update fastify-plugin 1.6.0 -> 1.6.1
@@ -34,7 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated status routes log level to error instead of silent (unless silent is provided from configuration).
+- Updated status routes log level to error instead of silent
+  (unless silent is provided from configuration).
 
 ## v2.2.2 - 2019-08-08
 

@@ -16,6 +16,7 @@
 
 'use strict'
 
+const split = require('split2')
 const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
 const net = require('net')
@@ -141,14 +142,57 @@ test('Test fail Fastify creation for invalid options', assert => {
 })
 
 test('Log level inheriting system', async assert => {
+  assert.plan(3)
+  const stream = split(JSON.parse)
   let fastifyInstance = await launch('./tests/modules/module-with-log', {})
   assert.strictSame(fastifyInstance.log.level, launch.importModule('./tests/modules/module-with-log').options.logLevel)
   await fastifyInstance.close()
 
-  fastifyInstance = await launch('./tests/modules/correct-module', {})
+  // intercept the stream to check if something is written on it
+  fastifyInstance = await launch('./tests/modules/correct-module', {
+    stream,
+  })
   assert.strictSame(fastifyInstance.log.level, 'info')
+  stream.once('data', line => {
+    assert.ok(line)
+  })
+
   await fastifyInstance.close()
-  assert.end()
+})
+
+test('Test custom serializers', async assert => {
+  assert.plan(2)
+  const stream = split(JSON.parse)
+  // intercept the stream to check if something is written on it
+  const fastifyInstance = await launch('./tests/modules/correct-module', {
+    stream,
+  })
+
+  await fastifyInstance.inject({
+    method: 'GET',
+    url: '/',
+  })
+
+  stream.once('data', () => {
+    stream.once('data', line => {
+      assert.strictSame(line.req, {
+        requestMethod: 'GET',
+        requestURL: '/',
+        userAgent: 'lightMyRequest',
+        hostname: 'localhost:80',
+        remoteAddress: '127.0.0.1',
+      })
+
+      stream.once('data', secondLine => {
+        assert.strictSame(secondLine.res, {
+          statusCode: 200,
+          responseSize: '13',
+        })
+      })
+    })
+  })
+
+  await fastifyInstance.close()
 })
 
 test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {

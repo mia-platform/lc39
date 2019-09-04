@@ -18,6 +18,7 @@
 
 const { test } = require('tap')
 const customLogger = require('../lib/custom-logger')
+const { requestSerializer, responseSerializer, timestampFunction } = require('../lib/custom-logger')
 
 test('Test generation for custom logger', assert => {
   const moduleOptions = {}
@@ -48,11 +49,19 @@ test('Test generation custom logger default options', assert => {
         'email',
         'password',
         'username',
-        '[*].email',
-        '[*].password',
-        '[*].username',
+        'debugInfo.email',
+        'debugInfo.password',
+        'debugInfo.username',
+        'debugInfo[*].email',
+        'debugInfo[*].password',
+        'debugInfo[*].username',
       ],
     },
+    serializers: {
+      req: requestSerializer,
+      res: responseSerializer,
+    },
+    timestamp: timestampFunction,
   })
 
   assert.end()
@@ -68,7 +77,7 @@ test('Test generation custom logger default options', assert => {
       censor: '[BRACE YOURSELF, GDPR IS COMING]',
       paths: [
         'veryPrivate',
-        'suchIntresting.[*].howToHide',
+        'suchIntresting[*].howToHide',
       ],
     },
     logLevel: 'overwritten',
@@ -78,6 +87,11 @@ test('Test generation custom logger default options', assert => {
   assert.strictSame(pinoOptions, {
     level: options.logLevel,
     redact: moduleOptions.redact,
+    serializers: {
+      req: requestSerializer,
+      res: responseSerializer,
+    },
+    timestamp: timestampFunction,
   })
 
   assert.end()
