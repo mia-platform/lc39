@@ -51,12 +51,15 @@ the behavior.
 ```javascript
 module.exports.readinessHandler = async function readinessHandler(fastify) {
   // Add your custom logic for /-/ready here
+  return { statusOK: true }
 }
 module.exports.healthinessHandler = async function healthinessHandler(fastify) {
   // Add your custom logic for /-/healthz here
+  return { statusOK: true }
 }
 module.exports.checkUpHandler = async function checkUpHandler(fastify) {
   // Add your custom logic for /-/check-up here
+  return { statusOK: true }
 }
 ```
 
