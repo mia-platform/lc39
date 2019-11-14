@@ -15,7 +15,8 @@
   "author": "Mia Platform Core Team <core@mia-platform.eu>",
   "contributors": [
     "Jacopo Andrea Giola <jacopo@giola.org>",
-    "Francesco Francomano <silversoulKali@gmail.com>"
+    "Francesco Francomano <silversoulKali@gmail.com>",
+    "Federico Maggi <federicomaggi92@gmail.com>"
   ],
   "main": "index.js",
   "bin": {
