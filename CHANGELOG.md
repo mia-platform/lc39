@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated status routes log level to warn instead of silent.
+- Updated status routes log level to error instead of silent (unless silent is provided from configuration).
 
 ## v2.2.2 - 2019-08-08
 
