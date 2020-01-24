@@ -18,6 +18,7 @@
 
 const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
+const net = require('net')
 
 test('Test throw for wrong exported functions', assert => {
   assert.throws(() => {
@@ -147,4 +148,33 @@ test('Log level inheriting system', async assert => {
   assert.strictSame(fastifyInstance.log.level, 'info')
   await fastifyInstance.close()
   assert.end()
+})
+
+test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
+  assert.plan(5)
+  launch('./tests/modules/immediate-close-module', {}).then(
+    (fastifyInstance) => {
+      const { port } = fastifyInstance.server.address()
+
+      const client = net.createConnection({ port }, () => {
+        client.write('GET / HTTP/1.1\r\n\r\n')
+
+        client.once('data', data => {
+          assert.match(data.toString(), /Connection:\s*keep-alive/i)
+          assert.match(data.toString(), /200 OK/i)
+
+          client.write('GET / HTTP/1.1\r\n\r\n')
+
+          client.once('data', data => {
+            assert.match(data.toString(), /Connection:\s*close/i)
+            assert.match(data.toString(), /200 OK/i)
+
+            // Test that fastify closes the TCP connection
+            client.once('close', () => {
+              assert.pass()
+            })
+          })
+        })
+      })
+    })
 })
