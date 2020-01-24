@@ -176,5 +176,59 @@ test('Current opened connection should continue to work after closing and return
           })
         })
       })
-    })
+    }
+  )
+})
+
+test('Current opened connection should continue to work after closing and after a timeout should return "connection: close" header - return503OnClosing: false', assert => {
+  assert.plan(5)
+  launch('./tests/modules/immediate-close-module', {}).then(
+    (fastifyInstance) => {
+      const { port } = fastifyInstance.server.address()
+
+      const client = net.createConnection({ port }, () => {
+        client.write('GET / HTTP/1.1\r\n\r\n')
+
+        client.once('data', data => {
+          assert.match(data.toString(), /Connection:\s*keep-alive/i)
+          assert.match(data.toString(), /200 OK/i)
+
+
+          setTimeout(() => {
+            client.write('GET / HTTP/1.1\r\n\r\n')
+
+            client.once('data', data => {
+              assert.match(data.toString(), /Connection:\s*close/i)
+              assert.match(data.toString(), /200 OK/i)
+
+              // Test that fastify closes the TCP connection
+              client.once('close', () => {
+                assert.pass()
+              })
+            })
+          }, 1000)
+        })
+      })
+    }
+  )
+})
+
+test('Current opened connection should not accept new incoming connections', assert => {
+  launch('./tests/modules/immediate-close-module', {}).then(
+    (fastifyInstance) => {
+      const { port } = fastifyInstance.server.address()
+      const client = net.createConnection({ port }, () => {
+        client.write('GET / HTTP/1.1\r\n\r\n')
+
+        const newConnection = net.createConnection({ port })
+        newConnection.on('error', error => {
+          assert.ok(error)
+          assert.ok(['ECONNREFUSED', 'ECONNRESET'].includes(error.code))
+
+          client.end()
+          assert.end()
+        })
+      })
+    }
+  )
 })
