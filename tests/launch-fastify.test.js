@@ -19,6 +19,7 @@
 const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
 const net = require('net')
+const { spawn } = require('child_process')
 
 test('Test throw for wrong exported functions', assert => {
   assert.throws(() => {
@@ -231,4 +232,27 @@ test('Current opened connection should not accept new incoming connections', ass
       })
     }
   )
+})
+
+test('should wait at least 1 sec before closing the process', assert => {
+  const WAIT_BEFORE_SERVER_CLOSE_SEC = 1
+  const child = spawn(
+    './bin/cli.js',
+    ['tests/modules/correct-module.js'],
+    { env: { ...process.env, WAIT_BEFORE_SERVER_CLOSE_SEC } }
+  )
+
+  let closedDate = null
+  child.on('close', () => {
+    closedDate = new Date()
+  })
+
+  child.stdout.on('data', () => {
+    const killedDate = new Date()
+    child.kill('SIGTERM')
+    setTimeout(() => {
+      assert.ok(closedDate.getTime() - killedDate.getTime() > WAIT_BEFORE_SERVER_CLOSE_SEC * 1000)
+      assert.end()
+    }, (WAIT_BEFORE_SERVER_CLOSE_SEC * 1000) + 300)
+  })
 })
