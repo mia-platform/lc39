@@ -16,7 +16,9 @@
   "contributors": [
     "Jacopo Andrea Giola <jacopo@giola.org>",
     "Francesco Francomano <silversoulKali@gmail.com>",
-    "Federico Maggi <federicomaggi92@gmail.com>"
+    "Federico Maggi <federicomaggi92@gmail.com>",
+    "Song Le Jin <songle.jin@mia-platform.eu>",
+    "Tommaso Allevi <tomallevi@gmail.com>"
   ],
   "main": "index.js",
   "bin": {
