@@ -36,8 +36,8 @@
     "version": "./scripts/update-version.sh ${npm_package_version} && git add CHANGELOG.md"
   },
   "dependencies": {
-    "commander": "^2.20.0",
-    "dotenv": "^8.0.0",
+    "commander": "^3.0.2",
+    "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
     "fastify": "^2.11.0",
     "fastify-plugin": "^1.6.0",
@@ -51,7 +51,7 @@
     "tap": "^14.6.1"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "eslintConfig": {
     "extends": "@mia-platform/eslint-config-mia"
