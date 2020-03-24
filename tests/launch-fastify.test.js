@@ -141,15 +141,18 @@ test('Test fail Fastify creation for invalid options', assert => {
   assert.end()
 })
 
-test('Log level inheriting system', async assert => {
-  assert.plan(3)
-  const stream = split(JSON.parse)
-  let fastifyInstance = await launch('./tests/modules/module-with-log', {})
+test('Log level inheriting system with a custom setting', async assert => {
+  assert.plan(1)
+  const fastifyInstance = await launch('./tests/modules/module-with-log', {})
   assert.strictSame(fastifyInstance.log.level, launch.importModule('./tests/modules/module-with-log').options.logLevel)
   await fastifyInstance.close()
+})
 
-  // intercept the stream to check if something is written on it
-  fastifyInstance = await launch('./tests/modules/correct-module', {
+test('Log level inheriting system with defaults checking data are properly streamed', async assert => {
+  assert.plan(2)
+
+  const stream = split(JSON.parse)
+  const fastifyInstance = await launch('./tests/modules/correct-module', {
     stream,
   })
   assert.strictSame(fastifyInstance.log.level, 'info')
