@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update commander 2.20.0 -> 5.0.0
 - Update dotenv 8.0.0 -> 8.2.1
-- Update fastify 2.11.0 -> 2.12.1
+- Update fastify 2.11.0 -> 2.13.0
 - Update fastify-plugin 1.6.0 -> 1.6.1
 - Update fastify-swagger 2.4.0 -> 2.5.0
 - Update make-promises-safe 5.0.0 -> 5.1.0
