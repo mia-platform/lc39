@@ -1,6 +1,6 @@
 # Development Affordance
 
-To iad you in the development and testing of your service locally on your machine we provide
+To aid you in the development and testing of your service locally on your machine we provide
 some affordances that you can use.
 
 ## `ENV` Variables for Local Runs
