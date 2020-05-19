@@ -20,6 +20,7 @@ const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
 const net = require('net')
 const { spawn } = require('child_process')
+const split = require('split2')
 
 test('Test throw for wrong exported functions', assert => {
   assert.throws(() => {
@@ -147,6 +148,60 @@ test('Log level inheriting system', async assert => {
 
   fastifyInstance = await launch('./tests/modules/correct-module', {})
   assert.strictSame(fastifyInstance.log.level, 'info')
+  await fastifyInstance.close()
+  assert.end()
+})
+
+test('Log level inheriting system with a custom setting', async assert => {
+  const fastifyInstance = await launch('./tests/modules/module-with-log', {})
+  assert.strictSame(fastifyInstance.log.level, launch.importModule('./tests/modules/module-with-log').options.logLevel)
+  await fastifyInstance.close()
+  assert.end()
+})
+
+test('Log level inheriting system with defaults checking data are properly streamed', async assert => {
+  const stream = split(JSON.parse)
+  const fastifyInstance = await launch('./tests/modules/correct-module', {
+    stream,
+  })
+  assert.strictSame(fastifyInstance.log.level, 'info')
+  stream.once('data', line => {
+    assert.ok(line)
+  })
+  await fastifyInstance.close()
+  assert.end()
+})
+
+test('Test custom serializers', async assert => {
+  const stream = split(JSON.parse)
+  // intercept the stream to check if something is written on it
+  const fastifyInstance = await launch('./tests/modules/correct-module', {
+    stream,
+  })
+
+  await fastifyInstance.inject({
+    method: 'GET',
+    url: '/',
+  })
+
+  stream.once('data', () => {
+    stream.once('data', line => {
+      assert.strictSame(line.req, {
+        method: 'GET',
+        url: '/',
+        userAgent: 'lightMyRequest',
+        hostname: 'localhost:80',
+        remoteAddress: '127.0.0.1',
+      })
+
+      stream.once('data', secondLine => {
+        assert.strictSame(secondLine.res, {
+          statusCode: 200,
+          body: { bytes: '13' },
+        })
+      })
+    })
+  })
   await fastifyInstance.close()
   assert.end()
 })

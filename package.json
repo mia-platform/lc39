@@ -50,6 +50,7 @@
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
     "eslint": "^6.8.0",
+    "split2": "^3.1.1",
     "tap": "^14.10.6"
   },
   "engines": {
