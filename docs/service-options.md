@@ -17,7 +17,7 @@ module.exports.options = {
 The values supported in this object are the supported keys and value for the Fastify server instance
 that you can find at this [link][fastify-server-options]; with the exception of the `logger` parameter.  
 Instead you can customize the `pino` instance via the `logLevel` key and you can modify the redaction rules
-via the `redact` key. For this key the accepted values listed [here][pino-redact-options].  
+via the `redact` key. For this key the accepted values are listed [here][pino-redact-options].  
 You have an additional key, `errorHandler` that is passed to the `fastify-sensible` plugin;
 its usage can be found [here][fastify-sensible-error-handler].
 
