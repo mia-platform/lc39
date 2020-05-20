@@ -187,17 +187,24 @@ test('Test custom serializers', async assert => {
   stream.once('data', () => {
     stream.once('data', line => {
       assert.strictSame(line.req, {
-        method: 'GET',
-        url: '/',
-        userAgent: 'lightMyRequest',
-        hostname: 'localhost:80',
-        remoteAddress: '127.0.0.1',
+        http: {
+          request: {
+            method: 'GET',
+          },
+        },
+        url: { full: '/' },
+        userAgent: { original: 'lightMyRequest' },
+        host: { hostname: 'localhost:80', ip: '127.0.0.1' },
       })
 
       stream.once('data', secondLine => {
         assert.strictSame(secondLine.res, {
-          statusCode: 200,
-          body: { bytes: '13' },
+          http: {
+            response: {
+              statusCode: 200,
+              body: { bytes: '13' },
+            },
+          },
         })
       })
     })
