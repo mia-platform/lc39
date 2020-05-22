@@ -20,7 +20,6 @@ const { test } = require('tap')
 const customLogger = require('../lib/custom-logger')
 const { requestSerializer, responseSerializer, timestampFunction } = require('../lib/custom-logger')
 
-
 test('Test generation for custom logger', assert => {
   const moduleOptions = {}
   const options = {
