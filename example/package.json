@@ -26,6 +26,6 @@
     "fastify-env": "^1.0.1"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=8"
   }
 }
