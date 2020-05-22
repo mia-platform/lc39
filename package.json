@@ -56,7 +56,7 @@
     "tap": "^14.10.7"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=8"
   },
   "eslintConfig": {
     "extends": "@mia-platform/eslint-config-mia"
