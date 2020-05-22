@@ -173,44 +173,44 @@ test('Log level inheriting system with defaults checking data are properly strea
 })
 
 test('Test custom serializers', async assert => {
+  assert.plan(7)
   const stream = split(JSON.parse)
-  // intercept the stream to check if something is written on it
-  const fastifyInstance = await launch('./tests/modules/correct-module', {
-    stream,
+
+  stream.once('data', () => {
+    stream.once('data', line => {
+      assert.notOk(line.req)
+      assert.strictSame(line.http, {
+        request: {
+          method: 'GET',
+        },
+      })
+      assert.strictSame(line.url, { full: '/' })
+      assert.strictSame(line.userAgent, { original: 'lightMyRequest' })
+      assert.strictSame(line.host, { hostname: 'localhost:80', ip: '127.0.0.1' })
+
+      stream.once('data', secondLine => {
+        assert.notOk(secondLine.res)
+        assert.strictSame(secondLine.http, {
+          response: {
+            statusCode: 200,
+            body: { bytes: '13' },
+          },
+        })
+        assert.end()
+      })
+    })
   })
 
+  const fastifyInstance = await launch('./tests/modules/correct-module', {
+    level: 'trace',
+    stream,
+  })
   await fastifyInstance.inject({
     method: 'GET',
     url: '/',
   })
 
-  stream.once('data', () => {
-    stream.once('data', line => {
-      assert.strictSame(line.req, {
-        http: {
-          request: {
-            method: 'GET',
-          },
-        },
-        url: { full: '/' },
-        userAgent: { original: 'lightMyRequest' },
-        host: { hostname: 'localhost:80', ip: '127.0.0.1' },
-      })
-
-      stream.once('data', secondLine => {
-        assert.strictSame(secondLine.res, {
-          http: {
-            response: {
-              statusCode: 200,
-              body: { bytes: '13' },
-            },
-          },
-        })
-      })
-    })
-  })
   await fastifyInstance.close()
-  assert.end()
 })
 
 test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {

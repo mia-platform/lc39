@@ -45,12 +45,14 @@
     "fastify-plugin": "^1.6.1",
     "fastify-sensible": "^2.1.1",
     "fastify-swagger": "^2.5.1",
-    "make-promises-safe": "^5.1.0"
+    "make-promises-safe": "^5.1.0",
+    "mississippi": "^4.0.0",
+    "pino": "^6.2.1",
+    "split2": "^3.1.1"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
     "eslint": "^6.8.0",
-    "split2": "^3.1.1",
     "tap": "^14.10.7"
   },
   "engines": {
