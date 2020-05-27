@@ -173,7 +173,7 @@ test('Log level inheriting system with defaults checking data are properly strea
 })
 
 test('Test custom serializers', async assert => {
-  assert.plan(7)
+  assert.plan(8)
   const stream = split(JSON.parse)
 
   stream.once('data', () => {
@@ -190,6 +190,7 @@ test('Test custom serializers', async assert => {
 
       stream.once('data', secondLine => {
         assert.notOk(secondLine.res)
+        assert.ok(secondLine.responseTime)
         assert.strictSame(secondLine.http, {
           response: {
             statusCode: 200,
