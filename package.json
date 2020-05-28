@@ -55,7 +55,7 @@
     "split2": "^3.1.1"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "eslintConfig": {
     "extends": "@mia-platform/eslint-config-mia"
