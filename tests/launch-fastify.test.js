@@ -173,11 +173,12 @@ test('Log level inheriting system with defaults checking data are properly strea
 })
 
 test('Test custom serializers', async assert => {
-  assert.plan(8)
+  assert.plan(10)
   const stream = split(JSON.parse)
 
   stream.once('data', () => {
     stream.once('data', line => {
+      assert.equal(line.level, 10)
       assert.notOk(line.req)
       assert.strictSame(line.http, {
         request: {
@@ -189,6 +190,7 @@ test('Test custom serializers', async assert => {
       assert.strictSame(line.host, { hostname: 'localhost:80', ip: '127.0.0.1' })
 
       stream.once('data', secondLine => {
+        assert.equal(secondLine.level, 30)
         assert.notOk(secondLine.res)
         assert.ok(secondLine.responseTime)
         assert.strictSame(secondLine.http, {
@@ -203,7 +205,7 @@ test('Test custom serializers', async assert => {
   })
 
   const fastifyInstance = await launch('./tests/modules/correct-module', {
-    level: 'trace',
+    logLevel: 'trace',
     stream,
   })
   await fastifyInstance.inject({
