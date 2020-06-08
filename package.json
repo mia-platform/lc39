@@ -18,7 +18,8 @@
     "Francesco Francomano <silversoulKali@gmail.com>",
     "Federico Maggi <federicomaggi92@gmail.com>",
     "Song Le Jin <songle.jin@mia-platform.eu>",
-    "Tommaso Allevi <tomallevi@gmail.com>"
+    "Tommaso Allevi <tomallevi@gmail.com>",
+    "Federico Maggi <federico.maggi@mia-platform.eu>"
   ],
   "main": "index.js",
   "bin": {
@@ -41,16 +42,17 @@
     "commander": "^3.0.2",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
-    "fastify": "^2.12.1",
+    "fastify": "^2.14.1",
     "fastify-plugin": "^1.6.1",
     "fastify-sensible": "^2.1.1",
-    "fastify-swagger": "^2.5.0",
+    "fastify-swagger": "^2.5.1",
     "make-promises-safe": "^5.1.0"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
     "eslint": "^6.8.0",
-    "tap": "^14.10.6"
+    "tap": "^14.10.7",
+    "split2": "^3.1.1"
   },
   "engines": {
     "node": ">=10"

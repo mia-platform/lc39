@@ -20,6 +20,7 @@ const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
 const net = require('net')
 const { spawn } = require('child_process')
+const split = require('split2')
 
 test('Test throw for wrong exported functions', assert => {
   assert.throws(() => {
@@ -149,6 +150,70 @@ test('Log level inheriting system', async assert => {
   assert.strictSame(fastifyInstance.log.level, 'info')
   await fastifyInstance.close()
   assert.end()
+})
+
+test('Log level inheriting system with a custom setting', async assert => {
+  const fastifyInstance = await launch('./tests/modules/module-with-log', {})
+  assert.strictSame(fastifyInstance.log.level, launch.importModule('./tests/modules/module-with-log').options.logLevel)
+  await fastifyInstance.close()
+  assert.end()
+})
+
+test('Log level inheriting system with defaults checking data are properly streamed', async assert => {
+  const stream = split(JSON.parse)
+  const fastifyInstance = await launch('./tests/modules/correct-module', {
+    stream,
+  })
+  assert.strictSame(fastifyInstance.log.level, 'info')
+  stream.once('data', line => {
+    assert.ok(line)
+  })
+  await fastifyInstance.close()
+  assert.end()
+})
+
+test('Test custom serializers', async assert => {
+  assert.plan(10)
+  const stream = split(JSON.parse)
+
+  stream.once('data', () => {
+    stream.once('data', line => {
+      assert.equal(line.level, 10)
+      assert.notOk(line.req)
+      assert.strictSame(line.http, {
+        request: {
+          method: 'GET',
+        },
+      })
+      assert.strictSame(line.url, { full: '/' })
+      assert.strictSame(line.userAgent, { original: 'lightMyRequest' })
+      assert.strictSame(line.host, { hostname: 'localhost:80', ip: '127.0.0.1' })
+
+      stream.once('data', secondLine => {
+        assert.equal(secondLine.level, 30)
+        assert.notOk(secondLine.res)
+        assert.ok(secondLine.responseTime)
+        assert.strictSame(secondLine.http, {
+          response: {
+            statusCode: 200,
+            body: { bytes: '13' },
+          },
+        })
+        assert.end()
+      })
+    })
+  })
+
+  const fastifyInstance = await launch('./tests/modules/correct-module', {
+    logLevel: 'trace',
+    stream,
+  })
+  await fastifyInstance.inject({
+    method: 'GET',
+    url: '/',
+  })
+
+  await fastifyInstance.close()
 })
 
 test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {

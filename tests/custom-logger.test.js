@@ -18,6 +18,7 @@
 
 const { test } = require('tap')
 const customLogger = require('../lib/custom-logger')
+const { timestampFunction } = require('../lib/custom-logger')
 
 test('Test generation for custom logger', assert => {
   const moduleOptions = {}
@@ -53,6 +54,7 @@ test('Test generation custom logger default options', assert => {
         '[*].username',
       ],
     },
+    timestamp: timestampFunction,
   })
 
   assert.end()
@@ -78,6 +80,7 @@ test('Test generation custom logger default options', assert => {
   assert.strictSame(pinoOptions, {
     level: options.logLevel,
     redact: moduleOptions.redact,
+    timestamp: timestampFunction,
   })
 
   assert.end()

@@ -6,14 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Support to `stream` option to support log intercepting during tests
+
 ### Changed
 
 - Update commander 2.20.0 -> 3.0.2
 - Update dotenv 8.0.0 -> 8.2.1
 - Update fastify 2.11.0 -> 2.12.1
 - Update fastify-plugin 1.6.0 -> 1.6.1
-- Update fastify-swagger 2.4.0 -> 2.5.0
+- Update fastify-swagger 2.4.0 -> 2.5.1
 - Update make-promises-safe 5.0.0 -> 5.1.0
+- Request and response logged information are now compliant with Mia-Platform logging guidelines
 
 ### Removed
 
