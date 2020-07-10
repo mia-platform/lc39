@@ -73,6 +73,30 @@ Both of these entpoint conform to the JSON schema that you can find [here][statu
 Both of this endpoints are set to permanently run on log level `silent` for decreasing the amount of noise in the
 logs during the deployment.
 
+## Prometheus Metrics
+
+By default `lc39` exposes `/-/metrics` endpoint for prometheus scraper. In this metrics there're some process, garbage collection and http information.
+
+Anyway you can define your custom metrics in the following way:
+```javascript
+module.exports = async function plugin(fastify) {
+  fastify.get('/', function (request, reply) {
+    this.customMetrics.myCounter.inc()
+    // ...
+  })
+}
+
+module.exports.getMetrics = function getMetrics(prometheusClient) {
+  const myCounter = new prometheusClient.Counter({
+    name: 'custom_metric',
+    help: 'Custom metric',
+  })
+  return {
+    myCounter,
+  }
+}
+```
+
 ## Exposed Swagger Documentation
 
 By default lc39 will import the [`fastify-swagger`][fastify-swagger] module for exposing the service documentation.
