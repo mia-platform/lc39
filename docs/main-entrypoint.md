@@ -75,7 +75,7 @@ logs during the deployment.
 
 ## Prometheus Metrics
 
-By default `lc39` exposes `/-/metrics` endpoint for prometheus scraper. In this metrics there're some process, garbage collection and http information.
+By default `lc39` exposes `/-/metrics` endpoint for prometheus scraper. In this metrics there are some process, garbage collection and http information.
 
 Anyway you can define your custom metrics in the following way:
 ```javascript
