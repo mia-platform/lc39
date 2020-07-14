@@ -68,3 +68,19 @@ test('lc39 allow you to create custom metrics', async assert => {
 
   assert.end()
 })
+
+test('should not expose /-/metrics if exposeMetrics is false', async assert => {
+  const options = { logLevel: 'silent', exposeMetrics: false }
+
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.tearDown(() => fastifyInstance.close())
+
+  const metricsResponse = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/-/metrics',
+  })
+
+  assert.strictSame(metricsResponse.statusCode, 404)
+
+  assert.end()
+})
