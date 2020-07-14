@@ -26,6 +26,16 @@ function parsePort(port) {
   return Number.parseInt(port, 10)
 }
 
+function parseBoolean(bool) {
+  if (!bool) {
+    return false
+  }
+  if (bool === 'false' || bool === '0') {
+    return false
+  }
+  return Boolean(bool)
+}
+
 program
   .name('lc39')
   .version(version, '-v, --version')
@@ -35,6 +45,7 @@ program
   .option('-x, --prefix <prefix>', 'the routes prefix to add to the service.')
   .option('-l, --log-level <logLevel>', 'the log level to set')
   .option('-e, --env-path [envFile]', 'the env file path')
+  .option('--expose-metrics <bool>', 'expose /-/metrics', parseBoolean, true)
   .parse(process.argv)
 
 if (!program.args.length) {
@@ -46,6 +57,7 @@ const options = {
   prefix: program.prefix,
   logLevel: program.logLevel,
   envPath: program.envPath,
+  exposeMetrics: program.exposeMetrics,
 }
 
 launch(program.args[0], options)
