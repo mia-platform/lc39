@@ -9,3 +9,4 @@ Here are listed all the available flags, their default values and the accepted o
 | Log level | `-l` | `--log-level` | `info` |
 | Set the prefix | `-x` | `--prefix` |  |
 | The path of the dotenv file to load during launch | `-e` | `--env-path` |  |
+| Expose Prometheus metrics |  | `--expose-metrics` | `true`  |
