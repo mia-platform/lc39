@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v3.0.0 - 2020-07-10
 
+### BREAKING CHANGES
+
+- Dropped support to Node 8
+- Request and response logged information are now compliant with Mia-Platform logging guidelines. To see the guidelines, please check [Mia Platform Docs](https://docs.mia-platform.eu/docs/development_suite/monitoring-dashboard/dev_ops_guide/log). You can find the implementation details [here](https://github.com/mia-platform/lc39/blob/master/lib/custom-logger.js).
+
 ### Added
 
 - Support to `stream` option to support log intercepting during tests
@@ -24,11 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update fastify-plugin 1.6.0 -> 1.6.1
 - Update fastify-swagger 2.4.0 -> 2.5.1
 - Update make-promises-safe 5.0.0 -> 5.1.0
-- Request and response logged information are now compliant with Mia-Platform logging guidelines
-
-### Removed
-
-- Dropped support to Node 8
 
 ## v2.4.0 - 2020-01-31
 
