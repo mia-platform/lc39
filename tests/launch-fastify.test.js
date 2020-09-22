@@ -173,7 +173,7 @@ test('Log level inheriting system with defaults checking data are properly strea
 })
 
 test('Test custom serializers', async assert => {
-  assert.plan(15)
+  assert.plan(13)
   const stream = split(JSON.parse)
 
   stream.once('data', () => {
@@ -184,10 +184,10 @@ test('Test custom serializers', async assert => {
       assert.strictSame(line.http, {
         request: {
           method: 'GET',
+          userAgent: { original: 'lightMyRequest' },
         },
       })
       assert.strictSame(line.url, { path: '/' })
-      assert.strictSame(line.userAgent, { original: 'lightMyRequest' })
       assert.strictSame(line.host, { hostname: 'localhost:80', ip: '127.0.0.1' })
 
       stream.once('data', secondLine => {
@@ -198,6 +198,7 @@ test('Test custom serializers', async assert => {
         assert.strictSame(secondLine.http, {
           request: {
             method: 'GET',
+            userAgent: { original: 'lightMyRequest' },
           },
           response: {
             statusCode: 200,
@@ -205,7 +206,6 @@ test('Test custom serializers', async assert => {
           },
         })
         assert.strictSame(secondLine.url, { path: '/' })
-        assert.strictSame(secondLine.userAgent, { original: 'lightMyRequest' })
         assert.strictSame(secondLine.host, { hostname: 'localhost:80', ip: '127.0.0.1' })
 
         assert.end()
