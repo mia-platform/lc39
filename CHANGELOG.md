@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 3.1.1 - 2020-09-22
+
 ### Fixed
 
-- [BMP-508](https://makeitapp.atlassian.net/browse/BMP-508): moved userAgent property inside of request property.
+- [BMP-508](https://makeitapp.atlassian.net/browse/BMP-508): moved userAgent property inside of request property. This is a breaking change in the log format, but we will handle this as a bug.
 
 ## v3.1.0 - 2020-07-14
 
