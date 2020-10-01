@@ -7,7 +7,7 @@ and launch the Fastify instance.
 ## Main Exported Function
 
 Your service must export a function for its module. The function can have a single parameter or two:
-- fastify: the instace of the fastify server created by **lc39**
+- fastify: the instance of the fastify server created by **lc39**
 - options: the optional parameter, this will contain the object passed to fastify for setting up your module
 
 ```javascript
