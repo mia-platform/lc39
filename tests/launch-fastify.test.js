@@ -206,7 +206,7 @@ test('Test custom serializers', async assert => {
           },
         })
         assert.strictSame(secondLine.url, { path: '/' })
-        assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
+        assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
 
         assert.end()
       })
