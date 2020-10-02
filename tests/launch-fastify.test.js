@@ -188,7 +188,7 @@ test('Test custom serializers', async assert => {
         },
       })
       assert.strictSame(line.url, { path: '/' })
-      assert.strictSame(line.host, { hostname: 'localhost:80', ip: '127.0.0.1' })
+      assert.strictSame(line.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
 
       stream.once('data', secondLine => {
         assert.equal(line.reqId, 1)
@@ -206,7 +206,7 @@ test('Test custom serializers', async assert => {
           },
         })
         assert.strictSame(secondLine.url, { path: '/' })
-        assert.strictSame(secondLine.host, { hostname: 'localhost:80', ip: '127.0.0.1' })
+        assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
 
         assert.end()
       })
@@ -220,6 +220,11 @@ test('Test custom serializers', async assert => {
   await fastifyInstance.inject({
     method: 'GET',
     url: '/',
+    headers: {
+      'x-forwarded-for': 'testIp',
+      'host': 'testHost:3000',
+      'x-forwarded-host': 'testForwardedHost',
+    },
   })
 
   await fastifyInstance.close()
