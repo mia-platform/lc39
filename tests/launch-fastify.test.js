@@ -202,7 +202,7 @@ test('Test custom serializers', async assert => {
           },
           response: {
             statusCode: 200,
-            body: { bytes: '13' },
+            body: { bytes: 13 },
           },
         })
         assert.strictSame(secondLine.url, { path: '/' })
