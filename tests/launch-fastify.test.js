@@ -230,6 +230,74 @@ test('Test custom serializers', async assert => {
   await fastifyInstance.close()
 })
 
+test('Test custom serializers empty body bytes', t => {
+  t.test('for invalid Content-Length value', async assert => {
+    assert.plan(1)
+    const stream = split(JSON.parse)
+
+    stream.once('data', () => {
+      stream.once('data', line => {
+        assert.strictSame(line.http.response, {
+          statusCode: 200,
+          body: {},
+        })
+
+        assert.end()
+      })
+    })
+
+    const fastifyInstance = await launch('./tests/modules/correct-module', {
+      logLevel: 'info',
+      stream,
+    })
+    await fastifyInstance.inject({
+      method: 'GET',
+      url: '/wrong-content-length',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+      },
+    })
+
+    await fastifyInstance.close()
+  })
+
+  t.test('for empty Content-Length value', async assert => {
+    assert.plan(1)
+    const stream = split(JSON.parse)
+
+    stream.once('data', () => {
+      stream.once('data', line => {
+        assert.strictSame(line.http.response, {
+          statusCode: 200,
+          body: { bytes: 14 },
+        })
+
+        assert.end()
+      })
+    })
+
+    const fastifyInstance = await launch('./tests/modules/correct-module', {
+      logLevel: 'info',
+      stream,
+    })
+    await fastifyInstance.inject({
+      method: 'GET',
+      url: '/empty-content-length',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+      },
+    })
+
+    await fastifyInstance.close()
+  })
+
+  t.end()
+})
+
 test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
   assert.plan(5)
   launch('./tests/modules/immediate-close-module', {}).then(
