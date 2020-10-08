@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "level": { "type": "number" },
+    "http": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "method": { "type": "string" },
+          "userAgent": {
+            "type": "object",
+            "properties": {
+              "original": { "type": "string" }
+            }
+          }
+        },
+        "response": {
+          "type": "object",
+          "properties": {
+            "statusCode": { "type": "number" },
+            "body": {
+              "type": "object",
+              "properties": {
+                "bytes": { "type": "number" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "url": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" }
+      }
+    },
+    "host": {
+      "type": "object",
+      "properties": {
+        "hostname": { "type": "string" },
+        "forwardedHost": { "type": "string" },
+        "ip": { "type": "string" }
+      }
+    },
+    "responseTime": { "type": "number" },
+    "reqId": { "type": "string" }
+  },
+  "required": ["level", "reqId"]
+}

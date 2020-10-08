@@ -21,6 +21,9 @@ const launch = require('../lib/launch-fastify')
 const net = require('net')
 const { spawn } = require('child_process')
 const split = require('split2')
+const Ajv = require('ajv')
+
+const logSchema = require('./log.schema.json')
 
 test('Test throw for wrong exported functions', assert => {
   assert.throws(() => {
@@ -172,62 +175,114 @@ test('Log level inheriting system with defaults checking data are properly strea
   assert.end()
 })
 
-test('Test custom serializers', async assert => {
-  assert.plan(13)
-  const stream = split(JSON.parse)
+test('Test custom serializers', t => {
+  t.test('fields values', async assert => {
+    assert.plan(13)
+    const stream = split(JSON.parse)
 
-  stream.once('data', () => {
-    stream.once('data', line => {
-      assert.equal(line.reqId, 1)
-      assert.equal(line.level, 10)
-      assert.notOk(line.req)
-      assert.strictSame(line.http, {
-        request: {
-          method: 'GET',
-          userAgent: { original: 'lightMyRequest' },
-        },
-      })
-      assert.strictSame(line.url, { path: '/' })
-      assert.strictSame(line.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
-
-      stream.once('data', secondLine => {
-        assert.equal(line.reqId, 1)
-        assert.equal(secondLine.level, 30)
-        assert.notOk(secondLine.res)
-        assert.ok(secondLine.responseTime)
-        assert.strictSame(secondLine.http, {
+    stream.once('data', () => {
+      stream.once('data', line => {
+        assert.equal(line.reqId, '34')
+        assert.equal(line.level, 10)
+        assert.notOk(line.req)
+        assert.strictSame(line.http, {
           request: {
             method: 'GET',
             userAgent: { original: 'lightMyRequest' },
           },
-          response: {
-            statusCode: 200,
-            body: { bytes: 13 },
-          },
         })
-        assert.strictSame(secondLine.url, { path: '/' })
-        assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
+        assert.strictSame(line.url, { path: '/' })
+        assert.strictSame(line.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
 
-        assert.end()
+        stream.once('data', secondLine => {
+          assert.equal(line.reqId, '34')
+          assert.equal(secondLine.level, 30)
+          assert.notOk(secondLine.res)
+          assert.ok(secondLine.responseTime)
+          assert.strictSame(secondLine.http, {
+            request: {
+              method: 'GET',
+              userAgent: { original: 'lightMyRequest' },
+            },
+            response: {
+              statusCode: 200,
+              body: { bytes: 13 },
+            },
+          })
+          assert.strictSame(secondLine.url, { path: '/' })
+          assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
+
+          assert.end()
+        })
       })
     })
+
+    const fastifyInstance = await launch('./tests/modules/correct-module', {
+      logLevel: 'trace',
+      stream,
+    })
+    await fastifyInstance.inject({
+      method: 'GET',
+      url: '/',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+        'x-request-id': '34',
+      },
+    })
+
+    await fastifyInstance.close()
   })
 
-  const fastifyInstance = await launch('./tests/modules/correct-module', {
-    logLevel: 'trace',
-    stream,
-  })
-  await fastifyInstance.inject({
-    method: 'GET',
-    url: '/',
-    headers: {
-      'x-forwarded-for': 'testIp',
-      'host': 'testHost:3000',
-      'x-forwarded-host': 'testForwardedHost',
-    },
+  t.test('matches schema', async assert => {
+    const ajv = new Ajv()
+
+    assert.plan(2)
+    const stream = split(JSON.parse)
+
+    const validator = ajv.compile(logSchema)
+
+    stream.once('data', () => {
+      stream.once('data', incomingRequest => {
+        const isValid = validator(incomingRequest)
+        if (validator.errors) {
+          // eslint-disable-next-line no-console
+          console.log('Validation errors', validator.errors)
+        }
+        assert.ok(isValid)
+
+        stream.once('data', requestCompleted => {
+          const isValid = validator(requestCompleted)
+          if (validator.errors) {
+            // eslint-disable-next-line no-console
+            console.log('Validation errors', validator.errors)
+          }
+          assert.ok(isValid)
+          assert.end()
+        })
+      })
+    })
+
+    const fastifyInstance = await launch('./tests/modules/correct-module', {
+      logLevel: 'trace',
+      stream,
+    })
+    await fastifyInstance.inject({
+      method: 'GET',
+      url: '/',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+        'x-request-id': '34',
+      },
+    })
+
+    await fastifyInstance.close()
   })
 
-  await fastifyInstance.close()
+  t.end()
 })
 
 test('Test custom serializers empty body bytes', t => {
