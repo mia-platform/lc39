@@ -1,14 +1,20 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.  
+All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## v3.1.3 - 2020-10-08
+
+### Fixed
+
+- log http.response.body.bytes should be of type int. Fixed and added test cases, also added json schema validation and logs documentation.
 
 ## v3.1.2 - 2020-09-29
 
 ### Fixed
 
-  - [BMP-508](https://makeitapp.atlassian.net/browse/BMP-508): replaced `reply.res.getHeader('content-length')` with `reply.getHeader('content-length')` in order to get `content-length` header.
+- [BMP-508](https://makeitapp.atlassian.net/browse/BMP-508): replaced `reply.res.getHeader('content-length')` with `reply.getHeader('content-length')` in order to get `content-length` header.
 
 ## 3.1.1 - 2020-09-22
 
@@ -19,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v3.1.0 - 2020-07-14
 
 ### Added
+
 - Feature flag for prometheus integration
 
 ## v3.0.0 - 2020-07-10
