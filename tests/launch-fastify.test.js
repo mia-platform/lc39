@@ -245,20 +245,10 @@ test('Test custom serializers', t => {
 
     stream.once('data', () => {
       stream.once('data', incomingRequest => {
-        const isValid = validator(incomingRequest)
-        if (validator.errors) {
-          // eslint-disable-next-line no-console
-          console.log('Validation errors', validator.errors)
-        }
-        assert.ok(isValid)
+        assert.ok(validator(incomingRequest), 'schema validation failed', validator.errors)
 
         stream.once('data', requestCompleted => {
-          const isValid = validator(requestCompleted)
-          if (validator.errors) {
-            // eslint-disable-next-line no-console
-            console.log('Validation errors', validator.errors)
-          }
-          assert.ok(isValid)
+          assert.ok(validator(requestCompleted), 'schema validation failed', validator.errors)
           assert.end()
         })
       })
