@@ -25,6 +25,14 @@ module.exports = async function plugin(fastify, config) {
   fastify.get('/error', function error(request, reply) {
     reply.internalServerError('Custom message')
   })
+  fastify.get('/wrong-content-length', function wrongContentLength(request, reply) {
+    reply.header('Content-Length', 'InvalidValue')
+    reply.send({ hi: 'there' })
+  })
+  fastify.get('/empty-content-length', function emptyContentLength(request, reply) {
+    reply.header('Content-Length', '')
+    reply.send({ hi: 'there' })
+  })
 }
 
 module.exports.options = {

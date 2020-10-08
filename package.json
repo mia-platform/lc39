@@ -52,9 +52,10 @@
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
+    "ajv": "^6.12.5",
     "eslint": "^7.6.0",
-    "tap": "^14.10.7",
-    "split2": "^3.1.1"
+    "split2": "^3.1.1",
+    "tap": "^14.10.7"
   },
   "engines": {
     "node": ">=10"
