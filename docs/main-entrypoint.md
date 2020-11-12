@@ -118,6 +118,39 @@ module.exports.swaggerDefinition = {
 If you don’t export this object `lc39` will automatically create this for you using the data
 found in the `package.json` of your project.
 
+If you need to edit the schema used to generate the swagger, you can use `transformSchemaForSwagger` to do it.
+
+```javascript
+module.exports = async function plugin(fastify) {
+  fastify.get('/', {
+    schema: {
+      querystring: {
+        label: { type: 'string' },
+      },
+    },
+  }, function returnConfig(request, reply) {
+    reply.send({ })
+  })
+}
+
+module.exports.transformSchemaForSwagger = (schema) => {
+  
+  return {
+    ...schema,
+    querystring: {
+      ...schema.querystring,
+      properties: {
+        ...schema.querystring.properties,
+        label: {
+          ...schema.querystring.properties.label,
+          description: 'Added with transformSchemaForSwagger',
+        }
+      }
+    }
+  }
+}
+```
+
 [fastify-sensible]: https://github.com/fastify/fastify-sensible
 [k8s]: https://kubernetes.io/
 [k8s-deployment-probes]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
