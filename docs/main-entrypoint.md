@@ -145,7 +145,7 @@ module.exports.transformSchemaForSwagger = (schema) => {
   return converted
 }
 ```
-This method it's called for each route.
+This method is called for each route.
 The `schema` parameter it's the schema object set to the route.
 `transformSchemaForSwagger` it's called only on the first time that `/documentation/json` it's visited.
 
