@@ -147,7 +147,7 @@ module.exports.transformSchemaForSwagger = (schema) => {
 ```
 This method is called for each route.
 The `schema` parameter it's the schema object set to the route.
-`transformSchemaForSwagger` it's called only on the first time that `/documentation/json` it's visited.
+`transformSchemaForSwagger` is only called on the first time that `/documentation/json` it's visited.
 
 [fastify-sensible]: https://github.com/fastify/fastify-sensible
 [k8s]: https://kubernetes.io/
