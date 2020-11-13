@@ -134,22 +134,20 @@ module.exports = async function plugin(fastify) {
 }
 
 module.exports.transformSchemaForSwagger = (schema) => {
-  
-  return {
-    ...schema,
-    querystring: {
-      ...schema.querystring,
-      properties: {
-        ...schema.querystring.properties,
-        label: {
-          ...schema.querystring.properties.label,
-          description: 'Added with transformSchemaForSwagger',
-        }
-      }
-    }
+  const {
+    querystring,
+    ...rest
   }
+  const converted = {...rest}
+  if (querystring) {
+    converted.querystring = convertQuerystringSchema(querystring)
+  }
+  return converted
 }
 ```
+This method it's called for each route.
+The `schema` parameter it's the schema object set to the route.
+`transformSchemaForSwagger` it's called only on the first time that `/documentation/json` it's visited.
 
 [fastify-sensible]: https://github.com/fastify/fastify-sensible
 [k8s]: https://kubernetes.io/
