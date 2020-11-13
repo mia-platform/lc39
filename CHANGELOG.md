@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v3.2.0 - 2020-11-13
+
 ### Added
 - [MFD-17](https://makeitapp.atlassian.net/browse/MFD-17): added transformSchemaForSwagger to edit schema used by swagger
 
