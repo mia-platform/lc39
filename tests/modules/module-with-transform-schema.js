@@ -4,7 +4,10 @@ module.exports = async function plugin(fastify) {
   fastify.get('/', {
     schema: {
       querystring: {
-        label: { type: 'string' },
+        type: 'object',
+        properties: {
+          label: { type: 'string' },
+        },
       },
     },
   }, function returnConfig(request, reply) {
@@ -13,6 +16,11 @@ module.exports = async function plugin(fastify) {
 }
 
 module.exports.transformSchemaForSwagger = (schema) => {
+  if (schema.hide) {
+    // if a route is set as hidden its schema should not be modified
+    return schema
+  }
+
   return {
     ...schema,
     querystring: {

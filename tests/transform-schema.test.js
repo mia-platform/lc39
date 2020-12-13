@@ -59,6 +59,7 @@ function getExpectedSchema() {
     'produces': [
       'application/json',
     ],
+    'definitions': {},
     'paths': {
       '/': {
         'get': {
