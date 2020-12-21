@@ -24,6 +24,13 @@ To install the package you can run:
 npm install @mia-platform/lc39 --save
 ```
 
+It is possible to install the next version of the package, which use fastify v3. The version is a release candidate,
+so it is not yet a stable version. To try it, you can run:
+
+```sh
+npm install @mia-platform/lc39@next --save
+```
+
 We recommend to install the module locally on every one of your project to be able to
 update them indipendently one from the other. To use the locally installed instance you
 have to add the following script to your `package.json`:
