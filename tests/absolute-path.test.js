@@ -32,7 +32,7 @@ test('Test absolute path generation', assert => {
 
   const path4 = absolutePath('../../relative/to/parent/path.js')
   const parentPath = path.resolve(process.cwd(), '../..')
-  assert.strictSame(path4, `${parentPath}/relative/to/parent/path.js`)
+  assert.strictSame(path4, path.join(parentPath, 'relative/to/parent/path.js'))
 
   assert.end()
 })
