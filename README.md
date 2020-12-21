@@ -25,7 +25,8 @@ npm install @mia-platform/lc39 --save
 ```
 
 It is possible to install the next version of the package, which use fastify v3. The version is a release candidate,
-so it is not yet a stable version and should not be used in production environments. To try it, you can run:
+so it is not yet a stable version and should not be used in production environments (next updates could be breaking).
+To try it, you can run:
 
 ```sh
 npm install @mia-platform/lc39@next --save
