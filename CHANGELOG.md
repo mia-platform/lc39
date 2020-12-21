@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### BREAKING CHANGES
+
+- fastify to v3.9.2. You can see all the breaking changes in the new fastify version [here](https://github.com/fastify/fastify/releases/tag/v3.0.0)
+
+### Updated
+
+- commander to v6.2.0
+- fastify-metrics to v6.0.3
+- fastify-plugin to v3.0.0
+- fastify-sensible to v3.1.0
+- fastify-swagger to v3.5.0
+
 ## v3.2.0 - 2020-11-13
 
 ### Added
