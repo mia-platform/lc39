@@ -85,3 +85,12 @@ test('Test generation custom logger default options', assert => {
 
   assert.end()
 })
+
+test('Test timestamp generation in milliseconds', assert => {
+  const [, timestampString] = timestampFunction().split(':')
+  const millisecondTimestampMagnitude = 1e12
+
+  assert.ok(parseInt(timestampString, 10) > millisecondTimestampMagnitude)
+
+  assert.end()
+})

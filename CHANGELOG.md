@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [BMP-828](https://makeitapp.atlassian.net/browse/BMP-828): log timestamp has precision in milliseconds instead of seconds.
+- log timestamp has precision in milliseconds instead of seconds.
 
 ## v4.0.0-rc.0 - 2020-12-21
 
