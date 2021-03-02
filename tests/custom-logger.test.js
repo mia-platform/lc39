@@ -85,3 +85,13 @@ test('Test generation custom logger default options', assert => {
 
   assert.end()
 })
+
+test('Test timestamp generation in milliseconds', assert => {
+  const recentYear = 2021
+  const [, timestampString] = timestampFunction().split(':')
+  const dateFromTimestamp = new Date(parseInt(timestampString, 10))
+
+  assert.ok(dateFromTimestamp.getFullYear() >= recentYear)
+
+  assert.end()
+})
