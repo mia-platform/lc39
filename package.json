@@ -43,7 +43,7 @@
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
     "fastify": "^3.9.2",
-    "fastify-metrics": "^6.0.3",
+    "fastify-metrics": "^7.1.0",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.0",
     "fastify-swagger": "^3.5.0",
