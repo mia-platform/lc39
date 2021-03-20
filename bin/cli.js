@@ -27,8 +27,10 @@ function parsePort(port) {
 }
 
 function parseBoolean(bool) {
-  const nonBoolValue = !bool || bool === 'false' || bool === '0'
-  return nonBoolValue ? false : Boolean(bool)
+  if (!bool || bool === 'false' || bool === '0') {
+    return false
+  }
+  return Boolean(bool)
 }
 
 program
