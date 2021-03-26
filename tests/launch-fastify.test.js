@@ -113,7 +113,7 @@ test('Test Fastify plugin start with prefix', async assert => {
   })
 })
 
-test('Test fail Fastify creation for invalid options', assert => {
+test('Test fail Fastify creation for invalid options', async assert => {
   const badLogLevel = {
     logLevel: 'not-valid-log-value',
   }
@@ -141,6 +141,21 @@ test('Test fail Fastify creation for invalid options', assert => {
       name: 'Error',
       message: 'Prefix value is not valid',
     })
+  }
+
+  const goodPrefixes = [
+    '',
+    undefined,
+    0,
+    '/',
+    '/singleword/',
+    '/multiple-words-and-numb3rs/',
+  ]
+  for (const goodPrefix of goodPrefixes) {
+    const goodOptions = { prefix: goodPrefix }
+    const fastifyInstance = await launch('./tests/modules/correct-module', goodOptions)
+    assert.ok(fastifyInstance)
+    await fastifyInstance.close()
   }
   assert.end()
 })
