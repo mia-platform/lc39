@@ -135,11 +135,12 @@ test('Test fail Fastify creation for invalid options', assert => {
     '/invalid/-/multipath/',
   ]
 
-  for (const badPrefix in badPrefixes) {
-    const badOptions = {
-      prefix: badPrefix,
-    }
-    assert.rejects(launch('./tests/modules/correct-module', badOptions))
+  for (const badPrefix of badPrefixes) {
+    const badOptions = { prefix: badPrefix }
+    assert.rejects(launch('./tests/modules/correct-module', badOptions), {
+      name: 'Error',
+      message: 'Prefix value is not valid',
+    })
   }
   assert.end()
 })
