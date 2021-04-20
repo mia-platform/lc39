@@ -1,6 +1,6 @@
 {
   "name": "@mia-platform/lc39",
-  "version": "4.0.0-rc.0",
+  "version": "4.0.0",
   "description": "The Mia-Platform Node.js service launcher",
   "keywords": [
     "cli",
