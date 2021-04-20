@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-"use strict";
+'use strict'
 
-const { testLaunch } = require("./lib/launch-fastify");
+const { testLaunch } = require('./lib/launch-fastify')
 
-module.exports = testLaunch;
+module.exports = testLaunch
