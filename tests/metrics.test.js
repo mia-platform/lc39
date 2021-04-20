@@ -23,7 +23,7 @@ test('Test Fastify creation with standard metrics', async assert => {
   const options = { logLevel: 'silent' }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
-  assert.tearDown(() => fastifyInstance.close())
+  assert.teardown(() => fastifyInstance.close())
 
   const metricsResponse = await fastifyInstance.inject({
     method: 'GET',
@@ -41,7 +41,7 @@ test('lc39 allow you to create custom metrics', async assert => {
   const options = { logLevel: 'silent' }
 
   const fastifyInstance = await launch('./tests/modules/custom-metrics', options)
-  assert.tearDown(() => fastifyInstance.close())
+  assert.teardown(() => fastifyInstance.close())
 
   let response = await fastifyInstance.inject({
     method: 'GET',
@@ -73,7 +73,7 @@ test('should not expose /-/metrics if exposeMetrics is false', async assert => {
   const options = { logLevel: 'silent', exposeMetrics: false }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
-  assert.tearDown(() => fastifyInstance.close())
+  assert.teardown(() => fastifyInstance.close())
 
   const metricsResponse = await fastifyInstance.inject({
     method: 'GET',

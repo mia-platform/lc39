@@ -49,12 +49,4 @@ if (!program.args.length) {
   return program.help()
 }
 
-const options = {
-  port: program.port,
-  prefix: program.prefix,
-  logLevel: program.logLevel,
-  envPath: program.envPath,
-  exposeMetrics: program.exposeMetrics,
-}
-
-launch(program.args[0], options)
+launch(program.args[0], program.opts())
