@@ -6,9 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### BREAKING CHANGES
+
+- fastify to v3.14.2. You can see all the breaking changes in the new fastify version [here](https://github.com/fastify/fastify/releases/tag/v3.0.0)
+- update [prom-client](https://github.com/siimon/prom-client/tree/v13.1.0) to v13
+
 ### Added
 
 - log timestamp has precision in milliseconds instead of seconds.
+
+### Updated
+
+- commander to v7.2.0
+- fastify-metrics to v7.1.0
+- fastify-plugin to v3.0.0
+- fastify-sensible to v3.1.1
+- fastify-swagger to v4.6.0
 
 ## v4.0.0-rc.0 - 2020-12-21
 

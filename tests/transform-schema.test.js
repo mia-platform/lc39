@@ -32,7 +32,7 @@ test('transformSchemaForSwagger', async t => {
     url: '/documentation/json',
   })
 
-  t.tearDown(() => fastifyInstance.close())
+  t.teardown(() => fastifyInstance.close())
 
   t.test('should edit the schemas', async t => {
     t.strictSame(jsonResponse.statusCode, 200)
