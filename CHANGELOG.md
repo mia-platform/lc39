@@ -6,8 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v4.0.0 - 2021-04-20
 
-## v4.0.0 - 2021-04-20
-
 ### BREAKING CHANGES
 
 - fastify to v3.14.2. You can see all the breaking changes in the new fastify version [here](https://github.com/fastify/fastify/releases/tag/v3.0.0)
