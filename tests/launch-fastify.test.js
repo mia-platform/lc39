@@ -300,7 +300,9 @@ test('Test custom serializers empty body bytes', t => {
       stream.once('data', line => {
         assert.strictSame(line.http.response, {
           statusCode: 200,
-          body: {},
+          body: {
+            bytes: 14,
+          },
         })
 
         assert.end()

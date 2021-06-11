@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - fastify to v3.14.2. You can see all the breaking changes in the new fastify version [here](https://github.com/fastify/fastify/releases/tag/v3.0.0)
 - update [prom-client](https://github.com/siimon/prom-client/tree/v13.1.0) to v13
+- flag `--options` and `--address` are no more supported
 
 ### Added
 
