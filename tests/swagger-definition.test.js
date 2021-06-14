@@ -20,23 +20,55 @@ const { test } = require('tap')
 const { name, description, version } = require('../package.json')
 const swaggerDefinition = require('../lib/swagger-definition')
 
-test('Test the default returned swagger definition', (assert) => {
-  const swagger = swaggerDefinition()
+test('Test the default returned swagger definition', t => {
+  t.test('Default definition without any option', assert => {
+    const swagger = swaggerDefinition()
 
-  assert.strictSame(swagger, {
-    info: {
-      title: name,
-      description,
-      version,
-    },
-    consumes: ['application/json'],
-    produces: ['application/json'],
+    assert.strictSame(swagger, {
+      info: {
+        title: name,
+        description,
+        version,
+      },
+    })
+
+    assert.end()
   })
 
-  assert.end()
+  t.test('Default definition for OpenAPI 3', assert => {
+    const swagger = swaggerDefinition(undefined, 'openapi')
+
+    assert.strictSame(swagger, {
+      info: {
+        title: name,
+        description,
+        version,
+      },
+    })
+
+    assert.end()
+  })
+
+  t.test('Default definition for Swagger 2.0', assert => {
+    const swagger = swaggerDefinition(undefined, 'swagger')
+
+    assert.strictSame(swagger, {
+      info: {
+        title: name,
+        description,
+        version,
+      },
+      consumes: ['application/json'],
+      produces: ['application/json'],
+    })
+
+    assert.end()
+  })
+
+  t.end()
 })
 
-test('Test the default returned swagger definition', (assert) => {
+test('Test the custom returned swagger definition', (assert) => {
   const customDefintion = {
     info: {
       title: 'custom-title',
