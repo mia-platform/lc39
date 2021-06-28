@@ -33,6 +33,9 @@ module.exports = async function plugin(fastify, config) {
     reply.header('Content-Length', '')
     reply.send({ hi: 'there' })
   })
+  fastify.get('/items/:itemId', function emptyContentLength(request, reply) {
+    reply.send({ config })
+  })
 }
 
 module.exports.options = {
