@@ -1,7 +1,7 @@
 <!-- Please fill the following sections with the required information.
 Before submitting a new issue, please be sure to have the latest version of lc39 installed
 on your system and check again if it is already fixed/implemented. Thank you for your time! -->
-## The feauture or bug you are proposing
+## The feature or bug you are proposing
 <!-- replace me -->
 
 ## The description of the bug or the rationale of your proposal
