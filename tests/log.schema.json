@@ -31,7 +31,13 @@
     "url": {
       "type": "object",
       "properties": {
-        "path": { "type": "string" }
+        "path": { "type": "string" },
+        "params": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
       }
     },
     "host": {

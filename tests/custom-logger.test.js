@@ -60,7 +60,7 @@ test('Test generation custom logger default options', assert => {
   assert.end()
 })
 
-test('Test generation custom logger default options', assert => {
+test('Test generation custom logger custom options', assert => {
   const options = {
     logLevel: 'debug',
     redact: 'ignoredValue',
