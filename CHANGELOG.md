@@ -11,10 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - new fields params in `url` field in incoming request and request completed logs
 ### Changed
 
-- The used OpenAPI version is picked from the environment variable `OPENAPI_SPECIFICATION`. Values can be
+- The used OpenAPI version is picked from the service option `openApiSpecification` inside `swaggerDefinition`. Values can be
   - `'swagger'` for `Swagger 2.0`
   - `'openapi'` for `OpenAPI 3`
-  - if variable not set, `OpenAPI 3` is default
+  - if the option is not specified, `OpenAPI 3` is default
 
 ## v4.0.0 - 2021-04-20
 

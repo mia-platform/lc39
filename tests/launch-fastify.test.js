@@ -64,6 +64,10 @@ test('Test Fastify creation', async t => {
     assert.strictSame(serverAddress.address, '0.0.0.0')
     assert.strictSame(fastifyInstance.log.level, options.logLevel)
 
+    const response = await fastifyInstance.inject('/documentation/json')
+    const payload = JSON.parse(response.payload)
+    assert.ok(payload.openapi)
+
     fastifyInstance.close(() => {
       assert.end()
     })
@@ -73,16 +77,19 @@ test('Test Fastify creation', async t => {
     const options = {
       logLevel: 'silent',
       port: 3000,
-      envPath: './tests/test-swagger.env',
     }
 
-    const fastifyInstance = await launch('./tests/modules/correct-module', options)
+    const fastifyInstance = await launch('./tests/modules/correct-module-swagger', options)
     assert.ok(fastifyInstance)
 
     const serverAddress = fastifyInstance.server.address()
     assert.strictSame(serverAddress.port, 3000)
     assert.strictSame(serverAddress.address, '0.0.0.0')
     assert.strictSame(fastifyInstance.log.level, options.logLevel)
+
+    const response = await fastifyInstance.inject('/documentation/json')
+    const payload = JSON.parse(response.payload)
+    assert.ok(payload.swagger)
 
     fastifyInstance.close(() => {
       assert.end()

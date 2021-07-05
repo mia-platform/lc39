@@ -99,9 +99,15 @@ module.exports.getMetrics = function getMetrics(prometheusClient) {
 
 ## Exposed Swagger Documentation
 
-By default lc39 will import the [`fastify-swagger`][fastify-swagger] module for exposing the service documentation.
-By default lc39 will expose a swagger following the OpenAPI 3 specification; to expose a swagger following the Swagger 2.0 specification add the environment variable `OPENAPI_SPECIFICATION` valued as `'swagger'`.
-If you want to customize the generated [OpenAPI][openapi] file, you can add the following object export
+By default lc39 will import the [`fastify-swagger`][fastify-swagger] module for exposing the service documentation following the OpenAPI 3 specification. To expose them following the Swagger 2.0 specification the service should export `swaggerDefinition` with `openApiSpecification` valued as `'swagger'`.
+
+```javascript
+module.exports.swaggerDefinition = {
+  openApiSpecification: 'swagger',
+}
+```
+
+If you want to customize more the generated [OpenAPI][openapi] file, you can add the following object export
 that can be accepted for the dynamic implementation of `fastify-swagger`.
 
 ```javascript
