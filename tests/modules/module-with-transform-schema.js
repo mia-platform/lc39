@@ -35,3 +35,7 @@ module.exports.transformSchemaForSwagger = (schema) => {
     },
   }
 }
+
+module.exports.swaggerDefinition = {
+  openApiSpecification: 'swagger',
+}
