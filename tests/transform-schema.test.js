@@ -24,7 +24,6 @@ const launch = require('../lib/launch-fastify')
 test('transformSchemaForSwagger', async t => {
   const options = {
     logLevel: 'silent',
-    envPath: './tests/test-swagger.env',
   }
 
   const fastifyInstance = await launch('./tests/modules/module-with-transform-schema', options)
