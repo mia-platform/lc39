@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - new fields params in `url` field in incoming request and request completed logs
+- add additional information to response logs
 
 ## v4.0.0 - 2021-04-20
 
