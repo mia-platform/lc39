@@ -36,7 +36,7 @@ module.exports = async function plugin(fastify, config) {
   fastify.get('/items/:itemId', function emptyContentLength(request, reply) {
     reply.send({ config })
   })
-  fastify.post('/items/:itemId', function emptyContentLength(request, reply) {
+  fastify.post('/items/:itemId', function handler(request, reply) {
     reply.additionalRequestCompletedLogInfo = {
       custom: 'property',
     }
