@@ -347,6 +347,94 @@ test('Test custom serializers', t => {
     await fastifyInstance.close()
   })
 
+  t.test('fields values - with custom properties on response log', async assert => {
+    assert.plan(18)
+    const stream = split(JSON.parse)
+
+    stream.once('data', () => {
+      stream.once('data', line => {
+        assert.equal(line.reqId, '34')
+        assert.equal(line.level, 10)
+        assert.notOk(line.req)
+        assert.strictSame(line.http, {
+          request: {
+            method: 'POST',
+            userAgent: { original: 'lightMyRequest' },
+          },
+        })
+        assert.strictSame(line.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+        assert.strictSame(line.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
+
+        stream.once('data', secondLine => {
+          assert.equal(line.reqId, '34')
+          assert.equal(secondLine.level, 30)
+          assert.notOk(secondLine.res)
+          assert.ok(secondLine.responseTime)
+          assert.strictSame(secondLine.http, {
+            request: {
+              method: 'POST',
+              userAgent: { original: 'lightMyRequest' },
+            },
+            response: {
+              statusCode: 200,
+              body: { bytes: 18 },
+            },
+          })
+          assert.strictSame(secondLine.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+          assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
+          assert.strictSame(secondLine.custom, 'property')
+
+          stream.once('data', () => {
+            stream.once('data', thirdLine => {
+              assert.ok(thirdLine.responseTime)
+              assert.strictSame(thirdLine.http, {
+                request: {
+                  method: 'GET',
+                  userAgent: { original: 'lightMyRequest' },
+                },
+                response: {
+                  statusCode: 200,
+                  body: { bytes: 13 },
+                },
+              })
+              assert.strictSame(thirdLine.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+              assert.strictSame(thirdLine.custom, undefined)
+
+              assert.end()
+            })
+          })
+        })
+      })
+    })
+
+    const fastifyInstance = await launch('./tests/modules/correct-module', {
+      logLevel: 'trace',
+      stream,
+    })
+    await fastifyInstance.inject({
+      method: 'POST',
+      url: '/items/my-item',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+        'x-request-id': '34',
+      },
+    })
+    await fastifyInstance.inject({
+      method: 'GET',
+      url: '/items/my-item',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+        'x-request-id': '34',
+      },
+    })
+
+    await fastifyInstance.close()
+  })
+
   t.end()
 })
 
