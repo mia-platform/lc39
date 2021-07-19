@@ -13,11 +13,14 @@ This field must be an object, and will be added to the request completed log.
 For example: 
 
 ```js
-fastify.post('/items/:itemId', function handler(request, reply) {
-  reply.additionalRequestCompletedLogInfo = {
-    custom: 'property',
+fastify.post('/items/:itemId', {
+  onRequest: function (req, reply, done) {
+    reply.additionalRequestCompletedLogInfo = {
+      custom: 'property',
+    }
+    done()
   }
-
+}, function handler(request, reply) {
   reply.send({ created: 'true' })
 })
 ```
