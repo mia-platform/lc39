@@ -347,6 +347,97 @@ test('Test custom serializers', t => {
     await fastifyInstance.close()
   })
 
+  t.test('fields values - with custom properties on response log', async assert => {
+    assert.plan(20)
+    const stream = split(JSON.parse)
+
+    stream.once('data', () => {
+      stream.once('data', postIncomingRequestLog => {
+        assert.equal(postIncomingRequestLog.reqId, '34')
+        assert.equal(postIncomingRequestLog.level, 10)
+        assert.notOk(postIncomingRequestLog.req)
+        assert.strictSame(postIncomingRequestLog.http, {
+          request: {
+            method: 'POST',
+            userAgent: { original: 'lightMyRequest' },
+          },
+        })
+        assert.strictSame(postIncomingRequestLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+        assert.strictSame(postIncomingRequestLog.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
+
+        stream.once('data', postRequestCompletedLog => {
+          assert.equal(postRequestCompletedLog.reqId, '34')
+          assert.equal(postRequestCompletedLog.level, 30)
+          assert.notOk(postRequestCompletedLog.res)
+          assert.ok(postRequestCompletedLog.responseTime)
+          assert.strictSame(postRequestCompletedLog.http, {
+            request: {
+              method: 'POST',
+              userAgent: { original: 'lightMyRequest' },
+            },
+            response: {
+              statusCode: 200,
+              body: { bytes: 18 },
+            },
+          })
+          assert.strictSame(postRequestCompletedLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+          assert.strictSame(postRequestCompletedLog.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
+          assert.strictSame(postRequestCompletedLog.custom, 'property')
+
+          stream.once('data', getIncomingRequestLog => {
+            assert.equal(getIncomingRequestLog.reqId, '35')
+
+            stream.once('data', getRequestCompletedLog => {
+              assert.equal(getIncomingRequestLog.reqId, '35')
+              assert.ok(getRequestCompletedLog.responseTime)
+              assert.strictSame(getRequestCompletedLog.http, {
+                request: {
+                  method: 'GET',
+                  userAgent: { original: 'lightMyRequest' },
+                },
+                response: {
+                  statusCode: 200,
+                  body: { bytes: 13 },
+                },
+              })
+              assert.strictSame(getRequestCompletedLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+              assert.strictSame(getRequestCompletedLog.custom, undefined)
+
+              assert.end()
+            })
+          })
+        })
+      })
+    })
+
+    const fastifyInstance = await launch('./tests/modules/correct-module', {
+      logLevel: 'trace',
+      stream,
+    })
+    await fastifyInstance.inject({
+      method: 'POST',
+      url: '/items/my-item',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+        'x-request-id': '34',
+      },
+    })
+    await fastifyInstance.inject({
+      method: 'GET',
+      url: '/items/my-item',
+      headers: {
+        'x-forwarded-for': 'testIp',
+        'host': 'testHost:3000',
+        'x-forwarded-host': 'testForwardedHost',
+        'x-request-id': '35',
+      },
+    })
+
+    await fastifyInstance.close()
+  })
+
   t.end()
 })
 
