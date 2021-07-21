@@ -47,7 +47,6 @@
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.1",
     "fastify-swagger": "^4.6.0",
-    "lodash": "^4.17.21",
     "make-promises-safe": "^5.1.0",
     "prom-client": "^13.1.0"
   },
