@@ -78,7 +78,8 @@ logs during the deployment.
 By default `lc39` exposes `/-/metrics` endpoint for [Prometheus](https://prometheus.io/). The response body contains process, garbage collection and http information
 
 Anyway you can define your custom metrics in the following way:
-```javascript
+
+```js
 module.exports = async function plugin(fastify) {
   fastify.get('/', function (request, reply) {
     this.customMetrics.myCounter.inc()
@@ -93,6 +94,16 @@ module.exports.getMetrics = function getMetrics(prometheusClient) {
   })
   return {
     myCounter,
+  }
+}
+```
+
+It is possible to add options to the metrics plugin to change the default behavior. lc39 uses [fastify-metrics](https://github.com/SkeLLLa/fastify-metrics) under the hood, so it is possible to configure all the properties except the exposed endpoint.
+
+```js
+module.exports.options = {
+  metrics: {
+    enableRouteMetrics: false
   }
 }
 ```
