@@ -98,7 +98,7 @@ module.exports.getMetrics = function getMetrics(prometheusClient) {
 }
 ```
 
-It is possible to add options to the metrics plugin to change the default behavior. lc39 use [fastify-metrics](https://github.com/SkeLLLa/fastify-metrics) under the hood, so it is possible to configure all the properties except the exposed endpoint.
+It is possible to add options to the metrics plugin to change the default behavior. lc39 uses [fastify-metrics](https://github.com/SkeLLLa/fastify-metrics) under the hood, so it is possible to configure all the properties except the exposed endpoint.
 
 ```js
 module.exports.options = {
