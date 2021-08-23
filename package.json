@@ -42,18 +42,18 @@
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
-    "fastify": "^3.18.0",
-    "fastify-metrics": "^7.1.0",
+    "fastify": "^3.20.2",
+    "fastify-metrics": "^7.2.3",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.1",
-    "fastify-swagger": "^4.6.0",
+    "fastify-swagger": "^4.9.0",
     "make-promises-safe": "^5.1.0",
-    "prom-client": "^13.1.0"
+    "prom-client": "^13.2.0"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
-    "ajv": "^6.12.5",
-    "eslint": "^7.24.0",
+    "ajv": "^6.12.6",
+    "eslint": "^7.32.0",
     "split2": "^3.2.2",
     "tap": "^15.0.9"
   },
