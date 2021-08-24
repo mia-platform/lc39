@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@mia-platform/lc39": "mia-platform/lc39",
-    "fastify-env": "^1.0.1"
+    "fastify-env": "^2.1.1"
   },
   "engines": {
     "node": ">=8"

@@ -84,3 +84,37 @@ test('should not expose /-/metrics if exposeMetrics is false', async assert => {
 
   assert.end()
 })
+
+test('lc39 disable route metrics if passed as options', async assert => {
+  const options = { logLevel: 'silent' }
+
+  const fastifyInstance = await launch('./tests/modules/custom-metrics-with-options', options)
+  assert.teardown(() => fastifyInstance.close())
+
+  let response = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/',
+  })
+  assert.strictSame(response.statusCode, 200)
+  response = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/?label=my-label',
+  })
+  assert.strictSame(response.statusCode, 200)
+
+  const metricsResponse = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/-/metrics',
+  })
+
+  assert.strictSame(metricsResponse.statusCode, 200)
+  assert.strictSame(metricsResponse.headers['content-type'], 'text/plain')
+  assert.ok(Number(metricsResponse.headers['content-length']) > 10, 'No metrics are exposed')
+
+  assert.ok(/custom_metric 1/.test(metricsResponse.body), 'no metric found')
+  assert.ok(/custom_metric{label="my-label"} 1/.test(metricsResponse.body), 'no metric found')
+  assert.notOk(/http_request/.test(metricsResponse.body), 'unexpected metric found')
+
+  assert.end()
+})
+

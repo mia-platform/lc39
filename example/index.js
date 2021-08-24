@@ -23,7 +23,7 @@ const envSchema = {
   required: ['TEST_ENV'],
   properties: {
     TEST_ENV: { type: 'string', description: 'a test env variable' },
-    OPTIONAL_ENV: { type: 'number', decription: 'a test optional env variable', default: 100 },
+    OPTIONAL_ENV: { type: 'number', description: 'a test optional env variable', default: 100 },
   },
   additionalProperties: false,
 }
