@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `'openapi'` for `OpenAPI 3`
   - if the option is not specified, `OpenAPI 3` is default
 
+### Fixed
+
+- set the log level of route `/-/metrics` equal to the status routes
+
 ## v4.2.0 - 2021-07-29
 
 ### Added
