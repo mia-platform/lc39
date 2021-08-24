@@ -49,23 +49,54 @@ test('No throw for valid exported functions', assert => {
   assert.end()
 })
 
-test('Test Fastify creation', async assert => {
-  const options = {
-    logLevel: 'silent',
-    port: 3000,
-  }
+test('Test Fastify creation', async t => {
+  t.test('Expose OpenAPI 3 specification by default', async assert => {
+    const options = {
+      logLevel: 'silent',
+      port: 3000,
+    }
 
-  const fastifyInstance = await launch('./tests/modules/correct-module', options)
-  assert.ok(fastifyInstance)
+    const fastifyInstance = await launch('./tests/modules/correct-module', options)
+    assert.ok(fastifyInstance)
 
-  const serverAddress = fastifyInstance.server.address()
-  assert.strictSame(serverAddress.port, 3000)
-  assert.strictSame(serverAddress.address, '0.0.0.0')
-  assert.strictSame(fastifyInstance.log.level, options.logLevel)
+    const serverAddress = fastifyInstance.server.address()
+    assert.strictSame(serverAddress.port, 3000)
+    assert.strictSame(serverAddress.address, '0.0.0.0')
+    assert.strictSame(fastifyInstance.log.level, options.logLevel)
 
-  fastifyInstance.close(() => {
-    assert.end()
+    const response = await fastifyInstance.inject('/documentation/json')
+    const payload = JSON.parse(response.payload)
+    assert.ok(payload.openapi)
+
+    fastifyInstance.close(() => {
+      assert.end()
+    })
   })
+
+  t.test('Expose Swagger 2.0 specification', async assert => {
+    const options = {
+      logLevel: 'silent',
+      port: 3000,
+    }
+
+    const fastifyInstance = await launch('./tests/modules/correct-module-swagger', options)
+    assert.ok(fastifyInstance)
+
+    const serverAddress = fastifyInstance.server.address()
+    assert.strictSame(serverAddress.port, 3000)
+    assert.strictSame(serverAddress.address, '0.0.0.0')
+    assert.strictSame(fastifyInstance.log.level, options.logLevel)
+
+    const response = await fastifyInstance.inject('/documentation/json')
+    const payload = JSON.parse(response.payload)
+    assert.ok(payload.swagger)
+
+    fastifyInstance.close(() => {
+      assert.end()
+    })
+  })
+
+  t.end()
 })
 
 test('Test Fastify creation without exported options', async assert => {

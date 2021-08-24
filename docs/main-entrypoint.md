@@ -110,8 +110,15 @@ module.exports.options = {
 
 ## Exposed Swagger Documentation
 
-By default lc39 will import the [`fastify-swagger`][fastify-swagger] module for exposing the service documentation.
-If you want to customize the generated [OpenAPI][openapi] file, you can add the following object export
+By default lc39 will import the [`fastify-swagger`][fastify-swagger] module for exposing the service documentation following the OpenAPI 3 specification. In order to expose API documentation following the Swagger 2.0 specification the service should export `swaggerDefinition` with `openApiSpecification` valued as `'swagger'`.
+
+```javascript
+module.exports.swaggerDefinition = {
+  openApiSpecification: 'swagger',
+}
+```
+
+If you want to customize more the generated [OpenAPI][openapi] file, you can add the following object export
 that can be accepted for the dynamic implementation of `fastify-swagger`.
 
 ```javascript
