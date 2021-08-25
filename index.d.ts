@@ -30,7 +30,7 @@ declare namespace lc39 {
 
   interface launchOptions {
     prefix?: string,
-    logLevel?: string,
+    logLevel?: fastify.LogLevel,
     envVariables?: lc39.environmentSchema,
   }
 

@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support for **OpenAPI 3**
 
+### Changed
+- 
+
 ### **BREAKING CHANGES**
 
 - The used OpenAPI version is picked from the service option `openApiSpecification` inside `swaggerDefinition`. Values can be
