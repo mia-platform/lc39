@@ -22,6 +22,7 @@ const net = require('net')
 const { spawn } = require('child_process')
 const split = require('split2')
 const Ajv = require('ajv')
+const SwaggerParser = require('swagger-parser')
 
 const logSchema = require('./log.schema.json')
 
@@ -68,6 +69,8 @@ test('Test Fastify creation', async t => {
     const payload = JSON.parse(response.payload)
     assert.ok(payload.openapi)
 
+    await SwaggerParser.validate(payload)
+
     fastifyInstance.close(() => {
       assert.end()
     })
@@ -90,6 +93,8 @@ test('Test Fastify creation', async t => {
     const response = await fastifyInstance.inject('/documentation/json')
     const payload = JSON.parse(response.payload)
     assert.ok(payload.swagger)
+
+    await SwaggerParser.validate(payload)
 
     fastifyInstance.close(() => {
       assert.end()

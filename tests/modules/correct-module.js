@@ -43,6 +43,28 @@ module.exports = async function plugin(fastify, config) {
 
     reply.send({ created: 'true' })
   })
+
+  fastify.addSchema({
+    $id: 'foobar',
+    type: 'string',
+    enum: ['foo', 'bar'],
+  })
+  fastify.post('/with-schema', {
+    schema: {
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            foobar: { $ref: 'foobar#' },
+          },
+        },
+      },
+    },
+  }, async() => {
+    return {
+      foobar: 'foo',
+    }
+  })
 }
 
 module.exports.options = {
