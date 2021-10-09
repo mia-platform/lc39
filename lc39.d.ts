@@ -16,22 +16,6 @@
 
 import { LogLevel, FastifyInstance } from 'fastify'
 
-// declare namespace lc39 {
-
-//   interface environmentSchema {
-//     type: 'object',
-//     required?: string[],
-//     properties: object
-//   }
-
-//   interface launchOptions {
-//     prefix?: string,
-//     logLevel?: LogLevel,
-//     envVariables?: lc39.environmentSchema,
-//   }
-
-// }
-
 interface environmentSchema {
   type: 'object',
   required?: string[],
