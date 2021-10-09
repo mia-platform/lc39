@@ -28,6 +28,6 @@ interface launchOptions {
   envVariables?: environmentSchema,
 }
 
-declare function lc39(filePath:string, options: launchOptions): FastifyInstance
+declare function lc39(filePath:string, options?: launchOptions): FastifyInstance
 
 export default lc39
