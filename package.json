@@ -11,6 +11,7 @@
     "url": "https://github.com/mia-platform/lc39/issues",
     "email": "core@mia-platform.eu"
   },
+  "types": "lc39.d.ts",
   "license": "Apache-2.0",
   "author": "Mia Platform Core Team <core@mia-platform.eu>",
   "contributors": [
@@ -34,9 +35,10 @@
     "coverage": "npm run unit -- --coverage-report=text-summary",
     "postcoverage": "tap --coverage-report=html --no-browser",
     "lint": "eslint . --ignore-path .gitignore",
-    "test": "npm run lint && npm run unit && npm run checkonly",
+    "test": "npm run lint && npm run coverage && npm run test:types && npm run checkonly",
     "unit": "tap -b -o tap.log tests/*.test.js",
-    "version": "./scripts/update-version.sh ${npm_package_version} && git add CHANGELOG.md"
+    "version": "./scripts/update-version.sh ${npm_package_version} && git add CHANGELOG.md",
+    "test:types": "tsd"
   },
   "dependencies": {
     "commander": "^7.2.0",
@@ -49,7 +51,8 @@
     "fastify-swagger": "^4.12.2",
     "lodash.get": "^4.4.2",
     "make-promises-safe": "^5.1.0",
-    "prom-client": "^13.2.0"
+    "prom-client": "^13.2.0",
+    "tsd": "^0.17.0"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
