@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-import * as fastify from 'fastify'
+import { LogLevel, FastifyInstance } from 'fastify'
 
-export = lc39
-
-declare function launch(filePath:string, options: lc39.launchOptions): fastify.FastifyInstance
-
-declare namespace lc39 {
-
-  interface environmentSchema {
-    type: 'object',
-    required?: string[],
-    properties: object
-  }
-
-  interface launchOptions {
-    prefix?: string,
-    logLevel?: fastify.LogLevel,
-    envVariables?: lc39.environmentSchema,
-  }
-
+interface environmentSchema {
+  type: 'object',
+  required?: string[],
+  properties: object
 }
+
+interface launchOptions {
+  prefix?: string,
+  logLevel?: LogLevel,
+  envVariables?: environmentSchema,
+}
+
+declare function lc39(filePath:string, options?: launchOptions): FastifyInstance
+
+export default lc39
