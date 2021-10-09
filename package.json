@@ -51,7 +51,7 @@
     "fastify-swagger": "^4.12.2",
     "lodash.get": "^4.4.2",
     "make-promises-safe": "^5.1.0",
-    "prom-client": "^13.2.0",
+    "prom-client": "^14.0.0",
     "tsd": "^0.17.0"
   },
   "devDependencies": {
