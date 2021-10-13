@@ -52,7 +52,7 @@
     "lodash.get": "^4.4.2",
     "make-promises-safe": "^5.1.0",
     "prom-client": "^13.2.0",
-    "tsd": "^0.17.0"
+    "tsd": "^0.18.0"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
