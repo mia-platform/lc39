@@ -57,7 +57,7 @@
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
     "ajv": "^6.12.6",
-    "eslint": "^7.32.0",
+    "eslint": "^8.3.0",
     "split2": "^3.2.2",
     "swagger-parser": "^10.0.3",
     "tap": "^15.0.9"
