@@ -11,7 +11,7 @@ module.exports.options = {
   },
   trustProxy: '127.0.0.1',
   errorHandler: false,
-  swaggerRefResolver: {
+  oasRefResolver: {
     buildLocalReference(json, baseUri, fragment, i) {
       // your naming convention
     }
@@ -25,7 +25,7 @@ Instead you can customize the `pino` instance via the `logLevel` key and you can
 via the `redact` key. For this key the accepted values are listed [here][pino-redact-options].  
 You have the following additional keys:
 - `errorHandler` that is passed to the `fastify-sensible` plugin; its usage can be found [here][fastify-sensible-error-handler].
-- `swaggerRefResolver` that is passed to the `fastify-swagger` plugin as `refResolver`; its usage can be found [here][fastify-swagger-refs]. 
+- `oasRefResolver` that is passed to the `fastify-swagger` plugin as `refResolver`; its usage can be found [here][fastify-swagger-refs]. 
 
 [fastify-server-options]: https://github.com/fastify/fastify/blob/main/docs/Reference/Server.md
 [pino-redact-options]: https://github.com/pinojs/pino/blob/master/docs/redaction.md

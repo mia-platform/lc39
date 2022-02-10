@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Naming convention of shared schemas of the service are customized:
-  - the service can export the option `swaggerRefResolver` with the function `buildLocalReference` to customize the naming convention.
+  - the service can export the option `oasRefResolver` with the function `buildLocalReference` to customize the naming convention.
   - the default naming convention is `${NAME_OF_SERVICE}-${SCHEMA_ID}`.
 
 ## v5.0.0 - 2021-08-24
