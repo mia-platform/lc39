@@ -1,8 +1,5 @@
----
-id: development-affordance
-title: Development Affordance
-sidebar_label: Development-affordance
----
+# Development Affordance
+
 To aid you in the development and testing of your service locally on your machine we provide
 some affordances that you can use.
 

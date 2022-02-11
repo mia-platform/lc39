@@ -1,8 +1,5 @@
----
-id: service-options
-title: Service Options
-sidebar_label: Service-options
----
+# Service Options
+
 If you want to customize the Fastify instance over the default settings that **lc39** will set
 you can export a json object in your module:
 

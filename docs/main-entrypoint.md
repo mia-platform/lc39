@@ -1,8 +1,5 @@
----
-id: main-entrypoint
-title: Main Entrypoint
-sidebar_label: Main-entrypoint
----
+# Main Entrypoint
+
 **lc39** does some assumption on how the main entrypoint of your service can be layed out.  
 This is in order to correctly import and validate the functions and data passed to it and for correctly create
 and launch the Fastify instance.
