@@ -1,5 +1,8 @@
-# Main Entrypoint
-
+---
+id: main-entrypoint
+title: Main Entrypoint
+sidebar_label: Main-entrypoint
+---
 **lc39** does some assumption on how the main entrypoint of your service can be layed out.  
 This is in order to correctly import and validate the functions and data passed to it and for correctly create
 and launch the Fastify instance.
@@ -41,7 +44,7 @@ The second route can be used as a [`readinessProbe`][k8s-deployment-probes] for 
 As the first route, the default implementation of this endpoint will always respond
 `OK` status and the `200` `HTTP` code as soon as the service is up.
 
-The third route can be used as _check-up_ route, to verify if all the functionalities of the service are available or not. The purpose of this route should be to check the availability of all the dependencies of the service and reply with a _check-up_ of the service.<br>As the others, the default implementation of this endpoint will always respond
+The third route can be used as _check-up_ route, to verify if all the functionalities of the service are available or not. The purpose of this route should be to check the availability of all the dependencies of the service and reply with a _check-up_ of the service.<br />As the others, the default implementation of this endpoint will always respond
 `OK` status and the `200` `HTTP` code as soon as the service is up.
 
 The default implementations are a nice placeholder until you can add some logic tied to your service.  
@@ -67,7 +70,7 @@ These functions must return an object that will customize the response of the se
 is `statusOK` that contains a boolean; `true` for returning a `200` response and `false` for returning `503`.  
 Additionally you can add any property you want and it will be appended to the response. If you add the `name`
 and/or `version` key your value will override the default ones that will be parsed from `package.json`.  
-Both of these entpoint conform to the JSON schema that you can find [here][status-routes-schema].
+Both of these endpoints conform to the JSON schema that you can find [here][status-routes-schema].
 
 **BE AWARE**  
 Both of this endpoints are set to permanently run on log level `silent` for decreasing the amount of noise in the
@@ -170,6 +173,6 @@ The `schema` parameter is the schema object set to the route.
 [fastify-sensible]: https://github.com/fastify/fastify-sensible
 [k8s]: https://kubernetes.io/
 [k8s-deployment-probes]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-[status-routes-schema]: ../lib/status-routes.schema.json
+[status-routes-schema]: https://github.com/mia-platform/lc39/blob/master/lib/status-routes.schema.json
 [fastify-swagger]: https://github.com/fastify/fastify-swagger
 [openapi]: https://swagger.io/specification/

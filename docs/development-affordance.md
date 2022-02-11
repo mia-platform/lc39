@@ -1,5 +1,8 @@
-# Development Affordance
-
+---
+id: development-affordance
+title: Development Affordance
+sidebar_label: Development-affordance
+---
 To aid you in the development and testing of your service locally on your machine we provide
 some affordances that you can use.
 
@@ -61,8 +64,8 @@ module.exports = async function service(fastify, options) {
 ```
 
 As you can see, the only difference is that we pass the `options` object as the base data for `fastify-env`.
-In doing so, we will merge it with the `ENV` variables loaded in runtime giving the formers precedence over
-the latters.  
+In doing so, we will merge it with the `ENV` variables loaded in runtime giving the former precedence over
+the latter.  
 Running the service normally will not change anything, because the options object will not be populated, but
 you can use it during your tests for changing them very easily:
 

@@ -203,7 +203,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `errorHandler` options for customize `fastify-sensible`
-  auto handling of uncatched errors
+  auto handling of non caught errors
 
 ## v1.0.0 - 2019-04-09
 
@@ -236,7 +236,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed `ENV` injection in `testLaunch` function
 - Fixed override of default values in `testLaunch` function
-- Relincesed under Apache 2.0 from MIT
+- Relicensed under Apache 2.0 from MIT
 
 ## v0.2.0 - 2019-01-16
 
@@ -246,4 +246,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v0.1.0 - 2019-01-08
 
-- Initial relase
+- Initial release
