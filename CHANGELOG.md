@@ -6,11 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Added
 
-- Naming convention of shared schemas of the service are customized:
-  - the service can export the option `oasRefResolver` with the function `buildLocalReference` to customize the naming convention.
-  - the default naming convention is `${NAME_OF_SERVICE}-${SCHEMA_ID}`.
+- Naming convention of shared schemas can be customized using the option `oasRefResolver` with the function `buildLocalReference`. If the option is not exported, the `fastify-swagger` default is used.
 
 ## v5.0.0 - 2021-08-24
 
