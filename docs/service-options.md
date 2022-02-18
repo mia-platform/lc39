@@ -11,6 +11,11 @@ module.exports.options = {
   },
   trustProxy: '127.0.0.1',
   errorHandler: false,
+  oasRefResolver: {
+    buildLocalReference(json, baseUri, fragment, i) {
+      // your naming convention
+    }
+  }
 }
 ```
 
@@ -18,9 +23,11 @@ The values supported in this object are the supported keys and value for the Fas
 that you can find at this [link][fastify-server-options]; with the exception of the `logger` parameter.  
 Instead you can customize the `pino` instance via the `logLevel` key and you can modify the redaction rules
 via the `redact` key. For this key the accepted values are listed [here][pino-redact-options].  
-You have an additional key, `errorHandler` that is passed to the `fastify-sensible` plugin;
-its usage can be found [here][fastify-sensible-error-handler].
+You have the following additional keys:
+- `errorHandler` that is passed to the `fastify-sensible` plugin; its usage can be found [here][fastify-sensible-error-handler].
+- `oasRefResolver` that is passed to the `fastify-swagger` plugin as `refResolver`; its usage can be found [here][fastify-swagger-refs]. 
 
-[fastify-server-options]: https://github.com/fastify/fastify/blob/master/docs/Server.md
+[fastify-server-options]: https://github.com/fastify/fastify/blob/main/docs/Reference/Server.md
 [pino-redact-options]: https://github.com/pinojs/pino/blob/master/docs/redaction.md
 [fastify-sensible-error-handler]: https://github.com/fastify/fastify-sensible#custom-error-handler
+[fastify-swagger-refs]: https://github.com/fastify/fastify-swagger#managing-your-refs

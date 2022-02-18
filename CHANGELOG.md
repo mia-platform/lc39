@@ -6,9 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+
 ### Fixes
 
 - Fixed typos and changed docs links inside `docs` directory
+
+## v5.1.0 - 2022-02-15
+
+### Added
+
+- Naming convention of shared schemas can be customized using the option `oasRefResolver` with the function `buildLocalReference`. If the option is not exported, the `fastify-swagger` default is used.
 
 ## v5.0.0 - 2021-08-24
 
