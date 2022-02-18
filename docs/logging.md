@@ -1,8 +1,8 @@
 # Logging
 
-The library generates logs following [Mia-Platform logging guidelines](https://docs.mia-platform.eu/docs/development_suite/monitoring-dashboard/dev_ops_guide/log).
+The library generates logs following [Mia-Platform logging guidelines](https://docs.mia-platform.eu/docs/development_suite/monitoring/monitoring#pod-logs).
 
-For a json schema example check [test log schema file](../tests/log.schema.json)
+For a json schema example check [test log schema file](https://github.com/mia-platform/lc39/blob/master/tests/log.schema.json)
 
 ## Additional information to response logs
 
