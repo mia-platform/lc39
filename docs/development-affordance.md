@@ -5,7 +5,7 @@ some affordances that you can use.
 
 ## `ENV` Variables for Local Runs
 
-If you need to use some `ENV` variables inside your service to customize its behaviour you can use the `--env`
+If you need to use some `ENV` variables inside your service to customize its behavior you can use the `--env`
 flag and pass a [`.env` file path][dotenv-file-syntax] to it.  
 For example you can add this script to your `package.json`:
 
