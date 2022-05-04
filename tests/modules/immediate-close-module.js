@@ -20,6 +20,7 @@
 
 module.exports = async function plugin(fastify, config) {
   fastify.get('/', function returnConfig(request, reply) {
+    console.log('FOOOOOOO')
     fastify.close()
     reply.send(config)
   })

@@ -18,7 +18,7 @@
 
 const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
-const net = require('net')
+const net = require('node:net')
 const { spawn } = require('child_process')
 const split = require('split2')
 const Ajv = require('ajv')
@@ -552,11 +552,15 @@ test('Current opened connection should continue to work after closing and return
   launch('./tests/modules/immediate-close-module', {}).then(
     (fastifyInstance) => {
       const { port } = fastifyInstance.server.address()
+      console.log('PORT', port)
 
-      const client = net.createConnection({ port }, () => {
+      const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
+        console.log('CLIENT', port)
+
         client.write('GET / HTTP/1.1\r\n\r\n')
 
         client.once('data', data => {
+          console.log('DATA', data.toString())
           assert.match(data.toString(), /Connection:\s*keep-alive/i)
           assert.match(data.toString(), /200 OK/i)
 
@@ -583,7 +587,7 @@ test('Current opened connection should continue to work after closing and after 
     (fastifyInstance) => {
       const { port } = fastifyInstance.server.address()
 
-      const client = net.createConnection({ port }, () => {
+      const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
         client.write('GET / HTTP/1.1\r\n\r\n')
 
         client.once('data', data => {
@@ -614,7 +618,7 @@ test('Current opened connection should not accept new incoming connections', ass
   launch('./tests/modules/immediate-close-module', {}).then(
     (fastifyInstance) => {
       const { port } = fastifyInstance.server.address()
-      const client = net.createConnection({ port }, () => {
+      const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
         client.write('GET / HTTP/1.1\r\n\r\n')
 
         const newConnection = net.createConnection({ port })
