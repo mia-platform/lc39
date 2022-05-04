@@ -63,7 +63,7 @@
     "tsd": "^0.20.0"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "eslintConfig": {
     "extends": "@mia-platform/eslint-config-mia"
