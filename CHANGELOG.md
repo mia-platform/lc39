@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### BREAKING CHANGES
 
-- dropped support to node v10
+- dropped support to node v10.x, v12.x
 - upgrade dependencies
   - metrics: upgrade fastify-metrics to v8 (from v7) and prom-client to v14 (from v13).
   - env vars: upgrade dotenv to v16 (from v8) and dotenv-expand to v8 (from v5).
