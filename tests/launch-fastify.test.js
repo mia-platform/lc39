@@ -18,7 +18,7 @@
 
 const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
-const net = require('node:net')
+const net = require('net')
 const { spawn } = require('child_process')
 const split = require('split2')
 const Ajv = require('ajv')
