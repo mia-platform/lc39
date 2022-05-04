@@ -51,8 +51,7 @@
     "fastify-swagger": "^4.12.2",
     "lodash.get": "^4.4.2",
     "make-promises-safe": "^5.1.0",
-    "prom-client": "^13.2.0",
-    "tsd": "^0.19.1"
+    "prom-client": "^13.2.0"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
@@ -60,7 +59,8 @@
     "eslint": "^8.14.0",
     "split2": "^4.1.0",
     "swagger-parser": "^10.0.3",
-    "tap": "^16.1.0"
+    "tap": "^16.1.0",
+    "tsd": "^0.20.0"
   },
   "engines": {
     "node": ">=10"
