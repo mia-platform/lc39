@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### BREAKING CHANGES
+
+- dropped support to node v10
+
 ### Changed
 
 - change fastify-sensible --> @fastify/sensible
