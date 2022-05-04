@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+
+- change fastify-sensible --> @fastify/sensible
+
 ### Test
 
 - Add CI workflow to support node v16 and v18
@@ -13,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixes
 
 - Fixed typos and changed docs links inside `docs` directory
+- fix log schema
+
+### Updates
+
+- update dev dependencies
 
 ## v5.1.0 - 2022-02-15
 
