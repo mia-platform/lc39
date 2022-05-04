@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Test
+
+- Add CI workflow to support node v16 and v18
 
 ### Fixes
 
