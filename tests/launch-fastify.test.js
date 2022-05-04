@@ -552,15 +552,11 @@ test('Current opened connection should continue to work after closing and return
   launch('./tests/modules/immediate-close-module', {}).then(
     (fastifyInstance) => {
       const { port } = fastifyInstance.server.address()
-      console.log('PORT', port)
 
       const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-        console.log('CLIENT', port)
-
         client.write('GET / HTTP/1.1\r\n\r\n')
 
         client.once('data', data => {
-          console.log('DATA', data.toString())
           assert.match(data.toString(), /Connection:\s*keep-alive/i)
           assert.match(data.toString(), /200 OK/i)
 
