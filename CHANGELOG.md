@@ -9,6 +9,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### BREAKING CHANGES
 
 - dropped support to node v10
+- upgrade dependencies
+  - metrics: upgrade fastify-metrics to v8 (from v7) and prom-client to v14 (from v13).
+  - env vars: upgrade dotenv to v16 (from v8) and dotenv-expand to v8 (from v5).
+  - expose API docs: fastify-swagger to @fastify/swagger v6 (from v4)
+  - changed `transformSchemaForSwagger` function interface (input and output params) to be equal to the transform interface exposed by `@fastify/swagger`.
+
+  Before:
+
+  ```js
+    module.exports.transformSchemaForSwagger = (schema) => {
+      const {
+        querystring,
+        ...rest
+      }
+      const converted = {...rest}
+      if (querystring) {
+        converted.querystring = convertQuerystringSchema(querystring)
+      }
+      return converted
+    }
+  ```
+
+  After:
+
+  ```js
+    module.exports.transformSchemaForSwagger = ({schema, url}) => {
+      const {
+        querystring,
+        ...rest
+      }
+      const converted = {...rest}
+      if (querystring) {
+        converted.querystring = convertQuerystringSchema(querystring)
+      }
+      return {
+        schema: converted,
+        url
+      }
+    }
+  ```
 
 ### Changed
 
