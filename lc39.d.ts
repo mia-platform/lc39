@@ -16,18 +16,11 @@
 
 import { LogLevel, FastifyInstance } from 'fastify'
 
-interface environmentSchema {
-  type: 'object',
-  required?: string[],
-  properties: object
-}
-
 interface launchOptions {
-  prefix?: string,
-  logLevel?: LogLevel,
-  envVariables?: environmentSchema,
+  logLevel?: LogLevel | 'silent',
+  envVariables?: Record<string, string>,
 }
 
-declare function lc39(filePath:string, options?: launchOptions): FastifyInstance
+declare function lc39(filePath:string, options?: launchOptions): Promise<FastifyInstance>
 
 export default lc39
