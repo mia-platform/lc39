@@ -18,6 +18,8 @@
 
 'use strict'
 
+const { defaultRedactionRules } = require('../../lib/custom-logger')
+
 module.exports = async function plugin(fastify, config) {
   fastify.get('/', function returnConfig(request, reply) {
     reply.send({ config })
@@ -65,12 +67,19 @@ module.exports = async function plugin(fastify, config) {
       foobar: 'foo',
     }
   })
+
+  fastify.post('/with-logs', function handler(request, reply) {
+    this.log.info({ headers: request.headers, requestBody: request.body })
+    reply.send({})
+  })
 }
+
+const redactionRules = defaultRedactionRules()
 
 module.exports.options = {
   redact: {
-    paths: ['supersecret', 'notread[*].here'],
-    censor: '[YOUTRIED]',
+    paths: ['supersecret', 'notread[*].here', ...redactionRules.paths],
+    censor: redactionRules.censor,
   },
   trustProxy: '127.0.0.1',
 }

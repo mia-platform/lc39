@@ -17,8 +17,11 @@
 'use strict'
 
 const { test } = require('tap')
+const { pick } = require('ramda')
+const { PassThrough } = require('stream')
 const customLogger = require('../lib/custom-logger')
 const { timestampFunction } = require('../lib/custom-logger')
+const launch = require('../lib/launch-fastify')
 
 test('Test generation for custom logger', assert => {
   const moduleOptions = {}
@@ -46,12 +49,11 @@ test('Test generation custom logger default options', assert => {
     redact: {
       censor: '[REDACTED]',
       paths: [
-        'email',
-        'password',
-        'username',
-        '[*].email',
-        '[*].password',
-        '[*].username',
+        'email', '[*].email',
+        'password', '[*].password',
+        'username', '[*].username',
+        'authorization', '[*].authorization',
+        'cookie', '[*].cookie',
       ],
     },
     timestamp: timestampFunction,
@@ -93,5 +95,49 @@ test('Test timestamp generation in milliseconds', assert => {
 
   assert.ok(dateFromTimestamp.getFullYear() >= recentYear)
 
+  assert.end()
+})
+
+test('Test redacted values', async assert => {
+  const data = []
+  const logStream = new PassThrough()
+    .on('data', (streamData) => {
+      data.push(Buffer.from(streamData, 'utf8').toString())
+    })
+
+  const options = {
+    logLevel: 'trace',
+    port: 3002,
+    stream: logStream,
+  }
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.ok(fastifyInstance)
+
+  await fastifyInstance.inject({
+    method: 'POST',
+    url: `/with-logs`,
+    headers: {
+      authorization: '1234567890',
+      cookie: 'sid=1234567890',
+    },
+    payload: {
+      username: 'username',
+      password: 'password',
+      email: 'email@email.com',
+    },
+  })
+
+
+  await fastifyInstance.close()
+  const logs = data.reduce((acc, log) => {
+    const parseLog = JSON.parse(log)
+    const pickedValues = pick(['headers', 'requestBody'], parseLog)
+    if (Object.keys(pickedValues).length === 0) {
+      return acc
+    }
+    return [...acc, pick(['headers', 'requestBody'], parseLog)]
+  }, [])
+
+  assert.matchSnapshot(logs)
   assert.end()
 })
