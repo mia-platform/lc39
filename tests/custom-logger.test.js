@@ -19,7 +19,7 @@
 const { test } = require('tap')
 const { PassThrough } = require('stream')
 const customLogger = require('../lib/custom-logger')
-const { timestampFunction } = require('../lib/custom-logger')
+const { timestampFunction, logDefaultRedactionRules } = require('../lib/custom-logger')
 const launch = require('../lib/launch-fastify')
 
 test('Test generation for custom logger', assert => {
@@ -45,16 +45,7 @@ test('Test generation custom logger default options', assert => {
   const pinoOptions = customLogger.pinoOptions(moduleOptions, options)
   assert.strictSame(pinoOptions, {
     level: 'info',
-    redact: {
-      censor: '[REDACTED]',
-      paths: [
-        'email', '[*].email',
-        'password', '[*].password',
-        'username', '[*].username',
-        'authorization', '[*].authorization',
-        'cookie', '[*].cookie',
-      ],
-    },
+    redact: logDefaultRedactionRules().redact,
     timestamp: timestampFunction,
   })
 
