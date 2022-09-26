@@ -18,7 +18,7 @@
 
 'use strict'
 
-const { defaultRedactionRules } = require('../../lib/custom-logger')
+const { logDefaultRedactionRules } = require('../../lib/custom-logger')
 
 module.exports = async function plugin(fastify, config) {
   fastify.get('/', function returnConfig(request, reply) {
@@ -74,7 +74,7 @@ module.exports = async function plugin(fastify, config) {
   })
 }
 
-const redactionRules = defaultRedactionRules()
+const redactionRules = logDefaultRedactionRules()
 
 module.exports.options = {
   redact: {
