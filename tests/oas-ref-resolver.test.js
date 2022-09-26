@@ -164,6 +164,15 @@ function getExpectedDefaultSchema() {
           },
         },
       },
+      '/with-logs': {
+        post: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+      },
     },
   }
 }
