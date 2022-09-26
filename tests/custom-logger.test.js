@@ -45,7 +45,7 @@ test('Test generation custom logger default options', assert => {
   const pinoOptions = customLogger.pinoOptions(moduleOptions, options)
   assert.strictSame(pinoOptions, {
     level: 'info',
-    redact: logDefaultRedactionRules().redact,
+    redact: logDefaultRedactionRules(),
     timestamp: timestampFunction,
   })
 
