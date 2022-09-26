@@ -17,7 +17,6 @@
 'use strict'
 
 const { test } = require('tap')
-const { pick } = require('ramda')
 const { PassThrough } = require('stream')
 const customLogger = require('../lib/custom-logger')
 const { timestampFunction } = require('../lib/custom-logger')
@@ -131,11 +130,11 @@ test('Test redacted values', async assert => {
   await fastifyInstance.close()
   const logs = data.reduce((acc, log) => {
     const parseLog = JSON.parse(log)
-    const pickedValues = pick(['headers', 'requestBody'], parseLog)
-    if (Object.keys(pickedValues).length === 0) {
+    const pickedValues = { headers: parseLog.headers, requestBody: parseLog.requestBody }
+    if (!pickedValues.headers || !pickedValues.requestBody) {
       return acc
     }
-    return [...acc, pick(['headers', 'requestBody'], parseLog)]
+    return [...acc, pickedValues]
   }, [])
 
   assert.matchSnapshot(logs)
