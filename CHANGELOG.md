@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## v6.0.3 - 2022-09-29
+
 ### Added
 
 - added new redact `authorization` & `cookie` logs
