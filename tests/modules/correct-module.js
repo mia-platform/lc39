@@ -72,6 +72,15 @@ module.exports = async function plugin(fastify, config) {
     this.log.info({ headers: request.headers, requestBody: request.body })
     reply.send({})
   })
+
+  fastify.post('/with-logs-uppercase', function handler(request, reply) {
+    const headersToSend = {
+      Authorization: 'Bearer my token',
+      Cookie: request.headers.cookie,
+    }
+    this.log.info({ headersToSend })
+    reply.send({})
+  })
 }
 
 const redactionRules = logDefaultRedactionRules()
