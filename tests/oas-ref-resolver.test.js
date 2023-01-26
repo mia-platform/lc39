@@ -173,6 +173,15 @@ function getExpectedDefaultSchema() {
           },
         },
       },
+      '/with-logs-uppercase': {
+        post: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+      },
     },
   }
 }
