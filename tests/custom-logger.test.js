@@ -131,3 +131,46 @@ test('Test redacted values', async assert => {
   assert.matchSnapshot(logs)
   assert.end()
 })
+
+test('Test redacted values - uppercase headers', async assert => {
+  const data = []
+  const logStream = new PassThrough()
+    .on('data', (streamData) => {
+      data.push(Buffer.from(streamData, 'utf8').toString())
+    })
+
+  const options = {
+    logLevel: 'trace',
+    port: 3002,
+    stream: logStream,
+  }
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.ok(fastifyInstance)
+
+  await fastifyInstance.inject({
+    method: 'POST',
+    url: `/with-logs-uppercase`,
+    headers: {
+      authorization: '1234567890',
+      cookie: 'sid=1234567890',
+    },
+    payload: {
+      username: 'username',
+      password: 'password',
+      email: 'email@email.com',
+    },
+  })
+
+  await fastifyInstance.close()
+  const logs = data.reduce((acc, log) => {
+    const parseLog = JSON.parse(log)
+    const pickedValues = { headersToSend: parseLog.headersToSend }
+    if (!pickedValues.headersToSend) {
+      return acc
+    }
+    return [...acc, pickedValues]
+  }, [])
+
+  assert.matchSnapshot(logs)
+  assert.end()
+})

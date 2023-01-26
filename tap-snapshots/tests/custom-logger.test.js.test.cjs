@@ -5,6 +5,17 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
+exports[`tests/custom-logger.test.js TAP Test redacted values - uppercase headers > must match snapshot 1`] = `
+Array [
+  Object {
+    "headersToSend": Object {
+      "Authorization": "[REDACTED]",
+      "Cookie": "[REDACTED]",
+    },
+  },
+]
+`
+
 exports[`tests/custom-logger.test.js TAP Test redacted values > must match snapshot 1`] = `
 Array [
   Object {
