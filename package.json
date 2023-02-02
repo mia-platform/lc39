@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@fastify/sensible": "^4.0.0",
-    "@fastify/swagger": "^6.0.1",
+    "@fastify/swagger": "^8.3.1",
     "commander": "^10.0.0",
     "dotenv": "^16.0.0",
     "dotenv-expand": "^8.0.3",
