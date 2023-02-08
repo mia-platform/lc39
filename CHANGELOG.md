@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
 ## v7.0.0-rc.0 - 2022-07-06
 
 In this version, is added the support for Fastify v4. To upgrade, read the [migration guide](https://www.fastify.io/docs/latest/Guides/Migration-Guide-V4/).
@@ -21,6 +23,18 @@ Metrics options are changed. Below there are the main changes. For other configu
 * `invalidRouteGroup` --> `invalidRouteGroup` (default changed from undefined to unknown)
 * histogram and summary are moved under `routeMetrics.overrides`
 * `blacklist` --> `routeMetrics.routeBlacklist`
+
+### Changed
+
+* migrated `@fastify/swagger` to `v8`, so that `@fastify/swagger-ui` package is now required to continue exposing Swagger UI
+* upgraded fastify plugins to support latest fastify version
+* upgraded library dependencies 
+
+## v6.0.3 - 2022-09-29
+
+### Added
+
+- added new redact `authorization` & `cookie` logs
 
 ## v6.0.2 - 2022-06-28
 

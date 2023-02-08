@@ -160,6 +160,24 @@ function getExpectedDefaultSchema() {
           },
         },
       },
+      '/with-logs': {
+        post: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+      },
+      '/with-logs-uppercase': {
+        post: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+      },
     },
   }
 }

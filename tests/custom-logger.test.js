@@ -17,8 +17,10 @@
 'use strict'
 
 const { test } = require('tap')
+const { PassThrough } = require('stream')
 const customLogger = require('../lib/custom-logger')
-const { timestampFunction } = require('../lib/custom-logger')
+const { timestampFunction, logDefaultRedactionRules } = require('../lib/custom-logger')
+const launch = require('../lib/launch-fastify')
 
 test('Test generation for custom logger', assert => {
   const moduleOptions = {}
@@ -43,17 +45,7 @@ test('Test generation custom logger default options', assert => {
   const pinoOptions = customLogger.pinoOptions(moduleOptions, options)
   assert.strictSame(pinoOptions, {
     level: 'info',
-    redact: {
-      censor: '[REDACTED]',
-      paths: [
-        'email',
-        'password',
-        'username',
-        '[*].email',
-        '[*].password',
-        '[*].username',
-      ],
-    },
+    redact: logDefaultRedactionRules(),
     timestamp: timestampFunction,
   })
 
@@ -93,5 +85,92 @@ test('Test timestamp generation in milliseconds', assert => {
 
   assert.ok(dateFromTimestamp.getFullYear() >= recentYear)
 
+  assert.end()
+})
+
+test('Test redacted values', async assert => {
+  const data = []
+  const logStream = new PassThrough()
+    .on('data', (streamData) => {
+      data.push(Buffer.from(streamData, 'utf8').toString())
+    })
+
+  const options = {
+    logLevel: 'trace',
+    port: 3002,
+    stream: logStream,
+  }
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.ok(fastifyInstance)
+
+  await fastifyInstance.inject({
+    method: 'POST',
+    url: `/with-logs`,
+    headers: {
+      authorization: '1234567890',
+      cookie: 'sid=1234567890',
+    },
+    payload: {
+      username: 'username',
+      password: 'password',
+      email: 'email@email.com',
+    },
+  })
+
+
+  await fastifyInstance.close()
+  const logs = data.reduce((acc, log) => {
+    const parseLog = JSON.parse(log)
+    const pickedValues = { headers: parseLog.headers, requestBody: parseLog.requestBody }
+    if (!pickedValues.headers || !pickedValues.requestBody) {
+      return acc
+    }
+    return [...acc, pickedValues]
+  }, [])
+
+  assert.matchSnapshot(logs)
+  assert.end()
+})
+
+test('Test redacted values - uppercase headers', async assert => {
+  const data = []
+  const logStream = new PassThrough()
+    .on('data', (streamData) => {
+      data.push(Buffer.from(streamData, 'utf8').toString())
+    })
+
+  const options = {
+    logLevel: 'trace',
+    port: 3002,
+    stream: logStream,
+  }
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.ok(fastifyInstance)
+
+  await fastifyInstance.inject({
+    method: 'POST',
+    url: `/with-logs-uppercase`,
+    headers: {
+      authorization: '1234567890',
+      cookie: 'sid=1234567890',
+    },
+    payload: {
+      username: 'username',
+      password: 'password',
+      email: 'email@email.com',
+    },
+  })
+
+  await fastifyInstance.close()
+  const logs = data.reduce((acc, log) => {
+    const parseLog = JSON.parse(log)
+    const pickedValues = { headersToSend: parseLog.headersToSend }
+    if (!pickedValues.headersToSend) {
+      return acc
+    }
+    return [...acc, pickedValues]
+  }, [])
+
+  assert.matchSnapshot(logs)
   assert.end()
 })
