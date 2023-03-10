@@ -18,7 +18,7 @@ import { LogLevel, FastifyInstance } from 'fastify'
 
 interface launchOptions {
   logLevel?: LogLevel | 'silent',
-  envVariables?: Record<string, string>,
+  envVariables?: Record<string, string | number | undefined>,
 }
 
 declare function lc39(filePath:string, options?: launchOptions): Promise<FastifyInstance>
