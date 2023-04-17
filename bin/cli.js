@@ -43,10 +43,12 @@ program
   .option('-l, --log-level <logLevel>', 'the log level to set')
   .option('-e, --env-path [envFile]', 'the env file path')
   .option('--expose-metrics <bool>', 'expose /-/metrics', parseBoolean, true)
+  .option('--enable-tracing <bool>', 'Enable tracing. This feature is in preview, so new releases may include breaking changes.', parseBoolean, false)
   .parse(process.argv)
 
 if (!program.args.length) {
   return program.help()
 }
 
-launch(program.args[0], program.opts())
+const sdk = require('../lib/otel-instrumentation')(program.opts())
+launch(program.args[0], program.opts(), sdk)
