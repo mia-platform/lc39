@@ -17,9 +17,9 @@
 
 'use strict'
 
+const instrumentOtel = require('../lib/otel-instrumentation')
 const program = require('commander')
 const { version } = require('../package')
-const launch = require('../lib/launch-fastify')
 require('make-promises-safe')
 
 function parsePort(port) {
@@ -50,5 +50,6 @@ if (!program.args.length) {
   return program.help()
 }
 
-const sdk = require('../lib/otel-instrumentation')(program.opts())
-launch(program.args[0], program.opts(), sdk)
+const sdk = instrumentOtel(program.opts())
+
+require('../lib/launch-fastify')(program.args[0], program.opts(), sdk)
