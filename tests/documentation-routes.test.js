@@ -40,7 +40,18 @@ test('Test Fastify creation with no prefix', async assert => {
   })
 
   assert.strictSame(textResponse.statusCode, 200)
+<<<<<<< Updated upstream
   assert.strictSame(textResponse.headers['content-type'], 'text/html; charset=UTF-8')
+=======
+  assert.strictSame(textResponse.headers['content-type'], 'text/html; charset=utf-8')
+  assert.matchSnapshot(jsonResponse.body)
+
+  const { statusCode } = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/',
+  })
+  assert.strictSame(statusCode, 200)
+>>>>>>> Stashed changes
 
   await fastifyInstance.close()
   assert.end()
@@ -60,6 +71,39 @@ test('Test Fastify creation with custom prefix', async assert => {
   })
 
   assert.strictSame(jsonResponse.statusCode, 200)
+  assert.matchSnapshot(jsonResponse.body)
+
+  const { statusCode } = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/prefix/',
+  })
+  assert.strictSame(statusCode, 200)
+
+  await fastifyInstance.close()
+  assert.end()
+})
+
+test('Test Fastify creation with custom prefix without trailing slash', async assert => {
+  const options = {
+    prefix: '/prefix',
+    logLevel: 'silent',
+  }
+
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+
+  const jsonResponse = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/documentation/json',
+  })
+
+  assert.strictSame(jsonResponse.statusCode, 200)
+  assert.matchSnapshot(jsonResponse.body)
+
+  const { statusCode } = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/prefix/',
+  })
+  assert.strictSame(statusCode, 200)
 
   await fastifyInstance.close()
   assert.end()
