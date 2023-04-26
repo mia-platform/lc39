@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - add custom error serializer in log for the field `error`
+- add tracing instrumentation with OpenTelemetry in experimental
 
 ## v6.0.3 - 2022-09-29
 
