@@ -23,8 +23,11 @@ const { spawn } = require('child_process')
 const split = require('split2')
 const Ajv = require('ajv')
 const SwaggerParser = require('swagger-parser')
+const semver = require('semver')
 
 const logSchema = require('./log.schema.json')
+
+const isNode16OrBelow = semver.major(process.version) <= 16
 
 test('Test throw for wrong exported functions', assert => {
   assert.throws(() => {
@@ -547,52 +550,24 @@ test('Test custom serializers empty body bytes', t => {
   t.end()
 })
 
-test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
-  assert.plan(5)
-  launch('./tests/modules/immediate-close-module', {}).then(
-    (fastifyInstance) => {
-      const { port } = fastifyInstance.server.address()
+// TODO: remove isNode16OrBelow tests when node 16 is unsupported.
+// The handle of idle connection in node is from v18. When use node 16, keep-alive
+// connection are left until another call return the header connection close
+if (isNode16OrBelow) {
+  test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
+    assert.plan(5)
+    launch('./tests/modules/immediate-close-module', {}).then(
+      (fastifyInstance) => {
+        const { port } = fastifyInstance.server.address()
 
-      const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-        client.write('GET / HTTP/1.1\r\n\r\n')
-
-        client.once('data', data => {
-          assert.match(data.toString(), /Connection:\s*keep-alive/i)
-          assert.match(data.toString(), /200 OK/i)
-
-          client.write('GET / HTTP/1.1\r\n\r\n')
+        const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
+          client.write('GET /close HTTP/1.1\r\n\r\n')
 
           client.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*close/i)
+            assert.match(data.toString(), /Connection:\s*keep-alive/i)
             assert.match(data.toString(), /200 OK/i)
 
-            // Test that fastify closes the TCP connection
-            client.once('close', () => {
-              assert.pass()
-            })
-          })
-        })
-      })
-    }
-  )
-})
-
-test('Current opened connection should continue to work after closing and after a timeout should return "connection: close" header - return503OnClosing: false', assert => {
-  assert.plan(5)
-  launch('./tests/modules/immediate-close-module', {}).then(
-    (fastifyInstance) => {
-      const { port } = fastifyInstance.server.address()
-
-      const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-        client.write('GET / HTTP/1.1\r\n\r\n')
-
-        client.once('data', data => {
-          assert.match(data.toString(), /Connection:\s*keep-alive/i)
-          assert.match(data.toString(), /200 OK/i)
-
-
-          setTimeout(() => {
-            client.write('GET / HTTP/1.1\r\n\r\n')
+            client.write('GET /ok HTTP/1.1\r\n\r\n')
 
             client.once('data', data => {
               assert.match(data.toString(), /Connection:\s*close/i)
@@ -603,19 +578,163 @@ test('Current opened connection should continue to work after closing and after 
                 assert.pass()
               })
             })
-          }, 1000)
+          })
         })
-      })
-    }
-  )
-})
+      }
+    )
+  })
+
+  test('Current opened connection should continue to work after closing and after a timeout should return "connection: close" header - return503OnClosing: false', assert => {
+    assert.plan(5)
+    launch('./tests/modules/immediate-close-module', {}).then(
+      (fastifyInstance) => {
+        const { port } = fastifyInstance.server.address()
+
+        const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
+          client.write('GET /close HTTP/1.1\r\n\r\n')
+
+          client.once('data', data => {
+            assert.match(data.toString(), /Connection:\s*keep-alive/i)
+            assert.match(data.toString(), /200 OK/i)
+
+
+            setTimeout(() => {
+              client.write('GET /ok HTTP/1.1\r\n\r\n')
+
+              client.once('data', data => {
+                assert.match(data.toString(), /Connection:\s*close/i)
+                assert.match(data.toString(), /200 OK/i)
+
+                // Test that fastify closes the TCP connection
+                client.once('close', () => {
+                  assert.pass()
+                })
+              })
+            }, 1000)
+          })
+        })
+      }
+    )
+  })
+} else {
+  test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
+    assert.plan(9)
+    launch('./tests/modules/immediate-close-module', {}).then(
+      (fastifyInstance) => {
+        const { port } = fastifyInstance.server.address()
+
+        const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+          client2.write('GET / HTTP/1.1\r\n\r\n')
+          client2.once('data', data => {
+            assert.match(data.toString(), /Connection:\s*keep-alive/i)
+            assert.match(data.toString(), /200 OK/i)
+            assert.match(data.toString(), /\{"path":"\/"}/i)
+
+            client2.write('GET / HTTP/1.1\r\n\r\n')
+            client2.once('data', data => {
+              assert.match(data.toString(), /Connection:\s*close/i)
+              assert.match(data.toString(), /200 OK/i)
+
+              // Test that fastify closes the TCP connection
+              client2.once('close', () => {
+                assert.pass()
+              })
+            })
+          })
+        })
+
+        const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+          client1.write('GET /close HTTP/1.1\r\n\r\n')
+
+          client1.once('data', data => {
+            assert.match(data.toString(), /Connection:\s*keep-alive/i)
+            assert.match(data.toString(), /200 OK/i)
+
+            // Test that fastify closes the TCP connection
+            client1.once('close', () => {
+              assert.pass()
+            })
+          })
+        })
+      }
+    )
+  })
+
+  test('Current opened connection should continue to work after closing and after a timeout should return "connection: close" header - return503OnClosing: false', assert => {
+    assert.plan(9)
+    launch('./tests/modules/immediate-close-module', {}).then(
+      (fastifyInstance) => {
+        const { port } = fastifyInstance.server.address()
+
+        const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+          client2.write('GET / HTTP/1.1\r\n\r\n')
+          client2.once('data', data => {
+            assert.match(data.toString(), /Connection:\s*keep-alive/i)
+            assert.match(data.toString(), /200 OK/i)
+            assert.match(data.toString(), /\{"path":"\/"}/i)
+
+            setTimeout(() => {
+              client2.write('GET / HTTP/1.1\r\n\r\n')
+              client2.once('data', data => {
+                assert.match(data.toString(), /Connection:\s*close/i)
+                assert.match(data.toString(), /200 OK/i)
+
+                // Test that fastify closes the TCP connection
+                client2.once('close', () => {
+                  assert.pass()
+                })
+              })
+            }, 1000)
+          })
+        })
+
+        const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+          client1.write('GET /close HTTP/1.1\r\n\r\n')
+
+          client1.once('data', data => {
+            assert.match(data.toString(), /Connection:\s*keep-alive/i)
+            assert.match(data.toString(), /200 OK/i)
+
+            // Test that fastify closes the TCP connection
+            client1.once('close', () => {
+              assert.pass()
+            })
+          })
+        })
+      }
+    )
+  })
+
+  test('Current idle connection close after server close "connection: close" header - return503OnClosing: false', assert => {
+    assert.plan(3)
+    launch('./tests/modules/immediate-close-module', {}).then(
+      (fastifyInstance) => {
+        const { port } = fastifyInstance.server.address()
+
+        const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
+          client.write('GET /close HTTP/1.1\r\n\r\n')
+
+          client.once('data', data => {
+            assert.match(data.toString(), /Connection:\s*keep-alive/i)
+            assert.match(data.toString(), /200 OK/i)
+
+            // Test that fastify force close of the TCP connection
+            client.once('close', () => {
+              assert.pass()
+            })
+          })
+        })
+      }
+    )
+  })
+}
 
 test('Current opened connection should not accept new incoming connections', assert => {
   launch('./tests/modules/immediate-close-module', {}).then(
     (fastifyInstance) => {
       const { port } = fastifyInstance.server.address()
       const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-        client.write('GET / HTTP/1.1\r\n\r\n')
+        client.write('GET /close HTTP/1.1\r\n\r\n')
 
         const newConnection = net.createConnection({ port })
         newConnection.on('error', error => {

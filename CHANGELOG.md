@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Changes
+
+- `forceCloseConnections` is set to 'idle' from false in node 18. This means that idle requests are destroyed on server close
+
 ### Added
 
 - add custom error serializer in log for the field `error`
