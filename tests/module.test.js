@@ -25,7 +25,7 @@ test('Launch Fastify for testing', async assert => {
 
   const serverAddress = fastifyInstance.server.address()
   assert.notOk(serverAddress)
-  assert.strictSame(fastifyInstance.log.level, 'silent')
+  assert.strictSame(fastifyInstance.log.level, 'info')
 
   assert.end()
 })

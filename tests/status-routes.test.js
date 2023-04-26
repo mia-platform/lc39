@@ -17,7 +17,7 @@
 'use strict'
 
 const { test } = require('tap')
-const launch = require('../lib/launch-fastify').testLaunch
+const { launch } = require('../lib/launch-fastify')
 const packageVersion = require('../package.json').version
 
 test('Test Fastify creation with standard status routes', async assert => {

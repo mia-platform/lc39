@@ -17,7 +17,7 @@
 'use strict'
 
 const { test } = require('tap')
-const launch = require('../lib/launch-fastify').testLaunch
+const { launch } = require('../lib/launch-fastify')
 
 // This is a trivial test, but is useful to see if the fastify incapsulation
 // has not been broken by accident

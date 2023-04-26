@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### BREAKING CHANGES
+
+- exported lc39 function remove the default log level set to silent, and it is now set to info. This is required since it is possible to configure lc39 also from function and not only from CLI
+
 ### Added
 
 - add tracing instrumentation with OpenTelemetry in experimental
+- export lc39 as the main function exported by the package
 
 ## v6.0.3 - 2022-09-29
 
