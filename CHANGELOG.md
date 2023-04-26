@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+- add custom error serializer in log for the field `error`
+
 ## v6.0.3 - 2022-09-29
 
 ### Added
