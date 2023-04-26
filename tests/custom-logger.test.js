@@ -18,6 +18,7 @@
 
 const { test } = require('tap')
 const { PassThrough } = require('stream')
+const pino = require('pino')
 const customLogger = require('../lib/custom-logger')
 const { timestampFunction, logDefaultRedactionRules } = require('../lib/custom-logger')
 const launch = require('../lib/launch-fastify')
@@ -47,6 +48,9 @@ test('Test generation custom logger default options', assert => {
     level: 'info',
     redact: logDefaultRedactionRules(),
     timestamp: timestampFunction,
+    serializers: {
+      error: pino.stdSerializers.err,
+    },
   })
 
   assert.end()
@@ -73,6 +77,9 @@ test('Test generation custom logger custom options', assert => {
     level: options.logLevel,
     redact: moduleOptions.redact,
     timestamp: timestampFunction,
+    serializers: {
+      error: pino.stdSerializers.err,
+    },
   })
 
   assert.end()
@@ -167,6 +174,52 @@ test('Test redacted values - uppercase headers', async assert => {
     const pickedValues = { headersToSend: parseLog.headersToSend }
     if (!pickedValues.headersToSend) {
       return acc
+    }
+    return [...acc, pickedValues]
+  }, [])
+
+  assert.matchSnapshot(logs)
+  assert.end()
+})
+
+test('Test log serialize error both for error and err fields', async assert => {
+  const data = []
+  const logStream = new PassThrough()
+    .on('data', (streamData) => {
+      data.push(Buffer.from(streamData, 'utf8').toString())
+    })
+
+  const options = {
+    logLevel: 'trace',
+    port: 3002,
+    stream: logStream,
+  }
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.ok(fastifyInstance)
+
+  await fastifyInstance.inject({
+    method: 'GET',
+    url: `/with-error-logs`,
+  })
+
+  await fastifyInstance.close()
+  const logs = data.reduce((acc, log) => {
+    const parseLog = JSON.parse(log)
+    if (parseLog.msg !== 'error logs') {
+      return acc
+    }
+    // assert.ok(parseLog.err.stack)
+    // assert.ok(parseLog.error.stack)
+    const pickedValues = {
+      // eslint-disable-next-line id-blacklist
+      err: {
+        ...parseLog.err,
+        stack: '[redacted stack]',
+      },
+      error: {
+        ...parseLog.error,
+        stack: '[redacted stack]',
+      },
     }
     return [...acc, pickedValues]
   }, [])
