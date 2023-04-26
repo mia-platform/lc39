@@ -19,10 +19,11 @@
   },
   "scripts": {
     "start": "lc39 ./index.js",
-    "start:local": "npm start -- --env-path ./local.env"
+    "start:local": "npm start -- --env-path ./local.env --enable-tracing true"
   },
   "dependencies": {
-    "@mia-platform/lc39": "mia-platform/lc39",
+    "@mia-platform/lc39": "../",
+    "axios": "^1.3.5",
     "fastify-env": "^2.1.1"
   },
   "engines": {

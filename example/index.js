@@ -17,6 +17,7 @@
 'use strict'
 
 const fastifyEnv = require('fastify-env')
+const axios = require('axios')
 
 const envSchema = {
   type: 'object',
@@ -36,6 +37,16 @@ module.exports = async function service(fastify, options) {
       testEnv: fastify.config.TEST_ENV,
       optionalEnv: fastify.config.OPTIONAL_ENV,
     })
+  })
+
+  fastify.get('/with-request', async(request, reply) => {
+    reply.type('application/json').code(200)
+    const { data, headers } = await axios.get('http://localhost:3000/')
+
+    return {
+      ...data,
+      headers,
+    }
   })
 
   fastify.get('/not-working', (request, reply) => {
