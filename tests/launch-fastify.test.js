@@ -158,7 +158,6 @@ test('Test fail Fastify creation for invalid options', async assert => {
 
   const badPrefixes = [
     'no-slashes',
-    '/no-ending-slash',
     'no-starting-slash/',
     '/-',
     '/-/',
@@ -173,10 +172,10 @@ test('Test fail Fastify creation for invalid options', async assert => {
 
   for (const badPrefix of badPrefixes) {
     const badOptions = { prefix: badPrefix }
-    assert.rejects(launch('./tests/modules/correct-module', badOptions), {
+    await assert.rejects(launch('./tests/modules/correct-module', badOptions), {
       name: 'Error',
       message: 'Prefix value is not valid',
-    })
+    }, badPrefix)
   }
 
   const goodPrefixes = [
@@ -186,6 +185,8 @@ test('Test fail Fastify creation for invalid options', async assert => {
     '/',
     '/singleword/',
     '/multiple-words-and-numb3rs/',
+    '/singleword',
+    '/multiple-words-and-numb3rs',
   ]
   for (const goodPrefix of goodPrefixes) {
     const goodOptions = { prefix: goodPrefix }
