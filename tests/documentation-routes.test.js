@@ -40,10 +40,7 @@ test('Test Fastify creation with no prefix', async assert => {
   })
 
   assert.strictSame(textResponse.statusCode, 200)
-<<<<<<< Updated upstream
   assert.strictSame(textResponse.headers['content-type'], 'text/html; charset=UTF-8')
-=======
-  assert.strictSame(textResponse.headers['content-type'], 'text/html; charset=utf-8')
   assert.matchSnapshot(jsonResponse.body)
 
   const { statusCode } = await fastifyInstance.inject({
@@ -51,7 +48,6 @@ test('Test Fastify creation with no prefix', async assert => {
     url: '/',
   })
   assert.strictSame(statusCode, 200)
->>>>>>> Stashed changes
 
   await fastifyInstance.close()
   assert.end()
