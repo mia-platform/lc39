@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### BREAKING CHANGES
+
+- remove node 14 support
+
 ### Added
 
 - add custom error serializer in log for the field `error`
