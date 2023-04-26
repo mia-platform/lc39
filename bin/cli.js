@@ -17,7 +17,7 @@
 
 'use strict'
 
-const instrumentOtel = require('../lib/otel-instrumentation')
+const instrumentOTel = require('../lib/otel-instrumentation')
 const program = require('commander')
 const { version } = require('../package')
 require('make-promises-safe')
@@ -50,6 +50,8 @@ if (!program.args.length) {
   return program.help()
 }
 
-const sdk = instrumentOtel(program.opts())
+const sdk = instrumentOTel(program.opts())
 
+// The launch-fastify require MUST be after the `instrumentOTel` fn call, because it
+// uses self instrumentation which must be initialized before import each other libs.
 require('../lib/launch-fastify')(program.args[0], program.opts(), sdk)
