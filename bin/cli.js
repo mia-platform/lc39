@@ -20,7 +20,6 @@
 const instrumentOTel = require('../lib/otel-instrumentation')
 const program = require('commander')
 const { version } = require('../package')
-require('make-promises-safe')
 
 function parsePort(port) {
   return Number.parseInt(port, 10)
