@@ -178,6 +178,15 @@ function getExpectedDefaultSchema() {
           },
         },
       },
+      '/with-error-logs': {
+        get: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+      },
     },
   }
 }

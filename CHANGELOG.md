@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+- add custom error serializer in log for the field `error`
+- add tracing instrumentation with OpenTelemetry in experimental
+
 ## v7.0.0-rc.0 - 2022-07-06
 
 In this version, is added the support for Fastify v4. To upgrade, read the [migration guide](https://www.fastify.io/docs/latest/Guides/Migration-Guide-V4/).
@@ -29,6 +34,7 @@ Metrics options are changed. Below there are the main changes. For other configu
 * migrated `@fastify/swagger` to `v8`, so that `@fastify/swagger-ui` package is now required to continue exposing Swagger UI
 * upgraded fastify plugins to support latest fastify version
 * upgraded library dependencies 
+
 
 ## v6.0.3 - 2022-09-29
 

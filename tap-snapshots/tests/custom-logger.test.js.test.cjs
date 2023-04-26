@@ -5,6 +5,23 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
+exports[`tests/custom-logger.test.js TAP Test log serialize error both for error and err fields > must match snapshot 1`] = `
+Array [
+  Object {
+    "err": Object {
+      "message": "error with err field",
+      "stack": "[redacted stack]",
+      "type": "Error",
+    },
+    "error": Object {
+      "message": "error with error field",
+      "stack": "[redacted stack]",
+      "type": "Error",
+    },
+  },
+]
+`
+
 exports[`tests/custom-logger.test.js TAP Test redacted values - uppercase headers > must match snapshot 1`] = `
 Array [
   Object {

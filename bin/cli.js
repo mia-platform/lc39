@@ -17,9 +17,9 @@
 
 'use strict'
 
+const instrumentOTel = require('../lib/otel-instrumentation')
 const program = require('commander')
 const { version } = require('../package')
-const launch = require('../lib/launch-fastify')
 require('make-promises-safe')
 
 function parsePort(port) {
@@ -43,10 +43,15 @@ program
   .option('-l, --log-level <logLevel>', 'the log level to set')
   .option('-e, --env-path [envFile]', 'the env file path')
   .option('--expose-metrics <bool>', 'expose /-/metrics', parseBoolean, true)
+  .option('--enable-tracing <bool>', 'Enable tracing. This feature is in preview, so new releases may include breaking changes.', parseBoolean, false)
   .parse(process.argv)
 
 if (!program.args.length) {
   return program.help()
 }
 
-launch(program.args[0], program.opts())
+const sdk = instrumentOTel(program.opts())
+
+// The launch-fastify require MUST be after the `instrumentOTel` fn call, because it
+// uses self instrumentation which must be initialized before import each other libs.
+require('../lib/launch-fastify')(program.args[0], program.opts(), sdk)
