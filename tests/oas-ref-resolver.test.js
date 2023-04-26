@@ -150,11 +150,7 @@ function getExpectedDefaultSchema() {
                     type: 'object',
                     properties: {
                       foobar: {
-                        type: 'string',
-                        enum: [
-                          'foo',
-                          'bar',
-                        ],
+                        $ref: '#/components/schemas/def-0',
                       },
                     },
                   },
@@ -175,6 +171,15 @@ function getExpectedDefaultSchema() {
       },
       '/with-logs-uppercase': {
         post: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+      },
+      '/with-error-logs': {
+        get: {
           responses: {
             200: {
               description: 'Default Response',
@@ -223,11 +228,7 @@ function getExpectedCustomSchema() {
                     type: 'object',
                     properties: {
                       foobar: {
-                        type: 'string',
-                        enum: [
-                          'foo',
-                          'bar',
-                        ],
+                        $ref: '#/components/schemas/custom-def-foobar',
                       },
                     },
                   },
