@@ -24,20 +24,26 @@ Metrics options are changed. Below there are the main changes. For other configu
 
 node 14 and below are not supported. If you want to use this version of lc39, upgrade node to version 16 and above
 
+#### Export lc39 as the main function
+
+Export lc39 as the main function exported by the package. This brings two big changes:
+
+* options are internally merged in one single object. See the merge precedence.
+* the default exported logLevel is not set to `silent` by default: this because it is not used only for tests
+
 ### Changes
 
-- exported lc39 function remove the default log level set to silent, and it is now set to info. This is required since it is possible to configure lc39 also from function and not only from CLI
-- `forceCloseConnections` is set to 'idle' from false in node 18. This means that idle requests are destroyed on server close
-- remove errorHandler option as unsupported by fastify-sensible
+* exported lc39 function remove the default log level set to silent, and it is now set to info. This is required since it is possible to configure lc39 also from function and not only from CLI
+* `forceCloseConnections` is set to 'idle' from false in node 18. This means that idle requests are destroyed on server close
+* remove errorHandler option as unsupported by fastify-sensible
 * migrated `@fastify/swagger` to `v8`, so that `@fastify/swagger-ui` package is now required to continue exposing Swagger UI
 * upgraded fastify plugins to support latest fastify version
-* upgraded library dependencies 
+* upgraded library dependencies
 
 ### Added
 
-- add custom error serializer in log for the field `error`
-- add tracing instrumentation with OpenTelemetry in experimental
-- export lc39 as the main function exported by the package
+* add custom error serializer in log for the field `error`
+* add tracing instrumentation with OpenTelemetry in experimental
 
 ## v7.0.0-rc.0 - 2022-07-06
 
