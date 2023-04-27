@@ -175,7 +175,7 @@ test('Test fail Fastify creation for invalid options', async assert => {
   ]
 
   for (const badPrefix of badPrefixes) {
-    const badOptions = { prefix: badPrefix }
+    const badOptions = { prefix: badPrefix, logLevel: 'silent' }
     assert.rejects(launch('./tests/modules/correct-module', badOptions), {
       name: 'Error',
       message: 'Prefix value is not valid',
@@ -191,7 +191,7 @@ test('Test fail Fastify creation for invalid options', async assert => {
     '/multiple-words-and-numb3rs/',
   ]
   for (const goodPrefix of goodPrefixes) {
-    const goodOptions = { prefix: goodPrefix }
+    const goodOptions = { prefix: goodPrefix, logLevel: 'silent' }
     const fastifyInstance = await launch('./tests/modules/correct-module', goodOptions)
     assert.ok(fastifyInstance)
     await fastifyInstance.close()
@@ -200,18 +200,26 @@ test('Test fail Fastify creation for invalid options', async assert => {
 })
 
 test('Log level inheriting system', async assert => {
-  let fastifyInstance = await launch('./tests/modules/module-with-log', {})
+  const stream = split(JSON.parse)
+  let fastifyInstance = await launch('./tests/modules/module-with-log', {
+    stream,
+  })
   assert.strictSame(fastifyInstance.log.level, launch.importModule('./tests/modules/module-with-log').options.logLevel)
   await fastifyInstance.close()
 
-  fastifyInstance = await launch('./tests/modules/correct-module', {})
+  fastifyInstance = await launch('./tests/modules/correct-module', {
+    stream,
+  })
   assert.strictSame(fastifyInstance.log.level, 'info')
   await fastifyInstance.close()
   assert.end()
 })
 
 test('Log level inheriting system with a custom setting', async assert => {
-  const fastifyInstance = await launch('./tests/modules/module-with-log', {})
+  const stream = split(JSON.parse)
+  const fastifyInstance = await launch('./tests/modules/module-with-log', {
+    stream,
+  })
   assert.strictSame(fastifyInstance.log.level, launch.importModule('./tests/modules/module-with-log').options.logLevel)
   await fastifyInstance.close()
   assert.end()

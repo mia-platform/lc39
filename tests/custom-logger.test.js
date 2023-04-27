@@ -24,26 +24,23 @@ const { timestampFunction, logDefaultRedactionRules } = require('../lib/custom-l
 const launch = require('../lib/launch-fastify')
 
 test('Test generation for custom logger', assert => {
-  const moduleOptions = {}
   const options = {
     logLevel: 'info',
   }
 
-  const logger = customLogger(moduleOptions, options)
+  const logger = customLogger(options)
   assert.ok(logger)
 
   assert.end()
 })
 
 test('Test generation custom logger default options', assert => {
-  const moduleOptions = {
-    unusedKey: 'unusedValue',
-  }
   const options = {
+    unusedKey: 'unusedValue',
     imHere: 'butImNotReturned',
   }
 
-  const pinoOptions = customLogger.pinoOptions(moduleOptions, options)
+  const pinoOptions = customLogger.pinoOptions(options)
   assert.strictSame(pinoOptions, {
     level: 'info',
     redact: logDefaultRedactionRules(),
@@ -58,10 +55,6 @@ test('Test generation custom logger default options', assert => {
 
 test('Test generation custom logger custom options', assert => {
   const options = {
-    logLevel: 'debug',
-    redact: 'ignoredValue',
-  }
-  const moduleOptions = {
     redact: {
       censor: '[BRACE YOURSELF, GDPR IS COMING]',
       paths: [
@@ -69,13 +62,13 @@ test('Test generation custom logger custom options', assert => {
         'suchIntresting.[*].howToHide',
       ],
     },
-    logLevel: 'overwritten',
+    logLevel: 'debug',
   }
 
-  const pinoOptions = customLogger.pinoOptions(moduleOptions, options)
+  const pinoOptions = customLogger.pinoOptions(options)
   assert.strictSame(pinoOptions, {
     level: options.logLevel,
-    redact: moduleOptions.redact,
+    redact: options.redact,
     timestamp: timestampFunction,
     serializers: {
       error: pino.stdSerializers.err,
