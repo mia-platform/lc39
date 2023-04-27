@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changes
 
 - exported lc39 function remove the default log level set to silent, and it is now set to info. This is required since it is possible to configure lc39 also from function and not only from CLI
-### Changes
 - `forceCloseConnections` is set to 'idle' from false in node 18. This means that idle requests are destroyed on server close
 
 ### Added
