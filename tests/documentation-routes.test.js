@@ -41,7 +41,7 @@ test('Test Fastify creation with no prefix', async assert => {
 
   assert.strictSame(textResponse.statusCode, 200)
   assert.strictSame(textResponse.headers['content-type'], 'text/html; charset=UTF-8')
-  assert.matchSnapshot(jsonResponse.body)
+  assert.matchSnapshot(JSON.parse(jsonResponse.body))
 
   const { statusCode } = await fastifyInstance.inject({
     method: 'GET',
@@ -67,7 +67,7 @@ test('Test Fastify creation with custom prefix', async assert => {
   })
 
   assert.strictSame(jsonResponse.statusCode, 200)
-  assert.matchSnapshot(jsonResponse.body)
+  assert.matchSnapshot(JSON.parse(jsonResponse.body))
 
   const { statusCode } = await fastifyInstance.inject({
     method: 'GET',
@@ -93,7 +93,7 @@ test('Test Fastify creation with custom prefix without trailing slash', async as
   })
 
   assert.strictSame(jsonResponse.statusCode, 200)
-  assert.matchSnapshot(jsonResponse.body)
+  assert.matchSnapshot(JSON.parse(jsonResponse.body))
 
   const { statusCode } = await fastifyInstance.inject({
     method: 'GET',

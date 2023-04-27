@@ -6,13 +6,388 @@
  */
 'use strict'
 exports[`tests/documentation-routes.test.js TAP Test Fastify creation with custom prefix > must match snapshot 1`] = `
-{"openapi":"3.0.3","info":{"title":"Example application","description":"This application is an example for the lc39 functionality","version":"TEST_VERSION"},"components":{"schemas":{"def-0":{"type":"string","enum":["foo","bar"],"title":"foobar"}}},"paths":{"/prefix//":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/error":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/wrong-content-length":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/empty-content-length":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/items/{itemId}":{"get":{"responses":{"200":{"description":"Default Response"}}},"post":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/with-schema":{"post":{"responses":{"200":{"description":"Default Response","content":{"application/json":{"schema":{"type":"object","properties":{"foobar":{"type":"string","enum":["foo","bar"]}}}}}}}}},"/prefix/with-logs":{"post":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/with-logs-uppercase":{"post":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/with-error-logs":{"get":{"responses":{"200":{"description":"Default Response"}}}}}}
+Object {
+  "components": Object {
+    "schemas": Object {
+      "def-0": Object {
+        "enum": Array [
+          "foo",
+          "bar",
+        ],
+        "title": "foobar",
+        "type": "string",
+      },
+    },
+  },
+  "info": Object {
+    "description": "This application is an example for the lc39 functionality",
+    "title": "Example application",
+    "version": "TEST_VERSION",
+  },
+  "openapi": "3.0.3",
+  "paths": Object {
+    "/prefix//": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/empty-content-length": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/error": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/items/{itemId}": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-error-logs": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-logs": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-logs-uppercase": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-schema": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "content": Object {
+              "application/json": Object {
+                "schema": Object {
+                  "properties": Object {
+                    "foobar": Object {
+                      "enum": Array [
+                        "foo",
+                        "bar",
+                      ],
+                      "type": "string",
+                    },
+                  },
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/wrong-content-length": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+  },
+}
 `
 
 exports[`tests/documentation-routes.test.js TAP Test Fastify creation with custom prefix without trailing slash > must match snapshot 1`] = `
-{"openapi":"3.0.3","info":{"title":"Example application","description":"This application is an example for the lc39 functionality","version":"TEST_VERSION"},"components":{"schemas":{"def-0":{"type":"string","enum":["foo","bar"],"title":"foobar"}}},"paths":{"/prefix/":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/error":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/wrong-content-length":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/empty-content-length":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/items/{itemId}":{"get":{"responses":{"200":{"description":"Default Response"}}},"post":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/with-schema":{"post":{"responses":{"200":{"description":"Default Response","content":{"application/json":{"schema":{"type":"object","properties":{"foobar":{"type":"string","enum":["foo","bar"]}}}}}}}}},"/prefix/with-logs":{"post":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/with-logs-uppercase":{"post":{"responses":{"200":{"description":"Default Response"}}}},"/prefix/with-error-logs":{"get":{"responses":{"200":{"description":"Default Response"}}}}}}
+Object {
+  "components": Object {
+    "schemas": Object {
+      "def-0": Object {
+        "enum": Array [
+          "foo",
+          "bar",
+        ],
+        "title": "foobar",
+        "type": "string",
+      },
+    },
+  },
+  "info": Object {
+    "description": "This application is an example for the lc39 functionality",
+    "title": "Example application",
+    "version": "TEST_VERSION",
+  },
+  "openapi": "3.0.3",
+  "paths": Object {
+    "/prefix/": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/empty-content-length": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/error": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/items/{itemId}": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-error-logs": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-logs": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-logs-uppercase": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/with-schema": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "content": Object {
+              "application/json": Object {
+                "schema": Object {
+                  "properties": Object {
+                    "foobar": Object {
+                      "enum": Array [
+                        "foo",
+                        "bar",
+                      ],
+                      "type": "string",
+                    },
+                  },
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/prefix/wrong-content-length": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+  },
+}
 `
 
 exports[`tests/documentation-routes.test.js TAP Test Fastify creation with no prefix > must match snapshot 1`] = `
-{"openapi":"3.0.3","info":{"title":"Example application","description":"This application is an example for the lc39 functionality","version":"TEST_VERSION"},"components":{"schemas":{"def-0":{"type":"string","enum":["foo","bar"],"title":"foobar"}}},"paths":{"/":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/error":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/wrong-content-length":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/empty-content-length":{"get":{"responses":{"200":{"description":"Default Response"}}}},"/items/{itemId}":{"get":{"responses":{"200":{"description":"Default Response"}}},"post":{"responses":{"200":{"description":"Default Response"}}}},"/with-schema":{"post":{"responses":{"200":{"description":"Default Response","content":{"application/json":{"schema":{"type":"object","properties":{"foobar":{"type":"string","enum":["foo","bar"]}}}}}}}}},"/with-logs":{"post":{"responses":{"200":{"description":"Default Response"}}}},"/with-logs-uppercase":{"post":{"responses":{"200":{"description":"Default Response"}}}},"/with-error-logs":{"get":{"responses":{"200":{"description":"Default Response"}}}}}}
+Object {
+  "components": Object {
+    "schemas": Object {
+      "def-0": Object {
+        "enum": Array [
+          "foo",
+          "bar",
+        ],
+        "title": "foobar",
+        "type": "string",
+      },
+    },
+  },
+  "info": Object {
+    "description": "This application is an example for the lc39 functionality",
+    "title": "Example application",
+    "version": "TEST_VERSION",
+  },
+  "openapi": "3.0.3",
+  "paths": Object {
+    "/": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/empty-content-length": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/error": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/items/{itemId}": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/with-error-logs": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/with-logs": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/with-logs-uppercase": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/with-schema": Object {
+      "post": Object {
+        "responses": Object {
+          "200": Object {
+            "content": Object {
+              "application/json": Object {
+                "schema": Object {
+                  "properties": Object {
+                    "foobar": Object {
+                      "enum": Array [
+                        "foo",
+                        "bar",
+                      ],
+                      "type": "string",
+                    },
+                  },
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+    "/wrong-content-length": Object {
+      "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
+  },
+}
 `
