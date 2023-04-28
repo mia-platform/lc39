@@ -19,8 +19,20 @@
 'use strict'
 
 module.exports = async function plugin(fastify, config) {
-  fastify.get('/', function returnConfig(request, reply) {
+  fastify.get('/close', function returnConfig(request, reply) {
     fastify.close()
+    reply.send({
+      path: '/close',
+    })
+  })
+
+  fastify.get('/', function returnConfig(request, reply) {
+    setTimeout(() => {
+      reply.send({ path: '/' })
+    }, 300)
+  })
+
+  fastify.get('/ok', function returnConfig(request, reply) {
     reply.send(config)
   })
 
@@ -35,4 +47,5 @@ module.exports.options = {
     censor: '[YOUTRIED]',
   },
   trustProxy: '127.0.0.1',
+  logLevel: 'silent',
 }

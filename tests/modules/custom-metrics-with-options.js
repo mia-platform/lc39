@@ -32,7 +32,9 @@ module.exports = async function plugin(fastify) {
 
 module.exports.options = {
   metrics: {
-    enableRouteMetrics: false,
+    routeMetrics: {
+      enabled: false,
+    },
   },
 }
 

@@ -150,11 +150,7 @@ function getExpectedDefaultSchema() {
                     type: 'object',
                     properties: {
                       foobar: {
-                        type: 'string',
-                        enum: [
-                          'foo',
-                          'bar',
-                        ],
+                        $ref: '#/components/schemas/def-0',
                       },
                     },
                   },
@@ -232,11 +228,7 @@ function getExpectedCustomSchema() {
                     type: 'object',
                     properties: {
                       foobar: {
-                        type: 'string',
-                        enum: [
-                          'foo',
-                          'bar',
-                        ],
+                        $ref: '#/components/schemas/custom-def-foobar',
                       },
                     },
                   },

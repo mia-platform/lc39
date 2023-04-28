@@ -19,7 +19,7 @@
 const { test } = require('tap')
 
 const packageJsonVersion = require('../package.json').version
-const launch = require('../lib/launch-fastify')
+const { launch } = require('../lib/launch-fastify')
 
 test('transformSchemaForSwagger', async t => {
   const options = {

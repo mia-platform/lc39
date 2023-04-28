@@ -17,7 +17,7 @@
 'use strict'
 
 const { test } = require('tap')
-const launch = require('../lib/launch-fastify').testLaunch
+const { launch } = require('../lib/launch-fastify')
 
 test('Test Fastify creation with standard metrics', async assert => {
   const options = { logLevel: 'silent' }
@@ -31,7 +31,7 @@ test('Test Fastify creation with standard metrics', async assert => {
   })
 
   assert.strictSame(metricsResponse.statusCode, 200)
-  assert.strictSame(metricsResponse.headers['content-type'], 'text/plain')
+  assertContentType(assert, metricsResponse.headers, 'text/plain')
   assert.ok(Number(metricsResponse.headers['content-length']) > 10, 'No metrics are exposed')
 
   assert.end()
@@ -60,7 +60,7 @@ test('lc39 allow you to create custom metrics', async assert => {
   })
 
   assert.strictSame(metricsResponse.statusCode, 200)
-  assert.strictSame(metricsResponse.headers['content-type'], 'text/plain')
+  assertContentType(assert, metricsResponse.headers, 'text/plain')
   assert.ok(Number(metricsResponse.headers['content-length']) > 10, 'No metrics are exposed')
 
   assert.ok(/custom_metric 1/.test(metricsResponse.body), 'no metric found')
@@ -108,7 +108,7 @@ test('lc39 disable route metrics if passed as options', async assert => {
   })
 
   assert.strictSame(metricsResponse.statusCode, 200)
-  assert.strictSame(metricsResponse.headers['content-type'], 'text/plain')
+  assertContentType(assert, metricsResponse.headers, 'text/plain')
   assert.ok(Number(metricsResponse.headers['content-length']) > 10, 'No metrics are exposed')
 
   assert.ok(/custom_metric 1/.test(metricsResponse.body), 'no metric found')
@@ -118,3 +118,9 @@ test('lc39 disable route metrics if passed as options', async assert => {
   assert.end()
 })
 
+function assertContentType(testInstance, headers, expectedContentType) {
+  // content-type may contain the charset
+  // consequently only the first part is taken to verify the expected content type
+  const [contentType] = headers['content-type'].split(';')
+  testInstance.strictSame(contentType, expectedContentType)
+}

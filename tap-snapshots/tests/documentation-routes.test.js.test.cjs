@@ -105,11 +105,7 @@ Object {
                 "schema": Object {
                   "properties": Object {
                     "foobar": Object {
-                      "enum": Array [
-                        "foo",
-                        "bar",
-                      ],
-                      "type": "string",
+                      "$ref": "#/components/schemas/def-0",
                     },
                   },
                   "type": "object",
@@ -234,11 +230,7 @@ Object {
                 "schema": Object {
                   "properties": Object {
                     "foobar": Object {
-                      "enum": Array [
-                        "foo",
-                        "bar",
-                      ],
-                      "type": "string",
+                      "$ref": "#/components/schemas/def-0",
                     },
                   },
                   "type": "object",
@@ -363,11 +355,7 @@ Object {
                 "schema": Object {
                   "properties": Object {
                     "foobar": Object {
-                      "enum": Array [
-                        "foo",
-                        "bar",
-                      ],
-                      "type": "string",
+                      "$ref": "#/components/schemas/def-0",
                     },
                   },
                   "type": "object",

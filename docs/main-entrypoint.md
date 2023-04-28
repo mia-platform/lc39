@@ -4,9 +4,40 @@
 This is in order to correctly import and validate the functions and data passed to it and for correctly create
 and launch the Fastify instance.
 
+The best way to use **lc39** is using it by CLI, running it with a command like:
+
+```sh
+lc39 ./index.js --env-path .env
+```
+
+with configured options written [here](./cli-flags.md).
+
+It's also possible to use `lc39` as a function:
+
+```js
+const lc39 = require('@mia-platform/lc39')
+
+async function service(fastify) {
+  fastify.get('/', async (req, reply) => {
+    return { hello: 'world' }
+  })
+}
+
+lc39(service, {
+  logLevel: 'silent',
+  envVariables: {
+    ENV_KEY: 'ENV_VALUE',
+  },
+  swaggerDefinition: {
+    info: swaggerInfo,
+  },
+})
+```
+
 ## Main Exported Function
 
 Your service must export a function for its module. The function can have a single parameter or two:
+
 - fastify: the instance of the fastify server created by **lc39**
 - options: the optional parameter, this will contain the object passed to fastify for setting up your module
 
@@ -17,6 +48,7 @@ module.exports = async function service(fastify) {
   })
 }
 ```
+
 As you can see the function must be declared `async` and must be exported as the root of the module.
 
 ## Fastify Sensible

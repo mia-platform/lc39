@@ -17,7 +17,7 @@
 'use strict'
 
 const { test } = require('tap')
-const launch = require('../lib/launch-fastify').testLaunch
+const { launch } = require('../lib/launch-fastify')
 
 // This is a trivial test, but is useful to see if the fastify incapsulation
 // has not been broken by accident
@@ -32,7 +32,7 @@ test('Test correct import for the fastify sensible plugin', async assert => {
   assert.end()
 })
 
-test('Test default error handling', async assert => {
+test('Test error handling', async assert => {
   const options = {
     logLevel: 'silent',
   }
@@ -47,28 +47,6 @@ test('Test default error handling', async assert => {
   assert.strictSame(JSON.parse(response.payload), {
     statusCode: 500,
     message: 'Custom message',
-    error: 'Internal Server Error',
-  })
-
-  assert.end()
-})
-
-test('Test custom error handling', async assert => {
-  const options = {
-    logLevel: 'silent',
-  }
-
-  const fastifyInstance = await launch('./tests/modules/custom-error-handler', options)
-
-  const response = await fastifyInstance.inject({
-    method: 'GET',
-    url: '/error',
-  })
-
-  assert.strictSame(500, response.statusCode)
-  assert.strictSame(JSON.parse(response.payload), {
-    statusCode: 500,
-    message: 'Custom error message',
     error: 'Internal Server Error',
   })
 
