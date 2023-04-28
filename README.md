@@ -2,7 +2,7 @@
 
 # Launch Complex 39
 
-[![Build Status][travis-svg]][travis-org]
+[![Node.js CI][action-status-svg]][github-action]
 [![javascript style guide][standard-mia-svg]][standard-mia]  
 [![Coverage Status][coverall-svg]][coverall-io]
 [![NPM version][npmjs-svg]][npmjs-com]
@@ -58,8 +58,8 @@ To work properly with **lc39** your service main file should follow some rules:
 * [CLI flags](./docs/cli-flags.md)
 * [Development affordance](./docs/development-affordance.md)
 
-[travis-svg]: https://travis-ci.org/mia-platform/lc39.svg?branch=master
-[travis-org]: https://travis-ci.org/mia-platform/lc39
+[action-status-svg]: https://github.com/mia-platform/lc39/actions/workflows/node.js.yml/badge.svg
+[github-action]: https://github.com/mia-platform/lc39/actions/workflows/node.js.yml
 [standard-mia-svg]: https://img.shields.io/badge/code_style-standard--mia-orange.svg
 [standard-mia]: https://github.com/mia-platform/eslint-config-mia
 [coverall-svg]: https://coveralls.io/repos/github/mia-platform/lc39/badge.svg
