@@ -53,7 +53,7 @@ test('Launch Fastify for testing, overriding default values', async assert => {
   assert.end()
 })
 
-test('Launch Fastify with service module passed as function', async assert => {
+test('Launch Fastify with service module passed as function - options are overwritten by service options', async assert => {
   const swaggerInfo = {
     title: 'Service title',
     description: 'This description of the service functionality',
@@ -85,7 +85,11 @@ test('Launch Fastify with service module passed as function', async assert => {
     url: '/documentation/json',
   })
 
-  assert.strictSame(JSON.parse(responseDocs.payload).info, swaggerInfo)
+  assert.strictSame(JSON.parse(responseDocs.payload).info, {
+    title: 'Example application',
+    description: 'This application is an example for the lc39 functionality',
+    version: 'TEST_VERSION',
+  })
 
   assert.end()
 })
