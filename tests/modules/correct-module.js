@@ -101,3 +101,11 @@ module.exports.options = {
   },
   trustProxy: '127.0.0.1',
 }
+
+module.exports.swaggerDefinition = {
+  info: {
+    title: 'Example application',
+    description: 'This application is an example for the lc39 functionality',
+    version: 'TEST_VERSION',
+  },
+}

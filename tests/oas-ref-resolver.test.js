@@ -73,9 +73,9 @@ function getExpectedDefaultSchema() {
   return {
     openapi: '3.0.3',
     info: {
-      title: '@mia-platform/lc39',
-      description: 'The Mia-Platform Node.js service launcher',
-      version: 'VERSION',
+      title: 'Example application',
+      description: 'This application is an example for the lc39 functionality',
+      version: 'TEST_VERSION',
     },
     components: {
       schemas: {

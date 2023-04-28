@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add custom error serializer in log for the field `error`
 - add tracing instrumentation with OpenTelemetry in experimental
 
+### Changed
+
+- SERVICE_PREFIX now supports path without trailing slash
+
 ### Removed
 
 - remove `make-promises-safe` since support of node 14 is removed
