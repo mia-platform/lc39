@@ -69,6 +69,14 @@ Metrics options are changed. Below there are the main changes. For other configu
 * upgraded fastify plugins to support latest fastify version
 * upgraded library dependencies 
 
+### Changed
+
+- SERVICE_PREFIX now supports path without trailing slash
+
+### Removed
+
+- remove `make-promises-safe` since support of node 14 is removed
+
 ## v6.0.3 - 2022-09-29
 
 ### Added

@@ -54,7 +54,6 @@
     "fastify-metrics": "^10.3.0",
     "fastify-plugin": "^4.5.0",
     "lodash.get": "^4.4.2",
-    "make-promises-safe": "^5.1.0",
     "prom-client": "^14.2.0"
   },
   "devDependencies": {
