@@ -15,10 +15,21 @@ module.exports = async function plugin(fastify) {
   })
 }
 
-module.exports.transformSchemaForSwagger = ({ schema, url }) => {
+module.exports.transformSchemaForSwagger = ({ schema, url } = {}) => {
+  if (!schema) {
+    return {
+      url,
+      schema: {
+        hide: true,
+      },
+    }
+  }
   if (schema.hide) {
     // if a route is set as hidden its schema should not be modified
-    return schema
+    return {
+      schema,
+      url,
+    }
   }
 
   return {

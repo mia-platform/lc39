@@ -47,4 +47,5 @@ module.exports.options = {
     censor: '[YOUTRIED]',
   },
   trustProxy: '127.0.0.1',
+  logLevel: 'silent',
 }

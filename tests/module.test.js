@@ -18,6 +18,7 @@
 
 const { test } = require('tap')
 const launch = require('../index')
+const serviceModule = require('./modules/correct-module')
 
 test('Launch Fastify for testing', async assert => {
   const fastifyInstance = await launch('./tests/modules/correct-module', {})
@@ -25,7 +26,7 @@ test('Launch Fastify for testing', async assert => {
 
   const serverAddress = fastifyInstance.server.address()
   assert.notOk(serverAddress)
-  assert.strictSame(fastifyInstance.log.level, 'silent')
+  assert.strictSame(fastifyInstance.log.level, 'info')
 
   assert.end()
 })
@@ -48,6 +49,43 @@ test('Launch Fastify for testing, overriding default values', async assert => {
       ENV_KEY: 'ENV_VALUE',
     },
   })
+
+  assert.end()
+})
+
+test('Launch Fastify with service module passed as function', async assert => {
+  const swaggerInfo = {
+    title: 'Service title',
+    description: 'This description of the service functionality',
+    version: 'v1.0.0',
+  }
+  const fastifyInstance = await launch(serviceModule, {
+    logLevel: 'silent',
+    envVariables: {
+      ENV_KEY: 'ENV_VALUE',
+    },
+    swaggerDefinition: {
+      info: swaggerInfo,
+    },
+  })
+
+  const response = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/',
+  })
+
+  assert.strictSame(JSON.parse(response.payload), {
+    config: {
+      ENV_KEY: 'ENV_VALUE',
+    },
+  })
+
+  const responseDocs = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/documentation/json',
+  })
+
+  assert.strictSame(JSON.parse(responseDocs.payload).info, swaggerInfo)
 
   assert.end()
 })

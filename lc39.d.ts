@@ -14,13 +14,38 @@
  * limitations under the License.
  */
 
-import { LogLevel, FastifyInstance } from 'fastify'
+import { LogLevel, FastifyInstance, FastifyPluginAsync, FastifyServerOptions, RouteHandler, FastifyRequest, FastifyReply } from 'fastify'
+import { DestinationStream, LoggerOptions } from 'pino'
+import { FastifyDynamicSwaggerOptions } from '@fastify/swagger'
+import prometheusClient, { Metric } from 'prom-client'
+import { IMetricsPluginOptions } from 'fastify-metrics'
 
-interface launchOptions {
-  logLevel?: LogLevel | 'silent',
-  envVariables?: Record<string, string>,
+type StatusHandlerResponse = Record<string, unknown> & {statusOK?: boolean}
+type StatusHandler = (fastify: FastifyInstance) => Promise<StatusHandlerResponse>
+
+type SwaggerDefinition = {
+  openApiSpecification?: 'openapi' | 'swagger'
+} & FastifyDynamicSwaggerOptions['openapi'] & FastifyDynamicSwaggerOptions['swagger']
+
+interface launchOptions extends FastifyServerOptions {
+  envVariables?: Record<string, string>
+  envPath?: string
+  logLevel?: LogLevel | 'silent'
+  port?: number
+  prefix?: string
+  stream?: DestinationStream
+  redact?: LoggerOptions['redact']
+  healthinessHandler?: StatusHandler
+  readinessHandler?: StatusHandler
+  checkUpHandler?: StatusHandler
+  swaggerDefinition?: SwaggerDefinition
+  transformSchemaForSwagger?: FastifyDynamicSwaggerOptions['transform']
+  oasRefResolver?: FastifyDynamicSwaggerOptions['refResolver']
+  exposeMetrics?: boolean
+  getMetrics?: (client: typeof prometheusClient) => Record<string, Metric>
+  metricsOptions?: Partial<IMetricsPluginOptions>
 }
 
-declare function lc39(filePath:string, options?: launchOptions): Promise<FastifyInstance>
+declare function lc39(filePathOrServiceModule: string | FastifyPluginAsync, options?: launchOptions): Promise<FastifyInstance>
 
 export default lc39
