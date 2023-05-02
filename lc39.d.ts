@@ -27,7 +27,7 @@ type SwaggerDefinition = {
   openApiSpecification?: 'openapi' | 'swagger'
 } & FastifyDynamicSwaggerOptions['openapi'] & FastifyDynamicSwaggerOptions['swagger']
 
-interface launchOptions extends FastifyServerOptions {
+export interface Options extends FastifyServerOptions {
   envVariables?: Record<string, string>
   envPath?: string
   logLevel?: LogLevel | 'silent'
@@ -46,6 +46,6 @@ interface launchOptions extends FastifyServerOptions {
   metricsOptions?: Partial<IMetricsPluginOptions>
 }
 
-declare function lc39(filePathOrServiceModule: string | FastifyPluginAsync, options?: launchOptions): Promise<FastifyInstance>
+declare function lc39(filePathOrServiceModule: string | FastifyPluginAsync, options?: Options): Promise<FastifyInstance>
 
 export default lc39
