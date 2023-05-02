@@ -2,12 +2,14 @@ import { FastifyContextConfig, FastifyInstance, FastifyReply, FastifyRequest, Fa
 import { expectType } from 'tsd'
 import { PassThrough } from 'stream'
 
-import lc39 from '../'
+import lc39, {Options} from '../'
 import { JSONObject } from '@fastify/swagger'
 
-const serverWithFile = lc39('../tests/modules/correct-module.js')
+const options: Options = {}
+const serverWithFile = lc39('../tests/modules/correct-module.js', options)
 
 expectType<Promise<FastifyInstance>>(serverWithFile)
+
 
 async function plugin(fastify: FastifyInstance, config: FastifyContextConfig) {
   fastify.get('/', function returnConfig(request: FastifyRequest, reply: FastifyReply) {

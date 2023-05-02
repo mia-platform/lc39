@@ -44,6 +44,7 @@ Export lc39 as the main function exported by the package. This brings two big ch
 
 * add custom error serializer in log for the field `error`
 * add tracing instrumentation with OpenTelemetry in experimental
+* export lc39 options
 
 ## v7.0.0-rc.0 - 2022-07-06
 
