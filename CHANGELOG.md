@@ -39,6 +39,17 @@ Export lc39 as the main function exported by the package. This brings two big ch
 * migrated `@fastify/swagger` to `v8`, so that `@fastify/swagger-ui` package is now required to continue exposing Swagger UI
 * upgraded fastify plugins to support latest fastify version
 * upgraded library dependencies
+* when you handle streams when using async-await you will need to return or await the reply object:
+
+  ```js
+  fastify.get('/streams', async function (request, reply) {
+    const fs = require('fs')
+    const stream = fs.createReadStream('some-file', 'utf8')
+    reply.header('Content-Type', 'application/octet-stream')
+    return reply.send(stream)
+  })
+  ```
+
 
 ### Added
 
