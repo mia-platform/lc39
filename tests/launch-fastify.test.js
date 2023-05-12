@@ -780,3 +780,29 @@ test('should wait at least 1 sec before closing the process', assert => {
     }, (WAIT_BEFORE_SERVER_CLOSE_SEC * 1000) + 500)
   })
 })
+
+test('path with and without trailing slash', async assert => {
+  const options = {
+    logLevel: 'silent',
+  }
+
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+
+  const response1 = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/items/my-item',
+  })
+
+  assert.strictSame(response1.statusCode, 200)
+
+  const response2 = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/items/my-item/',
+  })
+
+  assert.strictSame(response2.statusCode, 404)
+
+  fastifyInstance.close(() => {
+    assert.end()
+  })
+})
