@@ -95,9 +95,23 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
       '/error': {
         get: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+        head: {
           responses: {
             200: {
               description: 'Default Response',
@@ -113,6 +127,13 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
       '/empty-content-length': {
         get: {
@@ -122,9 +143,23 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
       '/items/{itemId}': {
         get: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+        head: {
           responses: {
             200: {
               description: 'Default Response',
@@ -186,6 +221,13 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
     },
   }
@@ -210,6 +252,13 @@ function getExpectedCustomSchema() {
     paths: {
       '/': {
         get: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+        head: {
           responses: {
             200: {
               description: 'Default Response',

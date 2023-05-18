@@ -26,6 +26,15 @@ Object {
   },
   "openapi": "3.0.3",
   "paths": Object {
+    "/prefix/": Object {
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
     "/prefix//": Object {
       "get": Object {
         "responses": Object {
@@ -43,6 +52,13 @@ Object {
           },
         },
       },
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
     },
     "/prefix/error": Object {
       "get": Object {
@@ -52,9 +68,23 @@ Object {
           },
         },
       },
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
     },
     "/prefix/items/{itemId}": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -71,6 +101,13 @@ Object {
     },
     "/prefix/with-error-logs": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -119,6 +156,13 @@ Object {
     },
     "/prefix/wrong-content-length": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -151,8 +195,24 @@ Object {
   },
   "openapi": "3.0.3",
   "paths": Object {
+    "/prefix": Object {
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+    },
     "/prefix/": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -168,6 +228,13 @@ Object {
           },
         },
       },
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
     },
     "/prefix/error": Object {
       "get": Object {
@@ -177,9 +244,23 @@ Object {
           },
         },
       },
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
     },
     "/prefix/items/{itemId}": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -196,6 +277,13 @@ Object {
     },
     "/prefix/with-error-logs": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -244,6 +332,13 @@ Object {
     },
     "/prefix/wrong-content-length": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -284,9 +379,23 @@ Object {
           },
         },
       },
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
     },
     "/empty-content-length": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -302,9 +411,23 @@ Object {
           },
         },
       },
+      "head": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
     },
     "/items/{itemId}": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -321,6 +444,13 @@ Object {
     },
     "/with-error-logs": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -369,6 +499,13 @@ Object {
     },
     "/wrong-content-length": Object {
       "get": Object {
+        "responses": Object {
+          "200": Object {
+            "description": "Default Response",
+          },
+        },
+      },
+      "head": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",
