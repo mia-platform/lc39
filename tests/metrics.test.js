@@ -113,6 +113,7 @@ test('lc39 disable route metrics if passed as options', async assert => {
 
   assert.ok(/custom_metric 1/.test(metricsResponse.body), 'no metric found')
   assert.ok(/custom_metric{label="my-label"} 1/.test(metricsResponse.body), 'no metric found')
+  assert.ok(/my_prefix_nodejs_/.test(metricsResponse.body), 'no metric found')
   assert.notOk(/http_request/.test(metricsResponse.body), 'unexpected metric found')
 
   assert.end()

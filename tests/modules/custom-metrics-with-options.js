@@ -35,6 +35,9 @@ module.exports.options = {
     routeMetrics: {
       enabled: false,
     },
+    defaultMetrics: {
+      prefix: 'my_prefix_',
+    },
   },
 }
 
