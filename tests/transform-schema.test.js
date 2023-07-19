@@ -78,22 +78,6 @@ function getExpectedSchema() {
             },
           },
         },
-        'head': {
-          'parameters': [
-            {
-              'type': 'string',
-              'description': 'Added with transformSchemaForSwagger',
-              'required': false,
-              'name': 'label',
-              'in': 'query',
-            },
-          ],
-          'responses': {
-            '200': {
-              'description': 'Default Response',
-            },
-          },
-        },
       },
     },
   }
