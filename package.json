@@ -45,7 +45,7 @@
     "@fastify/swagger": "^8.8.0",
     "@fastify/swagger-ui": "^1.9.2",
     "@opentelemetry/auto-instrumentations-node": "^0.38.0",
-    "@opentelemetry/sdk-node": "^0.41.0",
+    "@opentelemetry/sdk-node": "^0.45.1",
     "@opentelemetry/sdk-trace-base": "^1.15.0",
     "commander": "^11.0.0",
     "dotenv": "^16.0.1",
