@@ -20,7 +20,6 @@
 
 module.exports = async function plugin(fastify, config) {
   fastify.get('/close', function returnConfig(request, reply) {
-    fastify.log.error('close')
     fastify.close()
     reply.send({
       path: '/close',
@@ -28,7 +27,6 @@ module.exports = async function plugin(fastify, config) {
   })
 
   fastify.get('/', function returnConfig(request, reply) {
-    fastify.log.error('yeah /')
     setTimeout(() => {
       reply.send({ path: '/' })
     }, 300)
