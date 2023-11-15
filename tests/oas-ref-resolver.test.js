@@ -125,6 +125,16 @@ function getExpectedDefaultSchema() {
       },
       '/items/{itemId}': {
         get: {
+          parameters: [
+            {
+              schema: {
+                type: 'string',
+              },
+              in: 'path',
+              name: 'itemId',
+              required: true,
+            },
+          ],
           responses: {
             200: {
               description: 'Default Response',
@@ -132,6 +142,16 @@ function getExpectedDefaultSchema() {
           },
         },
         'post': {
+          parameters: [
+            {
+              schema: {
+                type: 'string',
+              },
+              in: 'path',
+              name: 'itemId',
+              required: true,
+            },
+          ],
           responses: {
             200: {
               description: 'Default Response',

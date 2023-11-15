@@ -55,6 +55,16 @@ Object {
     },
     "/prefix/items/{itemId}": Object {
       "get": Object {
+        "parameters": Array [
+          Object {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": Object {
+              "type": "string",
+            },
+          },
+        ],
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -62,6 +72,16 @@ Object {
         },
       },
       "post": Object {
+        "parameters": Array [
+          Object {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": Object {
+              "type": "string",
+            },
+          },
+        ],
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -180,6 +200,16 @@ Object {
     },
     "/prefix/items/{itemId}": Object {
       "get": Object {
+        "parameters": Array [
+          Object {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": Object {
+              "type": "string",
+            },
+          },
+        ],
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -187,6 +217,16 @@ Object {
         },
       },
       "post": Object {
+        "parameters": Array [
+          Object {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": Object {
+              "type": "string",
+            },
+          },
+        ],
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -305,6 +345,16 @@ Object {
     },
     "/items/{itemId}": Object {
       "get": Object {
+        "parameters": Array [
+          Object {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": Object {
+              "type": "string",
+            },
+          },
+        ],
         "responses": Object {
           "200": Object {
             "description": "Default Response",
@@ -312,6 +362,16 @@ Object {
         },
       },
       "post": Object {
+        "parameters": Array [
+          Object {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": Object {
+              "type": "string",
+            },
+          },
+        ],
         "responses": Object {
           "200": Object {
             "description": "Default Response",
