@@ -61,6 +61,7 @@ test('Test Fastify creation', async t => {
     }
 
     const fastifyInstance = await launch('./tests/modules/correct-module', options)
+    assert.teardown(() => fastifyInstance.close())
     assert.ok(fastifyInstance)
 
     const serverAddress = fastifyInstance.server.address()
@@ -74,9 +75,7 @@ test('Test Fastify creation', async t => {
 
     await SwaggerParser.validate(payload)
 
-    fastifyInstance.close(() => {
-      assert.end()
-    })
+    assert.end()
   })
 
   t.test('Expose Swagger 2.0 specification', async assert => {
@@ -86,6 +85,7 @@ test('Test Fastify creation', async t => {
     }
 
     const fastifyInstance = await launch('./tests/modules/correct-module-swagger', options)
+    assert.teardown(() => fastifyInstance.close())
     assert.ok(fastifyInstance)
 
     const serverAddress = fastifyInstance.server.address()
@@ -99,9 +99,7 @@ test('Test Fastify creation', async t => {
 
     await SwaggerParser.validate(payload)
 
-    fastifyInstance.close(() => {
-      assert.end()
-    })
+    assert.end()
   })
 
   t.end()
@@ -114,6 +112,7 @@ test('Test Fastify creation without exported options', async assert => {
   }
 
   const fastifyInstance = await launch('./tests/modules/one-param-module', options)
+  assert.teardown(() => fastifyInstance.close())
   assert.ok(fastifyInstance)
 
   const serverAddress = fastifyInstance.server.address()
@@ -121,9 +120,7 @@ test('Test Fastify creation without exported options', async assert => {
   assert.strictSame(serverAddress.address, '0.0.0.0')
   assert.strictSame(fastifyInstance.log.level, options.logLevel)
 
-  fastifyInstance.close(() => {
-    assert.end()
-  })
+  assert.end()
 })
 
 test('Test Fastify plugin start with prefix', async assert => {
@@ -134,6 +131,7 @@ test('Test Fastify plugin start with prefix', async assert => {
   }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.teardown(() => fastifyInstance.close())
 
   const response = await fastifyInstance.inject({
     method: 'GET',
@@ -147,9 +145,7 @@ test('Test Fastify plugin start with prefix', async assert => {
     },
   })
 
-  fastifyInstance.close(() => {
-    assert.end()
-  })
+  assert.end()
 })
 
 test('Test fail Fastify creation for invalid options', async assert => {
@@ -787,6 +783,7 @@ test('path with and without trailing slash', async assert => {
   }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.teardown(() => fastifyInstance.close())
 
   const response1 = await fastifyInstance.inject({
     method: 'GET',
@@ -802,7 +799,5 @@ test('path with and without trailing slash', async assert => {
 
   assert.strictSame(response2.statusCode, 404)
 
-  fastifyInstance.close(() => {
-    assert.end()
-  })
+  assert.end()
 })
