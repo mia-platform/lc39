@@ -16,7 +16,7 @@
 
 'use strict'
 
-const fastifyEnv = require('fastify-env')
+const fastifyEnv = require('@fastify/env')
 const axios = require('axios')
 
 const envSchema = {

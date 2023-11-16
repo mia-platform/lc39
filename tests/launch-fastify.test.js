@@ -61,6 +61,7 @@ test('Test Fastify creation', async t => {
     }
 
     const fastifyInstance = await launch('./tests/modules/correct-module', options)
+    assert.teardown(() => fastifyInstance.close())
     assert.ok(fastifyInstance)
 
     const serverAddress = fastifyInstance.server.address()
@@ -74,9 +75,7 @@ test('Test Fastify creation', async t => {
 
     await SwaggerParser.validate(payload)
 
-    fastifyInstance.close(() => {
-      assert.end()
-    })
+    assert.end()
   })
 
   t.test('Expose Swagger 2.0 specification', async assert => {
@@ -86,6 +85,7 @@ test('Test Fastify creation', async t => {
     }
 
     const fastifyInstance = await launch('./tests/modules/correct-module-swagger', options)
+    assert.teardown(() => fastifyInstance.close())
     assert.ok(fastifyInstance)
 
     const serverAddress = fastifyInstance.server.address()
@@ -99,9 +99,7 @@ test('Test Fastify creation', async t => {
 
     await SwaggerParser.validate(payload)
 
-    fastifyInstance.close(() => {
-      assert.end()
-    })
+    assert.end()
   })
 
   t.end()
@@ -114,6 +112,7 @@ test('Test Fastify creation without exported options', async assert => {
   }
 
   const fastifyInstance = await launch('./tests/modules/one-param-module', options)
+  assert.teardown(() => fastifyInstance.close())
   assert.ok(fastifyInstance)
 
   const serverAddress = fastifyInstance.server.address()
@@ -121,9 +120,7 @@ test('Test Fastify creation without exported options', async assert => {
   assert.strictSame(serverAddress.address, '0.0.0.0')
   assert.strictSame(fastifyInstance.log.level, options.logLevel)
 
-  fastifyInstance.close(() => {
-    assert.end()
-  })
+  assert.end()
 })
 
 test('Test Fastify plugin start with prefix', async assert => {
@@ -134,6 +131,7 @@ test('Test Fastify plugin start with prefix', async assert => {
   }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.teardown(() => fastifyInstance.close())
 
   const response = await fastifyInstance.inject({
     method: 'GET',
@@ -147,9 +145,7 @@ test('Test Fastify plugin start with prefix', async assert => {
     },
   })
 
-  fastifyInstance.close(() => {
-    assert.end()
-  })
+  assert.end()
 })
 
 test('Test fail Fastify creation for invalid options', async assert => {
@@ -570,13 +566,13 @@ if (isNode16OrBelow) {
         const { port } = fastifyInstance.server.address()
 
         const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client.write('GET /close HTTP/1.1\r\n\r\n')
+          client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
           client.once('data', data => {
             assert.match(data.toString(), /Connection:\s*keep-alive/i)
             assert.match(data.toString(), /200 OK/i)
 
-            client.write('GET /ok HTTP/1.1\r\n\r\n')
+            client.write('GET /ok HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
             client.once('data', data => {
               assert.match(data.toString(), /Connection:\s*close/i)
@@ -600,7 +596,7 @@ if (isNode16OrBelow) {
         const { port } = fastifyInstance.server.address()
 
         const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client.write('GET /close HTTP/1.1\r\n\r\n')
+          client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
           client.once('data', data => {
             assert.match(data.toString(), /Connection:\s*keep-alive/i)
@@ -608,7 +604,7 @@ if (isNode16OrBelow) {
 
 
             setTimeout(() => {
-              client.write('GET /ok HTTP/1.1\r\n\r\n')
+              client.write('GET /ok HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
               client.once('data', data => {
                 assert.match(data.toString(), /Connection:\s*close/i)
@@ -628,18 +624,18 @@ if (isNode16OrBelow) {
 } else {
   test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
     assert.plan(9)
-    launch('./tests/modules/immediate-close-module', {}).then(
-      (fastifyInstance) => {
+    launch('./tests/modules/immediate-close-module', { logLevel: 'trace' }).then(
+      async(fastifyInstance) => {
         const { port } = fastifyInstance.server.address()
 
         const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client2.write('GET / HTTP/1.1\r\n\r\n')
+          client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
           client2.once('data', data => {
             assert.match(data.toString(), /Connection:\s*keep-alive/i)
             assert.match(data.toString(), /200 OK/i)
             assert.match(data.toString(), /\{"path":"\/"}/i)
 
-            client2.write('GET / HTTP/1.1\r\n\r\n')
+            client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
             client2.once('data', data => {
               assert.match(data.toString(), /Connection:\s*close/i)
               assert.match(data.toString(), /200 OK/i)
@@ -653,7 +649,7 @@ if (isNode16OrBelow) {
         })
 
         const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client1.write('GET /close HTTP/1.1\r\n\r\n')
+          client1.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
           client1.once('data', data => {
             assert.match(data.toString(), /Connection:\s*keep-alive/i)
@@ -676,14 +672,14 @@ if (isNode16OrBelow) {
         const { port } = fastifyInstance.server.address()
 
         const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client2.write('GET / HTTP/1.1\r\n\r\n')
+          client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
           client2.once('data', data => {
             assert.match(data.toString(), /Connection:\s*keep-alive/i)
             assert.match(data.toString(), /200 OK/i)
             assert.match(data.toString(), /\{"path":"\/"}/i)
 
             setTimeout(() => {
-              client2.write('GET / HTTP/1.1\r\n\r\n')
+              client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
               client2.once('data', data => {
                 assert.match(data.toString(), /Connection:\s*close/i)
                 assert.match(data.toString(), /200 OK/i)
@@ -698,7 +694,7 @@ if (isNode16OrBelow) {
         })
 
         const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client1.write('GET /close HTTP/1.1\r\n\r\n')
+          client1.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
           client1.once('data', data => {
             assert.match(data.toString(), /Connection:\s*keep-alive/i)
@@ -721,7 +717,7 @@ if (isNode16OrBelow) {
         const { port } = fastifyInstance.server.address()
 
         const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client.write('GET /close HTTP/1.1\r\n\r\n')
+          client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
           client.once('data', data => {
             assert.match(data.toString(), /Connection:\s*keep-alive/i)
@@ -743,7 +739,7 @@ test('Current opened connection should not accept new incoming connections', ass
     (fastifyInstance) => {
       const { port } = fastifyInstance.server.address()
       const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-        client.write('GET /close HTTP/1.1\r\n\r\n')
+        client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
         const newConnection = net.createConnection({ port })
         newConnection.on('error', error => {
@@ -787,6 +783,7 @@ test('path with and without trailing slash', async assert => {
   }
 
   const fastifyInstance = await launch('./tests/modules/correct-module', options)
+  assert.teardown(() => fastifyInstance.close())
 
   const response1 = await fastifyInstance.inject({
     method: 'GET',
@@ -802,7 +799,5 @@ test('path with and without trailing slash', async assert => {
 
   assert.strictSame(response2.statusCode, 404)
 
-  fastifyInstance.close(() => {
-    assert.end()
-  })
+  assert.end()
 })
