@@ -90,6 +90,13 @@ module.exports = async function plugin(fastify, config) {
     }, 'error logs')
     reply.send({})
   })
+
+  fastify.get('/with-audit-logs', function handler(request, reply) {
+    this.log.audit({
+      auditInfo: 'audit info',
+    }, 'Log audit info')
+    reply.send('success')
+  })
 }
 
 const redactionRules = logDefaultRedactionRules()

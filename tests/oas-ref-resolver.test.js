@@ -207,6 +207,15 @@ function getExpectedDefaultSchema() {
           },
         },
       },
+      '/with-audit-logs': {
+        get: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+      },
     },
   }
 }
