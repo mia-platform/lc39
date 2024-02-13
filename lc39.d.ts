@@ -51,7 +51,6 @@ declare function lc39(filePathOrServiceModule: string | FastifyPluginAsync, opti
 
 declare module 'fastify' {
   export interface FastifyBaseLogger {
-    audit: LogFn;
     [type: string] : LogFn
   }
 }
