@@ -15,7 +15,7 @@
  */
 
 import { LogLevel, FastifyInstance, FastifyPluginAsync, FastifyServerOptions, RouteHandler, FastifyRequest, FastifyReply } from 'fastify'
-import { DestinationStream, LoggerOptions, LogFn } from 'pino'
+import { DestinationStream, LoggerOptions, LogFn, LevelWithSilentOrString } from 'pino'
 import { FastifyDynamicSwaggerOptions } from '@fastify/swagger'
 import prometheusClient, { Metric } from 'prom-client'
 import { IMetricsPluginOptions } from 'fastify-metrics'
@@ -51,7 +51,7 @@ declare function lc39(filePathOrServiceModule: string | FastifyPluginAsync, opti
 
 declare module 'fastify' {
   export interface FastifyBaseLogger {
-    [type: string] : LogFn
+    [level: string] : LogFn | LevelWithSilentOrString
   }
 }
 
