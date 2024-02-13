@@ -43,7 +43,6 @@ program
   .option('-e, --env-path [envFile]', 'the env file path')
   .option('--expose-metrics <bool>', 'expose /-/metrics', parseBoolean, true)
   .option('--enable-tracing <bool>', 'Enable tracing. This feature is in preview, so new releases may include breaking changes.', parseBoolean, false)
-  .option('-c, --custom-log-level <customLogLevel>', 'the name of the custom log level 35.', 'audit')
   .parse(process.argv)
 
 if (!program.args.length) {

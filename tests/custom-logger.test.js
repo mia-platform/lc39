@@ -63,7 +63,10 @@ test('Test generation custom logger custom options', assert => {
       ],
     },
     logLevel: 'debug',
-    customLogLevel: 'audit',
+    customLevels: {
+      audit: 35,
+      success: 70,
+    },
   }
 
   const pinoOptions = customLogger.pinoOptions(options)
@@ -76,6 +79,7 @@ test('Test generation custom logger custom options', assert => {
     },
     customLevels: {
       audit: 35,
+      success: 70,
     },
   })
 
@@ -225,25 +229,13 @@ test('Test log serialize error both for error and err fields', async assert => {
   assert.end()
 })
 
-test('Test log with custom audit level', async assert => {
-  const data = []
-  const logStream = new PassThrough()
-    .on('data', (streamData) => {
-      data.push(Buffer.from(streamData, 'utf8').toString())
-    })
-
-  const options = {
-    logLevel: 'trace',
-    port: 3002,
-    stream: logStream,
-    customLogLevel: 'audit',
-  }
-  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+test('Test log with custom log levels', async assert => {
+  const fastifyInstance = await launch('./tests/modules/module-with-custom-levels', {})
   assert.ok(fastifyInstance)
 
   const { payload, statusCode } = await fastifyInstance.inject({
     method: 'GET',
-    url: `/with-audit-logs`,
+    url: `/with-custom-logs`,
   })
   await fastifyInstance.close()
 

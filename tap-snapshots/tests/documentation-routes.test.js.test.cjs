@@ -89,15 +89,6 @@ Object {
         },
       },
     },
-    "/prefix/with-audit-logs": Object {
-      "get": Object {
-        "responses": Object {
-          "200": Object {
-            "description": "Default Response",
-          },
-        },
-      },
-    },
     "/prefix/with-error-logs": Object {
       "get": Object {
         "responses": Object {
@@ -243,15 +234,6 @@ Object {
         },
       },
     },
-    "/prefix/with-audit-logs": Object {
-      "get": Object {
-        "responses": Object {
-          "200": Object {
-            "description": "Default Response",
-          },
-        },
-      },
-    },
     "/prefix/with-error-logs": Object {
       "get": Object {
         "responses": Object {
@@ -390,15 +372,6 @@ Object {
             },
           },
         ],
-        "responses": Object {
-          "200": Object {
-            "description": "Default Response",
-          },
-        },
-      },
-    },
-    "/with-audit-logs": Object {
-      "get": Object {
         "responses": Object {
           "200": Object {
             "description": "Default Response",

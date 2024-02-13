@@ -11,4 +11,3 @@ Here are listed all the available flags, their default values and the accepted o
 | The path of the dotenv file to load during launch | `-e` | `--env-path` |  |
 | Expose Prometheus metrics |  | `--expose-metrics` | `true`  |
 | Enable tracing            |  | `--enable-tracing` | `false` |
-| Custom log level 35 | `-c`  | `--custom-log-level` | `audit` |
