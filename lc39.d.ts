@@ -44,7 +44,9 @@ export interface Options extends FastifyServerOptions {
   exposeMetrics?: boolean
   getMetrics?: (client: typeof prometheusClient) => Record<string, Metric>
   metricsOptions?: Partial<IMetricsPluginOptions>
-  customLevels?: Record<string, number>
+  log?: {
+    customLevels?: Record<string, number>
+  }
 }
 
 declare function lc39(filePathOrServiceModule: string | FastifyPluginAsync, options?: Options): Promise<FastifyInstance>

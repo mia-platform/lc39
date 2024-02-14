@@ -34,9 +34,10 @@ module.exports = async function plugin(fastify) {
 }
 
 module.exports.options = {
-  customLevels: {
-    wow: 11,
-    audit: 35,
-    success: 70,
-  },
+  log: {
+    customLevels: {
+      wow: 11,
+      audit: 35,
+      success: 70,
+    } },
 }
