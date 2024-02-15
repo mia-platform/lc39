@@ -15,7 +15,7 @@
  */
 
 import { LogLevel, FastifyInstance, FastifyPluginAsync, FastifyServerOptions } from 'fastify'
-import { DestinationStream, LoggerOptions, LogFn, LevelWithSilentOrString } from 'pino'
+import { DestinationStream, LoggerOptions, LogFn } from 'pino'
 import { FastifyDynamicSwaggerOptions } from '@fastify/swagger'
 import prometheusClient, { Metric } from 'prom-client'
 import { IMetricsPluginOptions } from 'fastify-metrics'
