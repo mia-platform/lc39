@@ -32,11 +32,11 @@ const serverWithModuleAndAllOptions = lc39(plugin, {
   prefix: '/prefix',
   stream: logStream,
   redact: ['authorization'],
-  log:{
+  logger: {
     customLevels: {
-    audit: 35,
-    success: 70
-  }},
+      audit: 35,
+    }
+  },
   healthinessHandler: async (fastify) => {
     return {
       statusOK: true

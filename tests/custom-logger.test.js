@@ -63,7 +63,7 @@ test('Test generation custom logger custom options', assert => {
       ],
     },
     logLevel: 'debug',
-    log: {
+    logger: {
       customLevels: {
         audit: 35,
         success: 70,

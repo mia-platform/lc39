@@ -34,7 +34,7 @@ module.exports = async function plugin(fastify) {
 }
 
 module.exports.options = {
-  log: {
+  logger: {
     customLevels: {
       wow: 11,
       audit: 35,
