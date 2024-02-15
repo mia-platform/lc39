@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { LogLevel, FastifyInstance, FastifyPluginAsync, FastifyServerOptions, RouteHandler, FastifyRequest, FastifyReply } from 'fastify'
+import { LogLevel, FastifyInstance, FastifyPluginAsync, FastifyServerOptions } from 'fastify'
 import { DestinationStream, LoggerOptions, LogFn, LevelWithSilentOrString } from 'pino'
 import { FastifyDynamicSwaggerOptions } from '@fastify/swagger'
 import prometheusClient, { Metric } from 'prom-client'
@@ -52,9 +52,7 @@ export interface Options extends FastifyServerOptions {
 declare function lc39(filePathOrServiceModule: string | FastifyPluginAsync, options?: Options): Promise<FastifyInstance>
 
 declare module 'fastify' {
-  export interface FastifyBaseLogger {
-    [level: string] : LogFn | LevelWithSilentOrString
-  }
+  export interface FastifyBaseLogger extends Record<string, LogFn> {}
 }
 
 export default lc39
