@@ -13,6 +13,7 @@ expectType<Promise<FastifyInstance>>(serverWithFile)
 
 async function plugin(fastify: FastifyInstance, config: FastifyContextConfig) {
   fastify.get('/', function returnConfig(request: FastifyRequest, reply: FastifyReply) {
+    request.log.audit('something to log')
     reply.send({ config })
   })
 }
@@ -31,6 +32,11 @@ const serverWithModuleAndAllOptions = lc39(plugin, {
   prefix: '/prefix',
   stream: logStream,
   redact: ['authorization'],
+  logger: {
+    customLevels: {
+      audit: 35,
+    }
+  },
   healthinessHandler: async (fastify) => {
     return {
       statusOK: true

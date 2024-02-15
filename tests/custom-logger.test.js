@@ -63,6 +63,12 @@ test('Test generation custom logger custom options', assert => {
       ],
     },
     logLevel: 'debug',
+    logger: {
+      customLevels: {
+        audit: 35,
+        success: 70,
+      },
+    },
   }
 
   const pinoOptions = customLogger.pinoOptions(options)
@@ -73,6 +79,11 @@ test('Test generation custom logger custom options', assert => {
     serializers: {
       error: pino.stdSerializers.err,
     },
+    customLevels: {
+      audit: 35,
+      success: 70,
+    },
+
   })
 
   assert.end()
@@ -218,5 +229,20 @@ test('Test log serialize error both for error and err fields', async assert => {
   }, [])
 
   assert.matchSnapshot(logs)
+  assert.end()
+})
+
+test('Test log with custom log levels', async assert => {
+  const fastifyInstance = await launch('./tests/modules/module-with-custom-levels', {})
+  assert.ok(fastifyInstance)
+
+  const { payload, statusCode } = await fastifyInstance.inject({
+    method: 'GET',
+    url: `/with-custom-logs`,
+  })
+  await fastifyInstance.close()
+
+  assert.strictSame(statusCode, 200)
+  assert.strictSame(payload, 'success')
   assert.end()
 })

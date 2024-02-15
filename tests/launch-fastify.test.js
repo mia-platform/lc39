@@ -801,3 +801,17 @@ test('path with and without trailing slash', async assert => {
 
   assert.end()
 })
+
+test('should use correctly the logger with custom levels', async assert => {
+  const fastifyInstance = await launch('./tests/modules/module-with-custom-levels', {})
+  assert.teardown(() => fastifyInstance.close())
+
+  const response = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/with-custom-logs',
+  })
+
+  assert.strictSame(response.statusCode, 200)
+
+  assert.end()
+})
