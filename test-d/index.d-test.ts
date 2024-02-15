@@ -13,7 +13,7 @@ expectType<Promise<FastifyInstance>>(serverWithFile)
 
 async function plugin(fastify: FastifyInstance, config: FastifyContextConfig) {
   fastify.get('/', function returnConfig(request: FastifyRequest, reply: FastifyReply) {
-    request.log.audit('asdf')
+    request.log.audit('something to log')
     reply.send({ config })
   })
 }
