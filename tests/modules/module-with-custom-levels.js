@@ -20,13 +20,13 @@
 
 module.exports = async function plugin(fastify) {
   fastify.get('/with-custom-logs', function handler(request, reply) {
-    this.log.wow({
+    request.log.wow({
       auditInfo: 'wow info',
     }, 'Log wow info')
-    this.log.audit({
+    request.log.audit({
       auditInfo: 'audit info',
     }, 'Log audit info')
-    this.log.success({
+    request.log.success({
       successInfo: 'success info',
     }, 'Log success info')
     reply.send('success')
@@ -39,5 +39,6 @@ module.exports.options = {
       wow: 11,
       audit: 35,
       success: 70,
-    } },
+    },
+  },
 }
