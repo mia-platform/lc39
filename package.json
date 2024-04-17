@@ -54,7 +54,7 @@
     "fastify-metrics": "^10.3.3",
     "fastify-plugin": "^4.5.1",
     "lodash.get": "^4.4.2",
-    "prom-client": "^14.2.0"
+    "prom-client": "^15.1.2"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
