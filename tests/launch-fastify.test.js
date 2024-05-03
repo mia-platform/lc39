@@ -815,3 +815,16 @@ test('should use correctly the logger with custom levels', async assert => {
 
   assert.end()
 })
+
+test('should use correctly logger custom hooks', async assert => {
+  const fastifyInstance = await launch('./tests/modules/custom-hooks', {})
+  assert.teardown(() => fastifyInstance.close())
+
+  const response = await fastifyInstance.inject({
+    method: 'POST',
+    url: '/custom-hooks',
+  })
+
+  assert.strictSame(response.statusCode, 200)
+  assert.end()
+})
