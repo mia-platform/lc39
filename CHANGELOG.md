@@ -6,7 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* introduce new cli option to enable/disable the generation of endpoints OpenAPI specification. By default this option
+is set to `true` to retain the previous behavior
+
+## v7.1.0 - 2023-02-16
+
+### Added
+
 * add custom log level
+
+## v7.0.4 - 2023-02-09
+
+### Changed
+
+* bump `opentelemetry` sdk version to `v0.48.0`
+* update documentation
 
 ## v7.0.3 - 2023-11-30
 
