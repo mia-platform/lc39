@@ -104,3 +104,23 @@ test('Test Fastify creation with custom prefix without trailing slash', async as
   await fastifyInstance.close()
   assert.end()
 })
+
+test('Test Fastify creation without documentation exposed', async assert => {
+  const options = {
+    logLevel: 'silent',
+    exposeDocumentation: false,
+  }
+
+  const fastifyInstance = await launch('./tests/modules/correct-module', options)
+
+  const jsonResponse = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/documentation/json',
+  })
+
+  assert.strictSame(jsonResponse.statusCode, 404)
+  assert.strictSame(jsonResponse.headers['content-type'], 'application/json; charset=utf-8')
+
+  await fastifyInstance.close()
+  assert.end()
+})
