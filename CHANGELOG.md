@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * introduce new cli option to enable/disable the generation of endpoints OpenAPI specification. By default this option
 is set to `true` to retain the previous behavior
 
+## v8.0.0 - 2024-07-04
+
+### BREAKING
+
+- dropped node 16 support
+
+### Updated
+
+- @opentelemetry/auto-instrumentations-node: 0.48.0
+
 ## v7.1.0 - 2023-02-16
 
 ### Added
