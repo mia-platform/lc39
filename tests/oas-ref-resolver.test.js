@@ -95,9 +95,23 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
       '/error': {
         get: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+        head: {
           responses: {
             200: {
               description: 'Default Response',
@@ -113,6 +127,13 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
       '/empty-content-length': {
         get: {
@@ -122,9 +143,33 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
       '/items/{itemId}': {
         get: {
+          parameters: [
+            {
+              schema: {
+                type: 'string',
+              },
+              in: 'path',
+              name: 'itemId',
+              required: true,
+            },
+          ],
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+        head: {
           parameters: [
             {
               schema: {
@@ -206,6 +251,13 @@ function getExpectedDefaultSchema() {
             },
           },
         },
+        head: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
       },
     },
   }
@@ -230,6 +282,13 @@ function getExpectedCustomSchema() {
     paths: {
       '/': {
         get: {
+          responses: {
+            200: {
+              description: 'Default Response',
+            },
+          },
+        },
+        head: {
           responses: {
             200: {
               description: 'Default Response',
