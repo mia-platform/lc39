@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- use `reply.elapsedTime` instead of the deprecated `reply.getResponseTime()` to get the elapsed time of the request
+
 ## v8.0.1 - 2024-08-06
 
 ### Fixed
