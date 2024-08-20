@@ -33,9 +33,10 @@ jobs:
     - run: npm test
 
     - name: Coveralls
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./.tap/report/lcov.info
 
   publish:
     runs-on: ubuntu-latest

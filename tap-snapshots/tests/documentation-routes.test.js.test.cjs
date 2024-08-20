@@ -5,7 +5,7 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
-exports[`tests/documentation-routes.test.js TAP Test Fastify creation with custom prefix > must match snapshot 1`] = `
+exports[`tests/documentation-routes.test.js > TAP > Test Fastify creation with custom prefix > must match snapshot 1`] = `
 Object {
   "components": Object {
     "schemas": Object {
@@ -204,7 +204,7 @@ Object {
 }
 `
 
-exports[`tests/documentation-routes.test.js TAP Test Fastify creation with custom prefix without trailing slash > must match snapshot 1`] = `
+exports[`tests/documentation-routes.test.js > TAP > Test Fastify creation with custom prefix without trailing slash > must match snapshot 1`] = `
 Object {
   "components": Object {
     "schemas": Object {
@@ -410,7 +410,7 @@ Object {
 }
 `
 
-exports[`tests/documentation-routes.test.js TAP Test Fastify creation with no prefix > must match snapshot 1`] = `
+exports[`tests/documentation-routes.test.js > TAP > Test Fastify creation with no prefix > must match snapshot 1`] = `
 Object {
   "components": Object {
     "schemas": Object {
