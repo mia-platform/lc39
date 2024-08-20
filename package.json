@@ -32,8 +32,7 @@
   },
   "scripts": {
     "checkonly": "! grep -R '\\.only' tests/",
-    "coverage": "npm run unit -- --coverage-report=text-summary",
-    "postcoverage": "tap --coverage-report=html --no-browser",
+    "coverage": "npm run unit -- --coverage-report=text-summary --coverage-report=lcov --no-browser",
     "lint": "eslint . --ignore-path .gitignore",
     "test": "npm run lint && npm run coverage && npm run test:types && npm run checkonly",
     "unit": "tap -b -o tap.log tests/*.test.js",
