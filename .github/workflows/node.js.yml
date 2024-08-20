@@ -36,6 +36,7 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./.tap/report/lcov.info
 
   publish:
     runs-on: ubuntu-latest
