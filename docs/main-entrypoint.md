@@ -1,6 +1,6 @@
 # Main Entrypoint
 
-**lc39** does some assumption on how the main entrypoint of your service can be layed out.  
+**lc39** does some assumption on how the main entrypoint of your service can be laid out.  
 This is in order to correctly import and validate the functions and data passed to it and for correctly create
 and launch the Fastify instance.
 

@@ -24,11 +24,11 @@
   ],
   "main": "index.js",
   "bin": {
-    "lc39": "./bin/cli.js"
+    "lc39": "bin/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mia-platform/lc39.git"
+    "url": "git+https://github.com/mia-platform/lc39.git"
   },
   "scripts": {
     "checkonly": "! grep -R '\\.only' tests/",
