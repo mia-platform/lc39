@@ -1,20 +1,21 @@
 'use strict'
 
-module.exports = async function plugin(fastify) {
-  fastify.get('/', {
-    schema: {
-      querystring: {
-        type: 'object',
-        properties: {
-          label: { type: 'string' },
-        },
-      },
+const schema = {
+  querystring: {
+    type: 'object',
+    properties: {
+      label: { type: 'string' },
     },
-  }, function returnConfig(request, reply) {
+  },
+}
+
+module.exports = async function plugin(/** @type {import('fastify').FastifyInstance} fastify */ fastify) {
+  fastify.get('/', { schema }, function returnConfig(request, reply) {
     reply.send({ })
   })
 }
 
+// eslint-disable-next-line no-shadow
 module.exports.transformSchemaForSwagger = ({ schema, url } = {}) => {
   if (!schema) {
     return {
