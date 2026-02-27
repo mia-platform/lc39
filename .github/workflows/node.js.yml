@@ -53,4 +53,13 @@ jobs:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
       - run: npm i
-      - run: npm publish --access public
+      - name: Determine npm publish tag
+        id: npm-tag
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if echo "$VERSION" | grep -qE '[-]'; then
+            echo "tag=next" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=latest" >> "$GITHUB_OUTPUT"
+          fi
+      - run: npm publish --access public --tag ${{ steps.npm-tag.outputs.tag }}
