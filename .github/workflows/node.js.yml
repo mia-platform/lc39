@@ -51,7 +51,7 @@ jobs:
         with:
           check-latest: true
           node-version: 24
-          registry-url: ${{ secrets.MIA_NPM_REGISTRY_URL }}
+          registry-url: https://registry.npmjs.org
       - run: npm i
       - name: Determine npm publish tag
         id: npm-tag
