@@ -51,7 +51,7 @@ jobs:
         with:
           check-latest: true
           node-version: 24
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: ${{ secrets.MIA_NPM_REGISTRY_URL }}
       - run: npm i
       - name: Determine npm publish tag
         id: npm-tag
@@ -63,3 +63,5 @@ jobs:
             echo "tag=latest" >> "$GITHUB_OUTPUT"
           fi
       - run: npm publish --access public --tag ${{ steps.npm-tag.outputs.tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.MIA_NPM_REGISTRY_TOKEN }}
