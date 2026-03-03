@@ -3,7 +3,7 @@
 # Launch Complex 39
 
 [![Node.js CI][action-status-svg]][github-action]
-[![javascript style guide][standard-mia-svg]][standard-mia]  
+[![javascript style guide][standard-mia-svg]][standard-mia]
 [![Coverage Status][coverall-svg]][coverall-io]
 [![NPM version][npmjs-svg]][npmjs-com]
 
@@ -24,13 +24,15 @@ To install the package you can run:
 npm install @mia-platform/lc39 --save
 ```
 
-It is possible to install the next version of the package, which use fastify v3. The version is a release candidate,
-so it is not yet a stable version and should not be used in production environments (next updates could be breaking).
-To try it, you can run:
+The following table shows the supported versions of Fastify for each version of lc39:
 
-```sh
-npm install @mia-platform/lc39@next --save
-```
+| lc39 version | Fastify version |
+|--------------|-----------------|
+| v9           | 5.x.x           |
+| v8           | 4.x.x           |
+| v6           | 3.x.x           |
+
+You can check the [CHANGELOG](./CHANGELOG.md) for more details about the changes in each version.
 
 We recommend to install the module locally on every one of your project to be able to
 update them indipendently one from the other. To use the locally installed instance you

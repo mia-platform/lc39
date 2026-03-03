@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- migrate to Fastify v5
+- `lc39` now supports NodeJS from v22 and above
+- Migrate to Fastify@5 and related dependencies. While there are no breaking changes in this library, you might want to get more details about the changes by checking the [Fastify Migration Guide](https://www.fastify.io/docs/latest/Guides/Migration-Guide-V5/)
 
 ### Fixed
 
