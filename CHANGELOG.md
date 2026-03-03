@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- `lc39` now supports NodeJS from v22 and above
+- Migrate to Fastify@5 and related dependencies. While there are no breaking changes in this library, you might want to get more details about the changes by checking the [Fastify Migration Guide](https://www.fastify.io/docs/latest/Guides/Migration-Guide-V5/)
+
 ### Fixed
 
 - use `reply.elapsedTime` instead of the deprecated `reply.getResponseTime()` to get the elapsed time of the request
@@ -143,7 +146,7 @@ Metrics options are changed. Below there are the main changes. For other configu
 
 * migrated `@fastify/swagger` to `v8`, so that `@fastify/swagger-ui` package is now required to continue exposing Swagger UI
 * upgraded fastify plugins to support latest fastify version
-* upgraded library dependencies 
+* upgraded library dependencies
 
 ### Changed
 

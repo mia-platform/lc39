@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /*
  * Copyright 2019 Mia srl
  *
@@ -18,9 +19,19 @@
 
 'use strict'
 
-module.exports = async function plugin(fastify) {
-  fastify.get('/', { schema: { querystring: { label: { type: 'string' } } } }, function returnConfig(request, reply) {
+const schema = {
+  querystring: {
+    type: 'object',
+    properties: {
+      label: { type: 'string' },
+    },
+  },
+}
+
+module.exports = async function plugin(/** @type {import('fastify').FastifyInstance} fastify */ fastify) {
+  fastify.get('/', { schema }, function returnConfig(request, reply) {
     const { label } = request.query
+
     if (label) {
       this.customMetrics.collectionInvocation.inc({ label })
     } else {

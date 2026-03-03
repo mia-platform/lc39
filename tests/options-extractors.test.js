@@ -29,8 +29,10 @@ test('Test Fastify server options generator', assert => {
   const fastifyOptions = exportFastifyOptions(moduleOptions)
   assert.strictSame({
     return503OnClosing: false,
-    ignoreTrailingSlash: false,
-    caseSensitive: true,
+    routerOptions: {
+      ignoreTrailingSlash: false,
+      caseSensitive: true,
+    },
     requestIdHeader: 'x-request-id',
     pluginTimeout: 30000,
     bodyLimit: moduleOptions.bodyLimit,
@@ -52,8 +54,10 @@ test('Test Fastify server options overwriting', assert => {
   const fastifyOptions = exportFastifyOptions(moduleOptions)
   assert.strictSame({
     return503OnClosing: true,
-    ignoreTrailingSlash: true,
-    caseSensitive: true,
+    routerOptions: {
+      ignoreTrailingSlash: true,
+      caseSensitive: true,
+    },
     requestIdHeader: 'x-request-id',
     pluginTimeout: 42,
     bodyLimit: Number.MAX_SAFE_INTEGER,

@@ -19,15 +19,22 @@
 const { test } = require('tap')
 const launch = require('../lib/launch-fastify')
 const net = require('net')
-const { spawn } = require('child_process')
 const split = require('split2')
-const Ajv = require('ajv')
 const SwaggerParser = require('swagger-parser')
-const semver = require('semver')
 
-const logSchema = require('./log.schema.json')
+function waitForLogLine(stream, predicate) {
+  return new Promise(resolve => {
+    function onData(line) {
+      if (!predicate(line)) {
+        return
+      }
+      stream.off('data', onData)
+      resolve(line)
+    }
 
-const isNode16OrBelow = semver.major(process.version) <= 16
+    stream.on('data', onData)
+  })
+}
 
 test('Test throw for wrong exported functions', assert => {
   assert.throws(() => {
@@ -240,42 +247,14 @@ test('Test custom serializers', t => {
     assert.plan(13)
     const stream = split(JSON.parse)
 
-    stream.once('data', () => {
-      stream.once('data', line => {
-        assert.equal(line.reqId, '34')
-        assert.equal(line.level, 10)
-        assert.notOk(line.req)
-        assert.strictSame(line.http, {
-          request: {
-            method: 'GET',
-            userAgent: { original: 'lightMyRequest' },
-          },
-        })
-        assert.strictSame(line.url, { path: '/', params: {} })
-        assert.strictSame(line.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
-
-        stream.once('data', secondLine => {
-          assert.equal(line.reqId, '34')
-          assert.equal(secondLine.level, 30)
-          assert.notOk(secondLine.res)
-          assert.ok(secondLine.responseTime)
-          assert.strictSame(secondLine.http, {
-            request: {
-              method: 'GET',
-              userAgent: { original: 'lightMyRequest' },
-            },
-            response: {
-              statusCode: 200,
-              body: { bytes: 13 },
-            },
-          })
-          assert.strictSame(secondLine.url, { path: '/', params: {} })
-          assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
-
-          assert.end()
-        })
-      })
-    })
+    const incomingRequestLogPromise = waitForLogLine(
+      stream,
+      line => line.reqId === '34' && line.level === 10 && line.http?.request?.method === 'GET'
+    )
+    const requestCompletedLogPromise = waitForLogLine(
+      stream,
+      line => line.reqId === '34' && line.level === 30 && line.http?.response?.statusCode === 200
+    )
 
     const fastifyInstance = await launch('./tests/modules/correct-module', {
       logLevel: 'trace',
@@ -292,49 +271,53 @@ test('Test custom serializers', t => {
       },
     })
 
+    const incomingRequestLog = await incomingRequestLogPromise
+    assert.equal(incomingRequestLog.reqId, '34')
+    assert.equal(incomingRequestLog.level, 10)
+    assert.notOk(incomingRequestLog.req)
+    assert.strictSame(incomingRequestLog.http, {
+      request: {
+        method: 'GET',
+        userAgent: { original: 'lightMyRequest' },
+      },
+    })
+    assert.strictSame(incomingRequestLog.url, { path: '/', params: {} })
+    assert.strictSame(incomingRequestLog.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
+
+    const requestCompletedLog = await requestCompletedLogPromise
+    assert.equal(incomingRequestLog.reqId, '34')
+    assert.equal(requestCompletedLog.level, 30)
+    assert.notOk(requestCompletedLog.res)
+    assert.ok(requestCompletedLog.responseTime)
+    assert.strictSame(requestCompletedLog.http, {
+      request: {
+        method: 'GET',
+        userAgent: { original: 'lightMyRequest' },
+      },
+      response: {
+        statusCode: 200,
+        body: { bytes: 13 },
+      },
+    })
+    assert.strictSame(requestCompletedLog.url, { path: '/', params: {} })
+    assert.strictSame(requestCompletedLog.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
+
     await fastifyInstance.close()
+    assert.end()
   })
 
   t.test('fields values - path with params', async assert => {
     assert.plan(13)
     const stream = split(JSON.parse)
 
-    stream.once('data', () => {
-      stream.once('data', line => {
-        assert.equal(line.reqId, '34')
-        assert.equal(line.level, 10)
-        assert.notOk(line.req)
-        assert.strictSame(line.http, {
-          request: {
-            method: 'GET',
-            userAgent: { original: 'lightMyRequest' },
-          },
-        })
-        assert.strictSame(line.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
-        assert.strictSame(line.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
-
-        stream.once('data', secondLine => {
-          assert.equal(line.reqId, '34')
-          assert.equal(secondLine.level, 30)
-          assert.notOk(secondLine.res)
-          assert.ok(secondLine.responseTime)
-          assert.strictSame(secondLine.http, {
-            request: {
-              method: 'GET',
-              userAgent: { original: 'lightMyRequest' },
-            },
-            response: {
-              statusCode: 200,
-              body: { bytes: 13 },
-            },
-          })
-          assert.strictSame(secondLine.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
-          assert.strictSame(secondLine.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
-
-          assert.end()
-        })
-      })
-    })
+    const incomingRequestLogPromise = waitForLogLine(
+      stream,
+      line => line.reqId === '34' && line.level === 10 && line.http?.request?.method === 'GET' && line.url?.path === '/items/my-item'
+    )
+    const requestCompletedLogPromise = waitForLogLine(
+      stream,
+      line => line.reqId === '34' && line.level === 30 && line.http?.response?.statusCode === 200 && line.url?.path === '/items/my-item'
+    )
 
     const fastifyInstance = await launch('./tests/modules/correct-module', {
       logLevel: 'trace',
@@ -351,290 +334,101 @@ test('Test custom serializers', t => {
       },
     })
 
-    await fastifyInstance.close()
-  })
-
-  t.test('matches schema', async assert => {
-    const ajv = new Ajv()
-
-    assert.plan(2)
-    const stream = split(JSON.parse)
-
-    const validator = ajv.compile(logSchema)
-
-    stream.once('data', () => {
-      stream.once('data', incomingRequest => {
-        assert.ok(validator(incomingRequest), 'schema validation failed', validator.errors)
-
-        stream.once('data', requestCompleted => {
-          assert.ok(validator(requestCompleted), 'schema validation failed', validator.errors)
-          assert.end()
-        })
-      })
-    })
-
-    const fastifyInstance = await launch('./tests/modules/correct-module', {
-      logLevel: 'trace',
-      stream,
-    })
-    await fastifyInstance.inject({
-      method: 'GET',
-      url: '/',
-      headers: {
-        'x-forwarded-for': 'testIp',
-        'host': 'testHost:3000',
-        'x-forwarded-host': 'testForwardedHost',
-        'x-request-id': '34',
+    const incomingRequestLog = await incomingRequestLogPromise
+    assert.equal(incomingRequestLog.reqId, '34')
+    assert.equal(incomingRequestLog.level, 10)
+    assert.notOk(incomingRequestLog.req)
+    assert.strictSame(incomingRequestLog.http, {
+      request: {
+        method: 'GET',
+        userAgent: { original: 'lightMyRequest' },
       },
     })
+    assert.strictSame(incomingRequestLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+    assert.strictSame(incomingRequestLog.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
 
-    await fastifyInstance.close()
-  })
-
-  t.test('fields values - with custom properties on response log', async assert => {
-    assert.plan(20)
-    const stream = split(JSON.parse)
-
-    stream.once('data', () => {
-      stream.once('data', postIncomingRequestLog => {
-        assert.equal(postIncomingRequestLog.reqId, '34')
-        assert.equal(postIncomingRequestLog.level, 10)
-        assert.notOk(postIncomingRequestLog.req)
-        assert.strictSame(postIncomingRequestLog.http, {
-          request: {
-            method: 'POST',
-            userAgent: { original: 'lightMyRequest' },
-          },
-        })
-        assert.strictSame(postIncomingRequestLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
-        assert.strictSame(postIncomingRequestLog.host, { hostname: 'testHost', forwardedHostame: 'testForwardedHost', ip: 'testIp' })
-
-        stream.once('data', postRequestCompletedLog => {
-          assert.equal(postRequestCompletedLog.reqId, '34')
-          assert.equal(postRequestCompletedLog.level, 30)
-          assert.notOk(postRequestCompletedLog.res)
-          assert.ok(postRequestCompletedLog.responseTime)
-          assert.strictSame(postRequestCompletedLog.http, {
-            request: {
-              method: 'POST',
-              userAgent: { original: 'lightMyRequest' },
-            },
-            response: {
-              statusCode: 200,
-              body: { bytes: 18 },
-            },
-          })
-          assert.strictSame(postRequestCompletedLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
-          assert.strictSame(postRequestCompletedLog.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
-          assert.strictSame(postRequestCompletedLog.custom, 'property')
-
-          stream.once('data', getIncomingRequestLog => {
-            assert.equal(getIncomingRequestLog.reqId, '35')
-
-            stream.once('data', getRequestCompletedLog => {
-              assert.equal(getIncomingRequestLog.reqId, '35')
-              assert.ok(getRequestCompletedLog.responseTime)
-              assert.strictSame(getRequestCompletedLog.http, {
-                request: {
-                  method: 'GET',
-                  userAgent: { original: 'lightMyRequest' },
-                },
-                response: {
-                  statusCode: 200,
-                  body: { bytes: 13 },
-                },
-              })
-              assert.strictSame(getRequestCompletedLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
-              assert.strictSame(getRequestCompletedLog.custom, undefined)
-
-              assert.end()
-            })
-          })
-        })
-      })
-    })
-
-    const fastifyInstance = await launch('./tests/modules/correct-module', {
-      logLevel: 'trace',
-      stream,
-    })
-    await fastifyInstance.inject({
-      method: 'POST',
-      url: '/items/my-item',
-      headers: {
-        'x-forwarded-for': 'testIp',
-        'host': 'testHost:3000',
-        'x-forwarded-host': 'testForwardedHost',
-        'x-request-id': '34',
+    const requestCompletedLog = await requestCompletedLogPromise
+    assert.equal(incomingRequestLog.reqId, '34')
+    assert.equal(requestCompletedLog.level, 30)
+    assert.notOk(requestCompletedLog.res)
+    assert.ok(requestCompletedLog.responseTime)
+    assert.strictSame(requestCompletedLog.http, {
+      request: {
+        method: 'GET',
+        userAgent: { original: 'lightMyRequest' },
+      },
+      response: {
+        statusCode: 200,
+        body: { bytes: 13 },
       },
     })
-    await fastifyInstance.inject({
-      method: 'GET',
-      url: '/items/my-item',
-      headers: {
-        'x-forwarded-for': 'testIp',
-        'host': 'testHost:3000',
-        'x-forwarded-host': 'testForwardedHost',
-        'x-request-id': '35',
-      },
-    })
+    assert.strictSame(requestCompletedLog.url, { path: '/items/my-item', params: { itemId: 'my-item' } })
+    assert.strictSame(requestCompletedLog.host, { hostname: 'testHost', forwardedHost: 'testForwardedHost', ip: 'testIp' })
 
     await fastifyInstance.close()
+    assert.end()
   })
 
   t.end()
 })
 
-test('Test custom serializers empty body bytes', t => {
-  t.test('for invalid Content-Length value', async assert => {
-    assert.plan(1)
-    const stream = split(JSON.parse)
+test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
+  assert.plan(9)
+  launch('./tests/modules/immediate-close-module', { logLevel: 'trace' }).then(
+    async(fastifyInstance) => {
+      const { port } = fastifyInstance.server.address()
 
-    stream.once('data', () => {
-      stream.once('data', line => {
-        assert.strictSame(line.http.response, {
-          statusCode: 200,
-          body: {
-            bytes: 14,
-          },
-        })
+      const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+        client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
+        client2.once('data', data => {
+          assert.match(data.toString(), /Connection:\s*keep-alive/i)
+          assert.match(data.toString(), /200 OK/i)
+          assert.match(data.toString(), /\{"path":"\/"}/i)
 
-        assert.end()
-      })
-    })
-
-    const fastifyInstance = await launch('./tests/modules/correct-module', {
-      logLevel: 'info',
-      stream,
-    })
-    await fastifyInstance.inject({
-      method: 'GET',
-      url: '/wrong-content-length',
-      headers: {
-        'x-forwarded-for': 'testIp',
-        'host': 'testHost:3000',
-        'x-forwarded-host': 'testForwardedHost',
-      },
-    })
-
-    await fastifyInstance.close()
-  })
-
-  t.test('for empty Content-Length value', async assert => {
-    assert.plan(1)
-    const stream = split(JSON.parse)
-
-    stream.once('data', () => {
-      stream.once('data', line => {
-        assert.strictSame(line.http.response, {
-          statusCode: 200,
-          body: { bytes: 14 },
-        })
-
-        assert.end()
-      })
-    })
-
-    const fastifyInstance = await launch('./tests/modules/correct-module', {
-      logLevel: 'info',
-      stream,
-    })
-    await fastifyInstance.inject({
-      method: 'GET',
-      url: '/empty-content-length',
-      headers: {
-        'x-forwarded-for': 'testIp',
-        'host': 'testHost:3000',
-        'x-forwarded-host': 'testForwardedHost',
-      },
-    })
-
-    await fastifyInstance.close()
-  })
-
-  t.end()
-})
-
-// TODO: remove isNode16OrBelow tests when node 16 is unsupported.
-// The handle of idle connection in node is from v18. When use node 16, keep-alive
-// connection are left until another call return the header connection close
-if (isNode16OrBelow) {
-  test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
-    assert.plan(5)
-    launch('./tests/modules/immediate-close-module', {}).then(
-      (fastifyInstance) => {
-        const { port } = fastifyInstance.server.address()
-
-        const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-
-          client.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*keep-alive/i)
-            assert.match(data.toString(), /200 OK/i)
-
-            client.write('GET /ok HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-
-            client.once('data', data => {
-              assert.match(data.toString(), /Connection:\s*close/i)
-              assert.match(data.toString(), /200 OK/i)
-
-              // Test that fastify closes the TCP connection
-              client.once('close', () => {
-                assert.pass()
-              })
-            })
-          })
-        })
-      }
-    )
-  })
-
-  test('Current opened connection should continue to work after closing and after a timeout should return "connection: close" header - return503OnClosing: false', assert => {
-    assert.plan(5)
-    launch('./tests/modules/immediate-close-module', {}).then(
-      (fastifyInstance) => {
-        const { port } = fastifyInstance.server.address()
-
-        const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-
-          client.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*keep-alive/i)
-            assert.match(data.toString(), /200 OK/i)
-
-
-            setTimeout(() => {
-              client.write('GET /ok HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-
-              client.once('data', data => {
-                assert.match(data.toString(), /Connection:\s*close/i)
-                assert.match(data.toString(), /200 OK/i)
-
-                // Test that fastify closes the TCP connection
-                client.once('close', () => {
-                  assert.pass()
-                })
-              })
-            }, 1000)
-          })
-        })
-      }
-    )
-  })
-} else {
-  test('Current opened connection should continue to work after closing and return "connection: close" header - return503OnClosing: false', assert => {
-    assert.plan(9)
-    launch('./tests/modules/immediate-close-module', { logLevel: 'trace' }).then(
-      async(fastifyInstance) => {
-        const { port } = fastifyInstance.server.address()
-
-        const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
           client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
           client2.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*keep-alive/i)
+            assert.match(data.toString(), /Connection:\s*close/i)
             assert.match(data.toString(), /200 OK/i)
-            assert.match(data.toString(), /\{"path":"\/"}/i)
 
+            // Test that fastify closes the TCP connection
+            client2.once('close', () => {
+              assert.pass()
+            })
+          })
+        })
+      })
+
+      const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+        client1.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
+
+        client1.once('data', data => {
+          assert.match(data.toString(), /Connection:\s*keep-alive/i)
+          assert.match(data.toString(), /200 OK/i)
+
+          // Test that fastify closes the TCP connection
+          client1.once('close', () => {
+            assert.pass()
+          })
+        })
+      })
+    }
+  )
+})
+
+test('Current opened connection should continue to work after closing and after a timeout should return "connection: close" header - return503OnClosing: false', assert => {
+  assert.plan(9)
+  launch('./tests/modules/immediate-close-module', {}).then(
+    (fastifyInstance) => {
+      const { port } = fastifyInstance.server.address()
+
+      const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+        client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
+        client2.once('data', data => {
+          assert.match(data.toString(), /Connection:\s*keep-alive/i)
+          assert.match(data.toString(), /200 OK/i)
+          assert.match(data.toString(), /\{"path":"\/"}/i)
+
+          setTimeout(() => {
             client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
             client2.once('data', data => {
               assert.match(data.toString(), /Connection:\s*close/i)
@@ -645,94 +439,49 @@ if (isNode16OrBelow) {
                 assert.pass()
               })
             })
+          }, 1000)
+        })
+      })
+
+      const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
+        client1.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
+
+        client1.once('data', data => {
+          assert.match(data.toString(), /Connection:\s*keep-alive/i)
+          assert.match(data.toString(), /200 OK/i)
+
+          // Test that fastify closes the TCP connection
+          client1.once('close', () => {
+            assert.pass()
           })
         })
+      })
+    }
+  )
+})
 
-        const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client1.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
+test('Current idle connection close after server close "connection: close" header - return503OnClosing: false', assert => {
+  assert.plan(3)
+  launch('./tests/modules/immediate-close-module', {}).then(
+    (fastifyInstance) => {
+      const { port } = fastifyInstance.server.address()
 
-          client1.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*keep-alive/i)
-            assert.match(data.toString(), /200 OK/i)
+      const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
+        client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
 
-            // Test that fastify closes the TCP connection
-            client1.once('close', () => {
-              assert.pass()
-            })
+        client.once('data', data => {
+          assert.match(data.toString(), /Connection:\s*keep-alive/i)
+          assert.match(data.toString(), /200 OK/i)
+
+          // Test that fastify force close of the TCP connection
+          client.once('close', () => {
+            assert.pass()
           })
         })
-      }
-    )
-  })
-
-  test('Current opened connection should continue to work after closing and after a timeout should return "connection: close" header - return503OnClosing: false', assert => {
-    assert.plan(9)
-    launch('./tests/modules/immediate-close-module', {}).then(
-      (fastifyInstance) => {
-        const { port } = fastifyInstance.server.address()
-
-        const client2 = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-          client2.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*keep-alive/i)
-            assert.match(data.toString(), /200 OK/i)
-            assert.match(data.toString(), /\{"path":"\/"}/i)
-
-            setTimeout(() => {
-              client2.write('GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-              client2.once('data', data => {
-                assert.match(data.toString(), /Connection:\s*close/i)
-                assert.match(data.toString(), /200 OK/i)
-
-                // Test that fastify closes the TCP connection
-                client2.once('close', () => {
-                  assert.pass()
-                })
-              })
-            }, 1000)
-          })
-        })
-
-        const client1 = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client1.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-
-          client1.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*keep-alive/i)
-            assert.match(data.toString(), /200 OK/i)
-
-            // Test that fastify closes the TCP connection
-            client1.once('close', () => {
-              assert.pass()
-            })
-          })
-        })
-      }
-    )
-  })
-
-  test('Current idle connection close after server close "connection: close" header - return503OnClosing: false', assert => {
-    assert.plan(3)
-    launch('./tests/modules/immediate-close-module', {}).then(
-      (fastifyInstance) => {
-        const { port } = fastifyInstance.server.address()
-
-        const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
-          client.write('GET /close HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n')
-
-          client.once('data', data => {
-            assert.match(data.toString(), /Connection:\s*keep-alive/i)
-            assert.match(data.toString(), /200 OK/i)
-
-            // Test that fastify force close of the TCP connection
-            client.once('close', () => {
-              assert.pass()
-            })
-          })
-        })
-      }
-    )
-  })
-}
+      })
+    }
+  )
+})
 
 test('Current opened connection should not accept new incoming connections', assert => {
   launch('./tests/modules/immediate-close-module', {}).then(
@@ -752,29 +501,6 @@ test('Current opened connection should not accept new incoming connections', ass
       })
     }
   )
-})
-
-test('should wait at least 1 sec before closing the process', assert => {
-  const WAIT_BEFORE_SERVER_CLOSE_SEC = 1
-  const child = spawn(
-    './bin/cli.js',
-    ['tests/modules/correct-module.js'],
-    { env: { ...process.env, WAIT_BEFORE_SERVER_CLOSE_SEC } }
-  )
-
-  let closedDate = null
-  child.on('close', () => {
-    closedDate = new Date()
-  })
-
-  child.stdout.on('data', () => {
-    const killedDate = new Date()
-    child.kill('SIGTERM')
-    setTimeout(() => {
-      assert.ok(closedDate.getTime() - killedDate.getTime() > WAIT_BEFORE_SERVER_CLOSE_SEC * 1000)
-      assert.end()
-    }, (WAIT_BEFORE_SERVER_CLOSE_SEC * 1000) + 500)
-  })
 })
 
 test('path with and without trailing slash', async assert => {

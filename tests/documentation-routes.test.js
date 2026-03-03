@@ -39,8 +39,16 @@ test('Test Fastify creation with no prefix', async assert => {
     url: '/documentation/static/index.html',
   })
 
-  assert.strictSame(textResponse.statusCode, 200)
-  assert.strictSame(textResponse.headers['content-type'], 'text/html; charset=utf-8')
+  assert.strictSame(textResponse.statusCode, 302)
+  assert.strictSame(textResponse.headers.location, '/documentation/')
+
+  const htmlResponse = await fastifyInstance.inject({
+    method: 'GET',
+    url: '/documentation/',
+  })
+
+  assert.strictSame(htmlResponse.statusCode, 200)
+  assert.strictSame(htmlResponse.headers['content-type'], 'text/html; charset=utf-8')
   assert.matchSnapshot(JSON.parse(jsonResponse.body))
 
   const { statusCode } = await fastifyInstance.inject({
