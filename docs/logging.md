@@ -2,7 +2,7 @@
 
 The library generates logs following [Mia-Platform logging guidelines](https://docs.mia-platform.eu/docs/development_suite/monitoring/resources/pods#pod-logs).
 
-For a json schema example check [test log schema file](https://github.com/mia-platform/lc39/blob/master/tests/log.schema.json)
+For a JSON schema example check [test log schema file](https://github.com/mia-platform/lc39/blob/master/tests/log.schema.json)
 
 ## Additional information to response logs
 

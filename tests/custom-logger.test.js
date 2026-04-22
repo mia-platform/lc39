@@ -53,7 +53,11 @@ test('Test generation custom logger default options', assert => {
   assert.end()
 })
 
-test('Test generation custom logger custom options', assert => {
+test('Test generation custom logger with custom options', assert => {
+  // eslint-disable-next-line no-unused-vars
+  const logMethod = (inputArgs, method, level) => {
+    return method.apply(this, inputArgs)
+  }
   const options = {
     redact: {
       censor: '[BRACE YOURSELF, GDPR IS COMING]',
@@ -67,6 +71,9 @@ test('Test generation custom logger custom options', assert => {
       customLevels: {
         audit: 35,
         success: 70,
+      },
+      hooks: {
+        logMethod,
       },
     },
   }
@@ -83,7 +90,9 @@ test('Test generation custom logger custom options', assert => {
       audit: 35,
       success: 70,
     },
-
+    hooks: {
+      logMethod,
+    },
   })
 
   assert.end()
@@ -244,5 +253,41 @@ test('Test log with custom log levels', async assert => {
 
   assert.strictSame(statusCode, 200)
   assert.strictSame(payload, 'success')
+  assert.end()
+})
+
+test('Test with custom hooks', async assert => {
+  const data = []
+  const logStream = new PassThrough()
+    .on('data', (streamData) => {
+      data.push(Buffer.from(streamData, 'utf8').toString())
+    })
+
+  const fastifyInstance = await launch('./tests/modules/custom-hooks', {
+    stream: logStream,
+  })
+  assert.ok(fastifyInstance)
+
+  await fastifyInstance.inject({
+    method: 'POST',
+    url: `/custom-hooks`,
+  })
+
+  await fastifyInstance.close()
+  data.reduce((acc, log) => {
+    const parseLog = JSON.parse(log)
+    if (parseLog.msg === 'Custom hooks> Log message with arguments') {
+      assert.match(parseLog, {
+        auditEvent: {
+          auditInfo: 'audit details',
+        },
+      })
+    }
+    if (parseLog.msg === 'Custom hooks> Log message without arguments') {
+      assert.strictSame(parseLog.auditEvent, undefined)
+    }
+    return [...acc, log]
+  }, [])
+
   assert.end()
 })

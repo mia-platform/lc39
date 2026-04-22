@@ -35,6 +35,11 @@ const serverWithModuleAndAllOptions = lc39(plugin, {
   logger: {
     customLevels: {
       audit: 35,
+    },
+    hooks: {
+      logMethod (inputArgs, method, level) {
+        return method.apply(this, inputArgs)
+      }
     }
   },
   healthinessHandler: async (fastify) => {

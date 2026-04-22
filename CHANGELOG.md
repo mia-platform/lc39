@@ -57,6 +57,10 @@ is set to `true` to retain the previous behavior
 
 ### Added
 
+* add custom hooks
+
+## v7.1.0 - 2024-02-16
+
 * add custom log level
 
 ## v7.0.4 - 2023-02-09
