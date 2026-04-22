@@ -42,17 +42,17 @@
   "dependencies": {
     "@fastify/sensible": "^6.0.4",
     "@fastify/swagger": "^9.7.0",
-    "@fastify/swagger-ui": "^5.2.5",
-    "@opentelemetry/auto-instrumentations-node": "^0.71.0",
-    "@opentelemetry/sdk-node": "^0.212.0",
-    "@opentelemetry/sdk-trace-base": "^2.5.1",
+    "@fastify/swagger-ui": "^5.2.6",
+    "@opentelemetry/auto-instrumentations-node": "^0.73.0",
+    "@opentelemetry/sdk-node": "^0.215.0",
+    "@opentelemetry/sdk-trace-base": "^2.7.0",
     "commander": "^11.1.0",
-    "dotenv": "^16.3.1",
-    "dotenv-expand": "^11.0.3",
-    "fastify": "^5.7.4",
-    "fastify-metrics": "^12.1.0",
+    "dotenv": "^17.4.2",
+    "dotenv-expand": "^13.0.0",
+    "fastify": "^5.8.5",
+    "fastify-metrics": "^13.2.0",
     "fastify-plugin": "^5.1.0",
-    "lodash": "^4.17.23",
+    "lodash": "^4.18.1",
     "prom-client": "^15.1.3"
   },
   "devDependencies": {
@@ -61,7 +61,7 @@
     "eslint": "^8.53.0",
     "split2": "^4.2.0",
     "swagger-parser": "^10.0.3",
-    "tap": "^21.0.1",
+    "tap": "^21.7.1",
     "tsd": "^0.31.1"
   },
   "engines": {
