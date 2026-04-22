@@ -84,7 +84,6 @@ module.exports = async function plugin(fastify, config) {
 
   fastify.get('/with-error-logs', function handler(request, reply) {
     this.log.error({
-      // eslint-disable-next-line id-blacklist
       err: new Error('error with err field'),
       error: new Error('error with error field'),
     }, 'error logs')
