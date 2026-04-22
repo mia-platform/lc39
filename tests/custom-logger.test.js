@@ -215,7 +215,6 @@ test('Test log serialize error both for error and err fields', async assert => {
     // assert.ok(parseLog.err.stack)
     // assert.ok(parseLog.error.stack)
     const pickedValues = {
-      // eslint-disable-next-line id-blacklist
       err: {
         ...parseLog.err,
         stack: '[redacted stack]',

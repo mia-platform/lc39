@@ -1,4 +1,3 @@
-/* eslint-disable valid-jsdoc */
 /*
  * Copyright 2019 Mia srl
  *

@@ -15,7 +15,6 @@ module.exports = async function plugin(/** @type {import('fastify').FastifyInsta
   })
 }
 
-// eslint-disable-next-line no-shadow
 module.exports.transformSchemaForSwagger = ({ schema, url } = {}) => {
   if (!schema) {
     return {
