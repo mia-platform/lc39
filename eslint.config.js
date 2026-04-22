@@ -20,7 +20,7 @@ module.exports = [
       sourceType: 'commonjs',
       globals: {
         ...globals.node,
-        ...globals.es2021,
+        ...globals.es2022,
       },
     },
   },
