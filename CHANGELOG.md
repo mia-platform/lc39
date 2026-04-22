@@ -4,11 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## v9.0.2 - 2026-04-22
+
+### Fixed
+
+- Ensure default metrics are always collected when a custom `defaultMetrics.prefix` is provided. `fastify-metrics` v13 performs a shallow merge of options, which caused `defaultMetrics.enabled` to be lost when only a prefix was specified.
 
 ### Updated
 
-- Updated several dependencies to their latest versions (Fastify, OpenTelemetry, tap, dotenv)
+- `@fastify/swagger-ui` from `^5.2.5` to `^5.2.6`
+- `@opentelemetry/auto-instrumentations-node` from `^0.70.1` to `^0.73.0`
+- `@opentelemetry/sdk-node` from `^0.212.0` to `^0.215.0`
+- `@opentelemetry/sdk-trace-base` from `^2.5.1` to `^2.7.0`
+- `dotenv` from `^16.3.1` to `^17.4.2`
+- `dotenv-expand` from `^11.0.3` to `^13.0.0`
+- `fastify` from `^5.7.4` to `^5.8.5`
+- `fastify-metrics` from `^12.1.0` to `^13.2.0`
+- `lodash` from `^4.17.23` to `^4.18.1`
+- `tap` from `^21.0.1` to `^21.7.1` (dev)
 
 ## v9.0.0 - 2026-03-03
 
