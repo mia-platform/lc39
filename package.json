@@ -43,8 +43,8 @@
     "@fastify/sensible": "^6.0.4",
     "@fastify/swagger": "^9.7.0",
     "@fastify/swagger-ui": "^5.2.6",
-    "@opentelemetry/auto-instrumentations-node": "^0.74.0",
-    "@opentelemetry/sdk-node": "^0.216.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.76.0",
+    "@opentelemetry/sdk-node": "^0.218.0",
     "@opentelemetry/sdk-trace-base": "^2.7.0",
     "commander": "^14.0.3",
     "dotenv": "^17.4.2",
@@ -62,7 +62,7 @@
     "globals": "^17.5.0",
     "split2": "^4.2.0",
     "swagger-parser": "^10.0.3",
-    "tap": "^21.7.1",
+    "tap": "^21.7.4",
     "tsd": "^0.33.0"
   },
   "engines": {
