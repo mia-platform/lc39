@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Node.js 22.22.2 compatibility by bumping `@opentelemetry` packages and `tap`
+
+### Updated
+
+- `commander` from `^11.1.0` to `^14.0.3`
+- `@opentelemetry/sdk-node` from `^0.215.0` to `^0.216.0`
+- `@opentelemetry/auto-instrumentations-node` to latest
+- ESLint upgraded to v10 with flat config migration (dev)
+
 ## v9.0.2 - 2026-04-22
 
 ### Fixed
