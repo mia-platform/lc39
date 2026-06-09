@@ -18,7 +18,7 @@
 'use strict'
 
 const instrumentOTel = require('../lib/otel-instrumentation')
-const program = require('commander')
+const { program } = require('commander')
 const { version } = require('../package')
 
 function parsePort(port) {

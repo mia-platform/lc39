@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed an issue after the update of `commander`, where the import of `program` was not adequately updated
+
 ## v9.1.0 - 2026-05-22
 
 ### Fixed
