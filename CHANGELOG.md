@@ -8,8 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed an issue after the update of `commander`, where the import of `program` was not adequately updated
 - Bumped `@opentelemetry/sdk-node` from `^0.218.0` to `^0.221.0`, `@opentelemetry/auto-instrumentations-node` from `^0.76.0` to `^0.79.0`, and `@opentelemetry/sdk-trace-base` from `^2.7.0` to `^2.10.0` to resolve known vulnerabilities in `@opentelemetry/core` and `@opentelemetry/propagator-jaeger`
+
+## v9.1.1 - 2026-06-09
+
+### Fixed
+
+- Fixed an issue after the update of `commander`, where the import of `program` was not adequately updated
 
 ## v9.1.0 - 2026-05-22
 
@@ -17,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Node.js 22.22.2 compatibility by bumping `@opentelemetry` packages and `tap`
 
-### v9.1.1 - 2026-06-09pdated
+### Updated
 
 - `commander` from `^11.1.0` to `^14.0.3`
 - `@opentelemetry/sdk-node` from `^0.215.0` to `^0.216.0`
@@ -30,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Ensure default metrics are always collected when a custom `defaultMetrics.prefix` is provided. `fastify-metrics` v13 performs a shallow merge of options, which caused `defaultMetrics.enabled` to be lost when only a prefix was specified.
 
-### v9.1.1 - 2026-06-09pdated
+### Updated
 
 - `@fastify/swagger-ui` from `^5.2.5` to `^5.2.6`
 - `@opentelemetry/auto-instrumentations-node` from `^0.70.1` to `^0.73.0`
@@ -69,7 +74,7 @@ is set to `true` to retain the previous behavior
 
 - dropped node 16 support
 
-### v9.1.1 - 2026-06-09pdated
+### Updated
 
 - @opentelemetry/auto-instrumentations-node: 0.48.0
 
@@ -92,7 +97,7 @@ is set to `true` to retain the previous behavior
 
 * add support to Node 20
 
-### v9.1.1 - 2026-06-09pdated
+### Updated
 
 * upgrade dependencies
 
@@ -331,7 +336,7 @@ Metrics options are changed. Below there are the main changes. For other configu
 
 - log timestamp has precision in milliseconds instead of seconds.
 
-### v9.1.1 - 2026-06-09pdated
+### Updated
 
 - commander to v7.2.0
 - fastify-metrics to v7.1.0
@@ -345,7 +350,7 @@ Metrics options are changed. Below there are the main changes. For other configu
 
 - fastify to v3.9.2. You can see all the breaking changes in the new fastify version [here](https://github.com/fastify/fastify/releases/tag/v3.0.0)
 
-### v9.1.1 - 2026-06-09pdated
+### Updated
 
 - commander to v6.2.0
 - fastify-metrics to v6.0.3
