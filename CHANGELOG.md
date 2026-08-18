@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed an issue after the update of `commander`, where the import of `program` was not adequately updated
+- Bumped `@opentelemetry/sdk-node` from `^0.218.0` to `^0.221.0`, `@opentelemetry/auto-instrumentations-node` from `^0.76.0` to `^0.79.0`, and `@opentelemetry/sdk-trace-base` from `^2.7.0` to `^2.10.0` to resolve known vulnerabilities in `@opentelemetry/core` and `@opentelemetry/propagator-jaeger`
 
 ## v9.1.0 - 2026-05-22
 
