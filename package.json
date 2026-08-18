@@ -51,7 +51,7 @@
     "dotenv-expand": "^13.0.0",
     "fastify": "^5.8.5",
     "fastify-metrics": "^13.2.0",
-    "fastify-plugin": "^5.1.0",
+    "fastify-plugin": "^6.0.0",
     "lodash": "^4.18.1",
     "prom-client": "^15.1.3"
   },
