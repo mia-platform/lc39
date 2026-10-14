@@ -48,7 +48,7 @@
     "@opentelemetry/sdk-trace-base": "^2.10.0",
     "commander": "^14.0.3",
     "dotenv": "^17.4.2",
-    "dotenv-expand": "^13.0.0",
+    "dotenv-expand": "^1000.0.0",
     "fastify": "^5.8.5",
     "fastify-metrics": "^13.2.0",
     "fastify-plugin": "^5.1.0",
