@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Raised the minimum supported Node.js versions (`engines.node`) to `^22.23.4 || ^24.22.1 || >=26.12.1`, the first releases patched against [CVE-2026-111497](https://github.com/advisories/GHSA-9v8h-qqgm-4m35) (out-of-bounds write in the Brotli decoder bundled in Node.js `zlib`). Services launched with lc39 must run on a patched Node.js runtime
+
+### Added
+
+- Node.js 26.x to the CI test matrix
+
 ## v9.1.3 - 2026-10-08
 
 ### Fixed
