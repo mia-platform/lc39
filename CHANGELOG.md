@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Bumped `@fastify/sensible`, `@fastify/swagger`, `@fastify/swagger-ui`, `@opentelemetry/sdk-trace-base`, `fastify` and `fastify-metrics` to their latest non-breaking versions
+- Added `overrides` for `minimatch` (`^11.0.4`) and `glob` (`^14.0.3`) to resolve known vulnerabilities in transitive dependencies
+
 ## v9.1.3 - 2026-10-08
 
 ### Fixed
