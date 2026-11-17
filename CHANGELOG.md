@@ -13,6 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Node.js 26.x to the CI test matrix
+- 
+## v9.1.4 - 2026-11-03
+
+### Fixed
+
+- Bumped `@fastify/sensible`, `@fastify/swagger`, `@fastify/swagger-ui`, `@opentelemetry/sdk-trace-base`, `fastify` and `fastify-metrics` to their latest non-breaking versions
+- Added `overrides` for `minimatch` (`^11.0.4`) and `glob` (`^14.0.3`) to resolve known vulnerabilities in transitive dependencies
 
 ## v9.1.3 - 2026-10-08
 
